@@ -5,17 +5,17 @@
 #include "Commands/DriveWithJoystick.h"
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
+	gyro = RobotMap::gyro;
+	driveEncoder = RobotMap::driveEncoder;
+	differentialDrive = RobotMap::differentialDrive;
 
-	    gyro = RobotMap::gyro;
-		driveEncoder = RobotMap::driveEncoder;
-		differentialDrive = RobotMap::differentialDrive;
-
-		leftDrive = RobotMap::leftDrive;
-		rightDrive = RobotMap::rightDrive;
-		backLeftDrive = RobotMap::backLeftDrive;
-		frontLeftDrive = RobotMap::frontLeftDrive;
-		backRightDrive = RobotMap::backRightDrive;
-		frontRightDrive = RobotMap::frontRightDrive;
+	leftDrive = RobotMap::leftDrive;
+	rightDrive = RobotMap::rightDrive;
+	
+	backLeftDrive = RobotMap::backLeftDrive;
+	frontLeftDrive = RobotMap::frontLeftDrive;
+	backRightDrive = RobotMap::backRightDrive;
+	frontRightDrive = RobotMap::frontRightDrive;
 }
 
 void Drivetrain::InitDefaultCommand() {
