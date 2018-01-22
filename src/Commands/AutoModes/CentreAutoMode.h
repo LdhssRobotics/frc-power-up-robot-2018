@@ -3,10 +3,9 @@
 
 #include <Commands/CommandGroup.h>
 
-
 class CentreAutoMode : public CommandGroup {
 public:
 	CentreAutoMode();
 };
 
-#endif  // CentreAutoMode_H
+#endif  // CentreAutoMode_H*/

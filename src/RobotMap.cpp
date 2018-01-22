@@ -54,31 +54,31 @@ std::shared_ptr<Servo> RobotMap::flapServo;
 std::shared_ptr<AnalogGyro> RobotMap::gyro;
 std::shared_ptr<Encoder> RobotMap::driveEncoder;
 
-frc::SpeedControllerGroup leftDrive (RobotMap::frontLeftDrive, RobotMap::backLeftDrive);
-frc::SpeedControllerGroup rightDrive (RobotMap::frontRightDrive, RobotMap::backRightDrive);
+std::shared_ptr<SpeedController> RobotMap::backLeftDrive;
+std::shared_ptr<SpeedController> RobotMap::backRightDrive;
+std::shared_ptr<SpeedController> RobotMap::frontLeftDrive;
+std::shared_ptr<SpeedController> RobotMap::frontRightDrive;
+std::shared_ptr <SpeedControllerGroup> RobotMap::leftDrive;
+std::shared_ptr<SpeedControllerGroup> RobotMap::rightDrive;
 
-frc::DifferentialDrive RobotMap::differentialDrive (leftDrive, rightDrive);
+//DifferentialDrive differentialDrive (RobotMap::leftDrive, RobotMap::rightDrive);
 std::shared_ptr<DifferentialDrive> RobotMap::differentialDrive;
 
-	// Gear subsystem
-std::shared_ptr<Encoder> RobotMap::gearEncoder;
-std::shared_ptr<SpeedController> RobotMap::gearMotor;
-std::shared_ptr<DigitalInput> RobotMap::gearLimitSwitch;
 
-	// Ultrasonic subsystem
-std::shared_ptr<Ultrasonic> RobotMap::ultrasonic;
 
 void RobotMap::init() {
 	//LiveWindow *lw = LiveWindow::GetInstance();
 	Sendable *s;
 
-	// Climber subsystem
+
+	// Arm subsystem
 	winchMotor.reset(new Victor(WINCH_MOTOR_PORT));
 	rachetServo.reset(new Servo(RATCHET_SERVO_PORT));
 
 	flapServo.reset(new Servo(FLAP_SERVO_PORT));
 
 	s->SetName("Climb", "Flap");
+
 
 	// Drivetrain subsystem
 	driveEncoder.reset(new Encoder(DRIVE_ENCODER_A_PORT, DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
@@ -90,6 +90,8 @@ void RobotMap::init() {
 	driveEncoder->SetReverseDirection(true);
 	driveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0);
 
+	frontLeftDrive.reset(new Victor(FRONT_LEFT_DRIVE_PORT));
+
 	backLeftDrive.reset(new Victor(BACK_LEFT_DRIVE_PORT));
 	backRightDrive.reset(new Victor(BACK_RIGHT_DRIVE_PORT));
 	frontLeftDrive.reset(new Victor(FRONT_LEFT_DRIVE_PORT));
@@ -98,7 +100,9 @@ void RobotMap::init() {
 	backRightDrive->SetInverted(false);
 	frontRightDrive->SetInverted(false);
 
-	differentialDrive.reset(new DifferentialDrive);
+	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
+	rightDrive = std::make_shared <SpeedControllerGroup>(*backRightDrive, *frontRightDrive);
+	differentialDrive.reset(new DifferentialDrive(*leftDrive, *rightDrive));
 
 
 	differentialDrive->SetSafetyEnabled(false);
@@ -108,6 +112,7 @@ void RobotMap::init() {
 
 	gyro.reset(new AnalogGyro(GYRO_PORT));
 	s->SetName("Drive", "Gyro");
+
 	gyro->SetSensitivity(0.00666);
 	gyro->Calibrate();
 

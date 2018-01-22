@@ -12,7 +12,7 @@
 
 class RobotMap {
 public:
-	// Climber subsystem
+	// Arm subsystem
 	static std::shared_ptr<SpeedController> winchMotor;
 	static std::shared_ptr<Servo> rachetServo;
 	static std::shared_ptr<Servo> flapServo;
@@ -27,14 +27,9 @@ public:
 	static std::shared_ptr<SpeedController> frontRightDrive;
 	static std::shared_ptr<SpeedController> backRightDrive;
 	static std::shared_ptr<DifferentialDrive> differentialDrive;
+	static std::shared_ptr<SpeedControllerGroup>leftDrive;
+	static std::shared_ptr<SpeedControllerGroup> rightDrive;
 
-	// Gear subsystem
-	static std::shared_ptr<Encoder> gearEncoder;
-	static std::shared_ptr<SpeedController> gearMotor;
-	static std::shared_ptr<DigitalInput> gearLimitSwitch;
-
-	// Ultrasonic subsystem
-	static std::shared_ptr<Ultrasonic> ultrasonic;
 
 	static void init();
 	static void reset();

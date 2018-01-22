@@ -1,16 +1,19 @@
 #include "Drivetrain.h"
 #include "../RobotMap.h"
+#include "../Robot.h"
+#include "OI.h"
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
-	gyro = RobotMap::gyro;
+	    gyro = RobotMap::gyro;
 		driveEncoder = RobotMap::driveEncoder;
 		differentialDrive = RobotMap::differentialDrive;
-
-		frontLeftDrive = RobotMap::frontLeftDrive;
+		leftDrive = RobotMap::leftDrive;
+		rightDrive = RobotMap::rightDrive;
 		backLeftDrive = RobotMap::backLeftDrive;
-		frontRightDrive = RobotMap::frontRightDrive;
+		frontLeftDrive = RobotMap::frontLeftDrive;
 		backRightDrive = RobotMap::backRightDrive;
+		frontRightDrive = RobotMap::frontRightDrive;
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -22,4 +25,8 @@ void Drivetrain::InitDefaultCommand() {
 // here. Call these from Commands.
 void Drivetrain::Reset(){
 
+}
+
+void Drivetrain::ArcadeDrive(double speed, double turn){
+	differentialDrive->ArcadeDrive(speed, turn);
 }

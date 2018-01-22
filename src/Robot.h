@@ -12,7 +12,6 @@
 #include "Commands/Command.h"
 #include "LiveWindow/LiveWindow.h"
 #include "RobotMap.h"
-#include "Commands/Scheduler.h"
 
 // Vision includes
 #include <thread>

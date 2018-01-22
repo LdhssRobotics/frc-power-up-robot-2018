@@ -1,7 +1,7 @@
-#ifndef Drivetrain_H
-#define Drivetrain_H
+#ifndef SRC_SUBSYSTEMS_DRIVETRAIN_H_
+#define SRC_SUBSYSTEMS_DRIVETRAIN_H_
 
-#include <Commands/Subsystem.h>
+#include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 
@@ -15,14 +15,18 @@ private:
 
 public:
 
+	std::shared_ptr<SpeedControllerGroup> leftDrive;
+	std::shared_ptr<SpeedControllerGroup> rightDrive;
 	std::shared_ptr<SpeedController> frontLeftDrive;
 	std::shared_ptr<SpeedController> backLeftDrive;
 	std::shared_ptr<SpeedController> frontRightDrive;
 	std::shared_ptr<SpeedController> backRightDrive;
 
+
 	Drivetrain();
 	void InitDefaultCommand();
 	void Reset();
+	void ArcadeDrive(double, double);
 };
 
 #endif  // Drivetrain_H

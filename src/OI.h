@@ -4,12 +4,13 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+#ifndef OI_H
+#define OI_H
 
-#pragma once
+#include "WPILib.h"
 
 class OI {
 public:
-	OI();
 	std::shared_ptr<Joystick> driveStick;
 
 	// Drive Stick Buttons
@@ -36,3 +37,5 @@ public:
 
 	std::shared_ptr<Joystick> getDriveStick();
 };
+
+#endif
