@@ -13,6 +13,9 @@
 class RobotMap {
 public:
 	// Arm subsystem
+	static std::shared_ptr<Encoder> armEncoder;
+
+	// Climber subsystem
 	static std::shared_ptr<SpeedController> winchMotor;
 	static std::shared_ptr<Servo> rachetServo;
 	static std::shared_ptr<Servo> flapServo;

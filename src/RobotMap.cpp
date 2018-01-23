@@ -35,8 +35,8 @@
 #define DRIVE_ENCODER_B_PORT 1
 
 		// Arm subsystem
-#define GEAR_ENCODER_A_PORT 6
-#define GEAR_ENCODER_B_PORT 7
+#define ARM_ENCODER_A_PORT 6
+#define ARM_ENCODER_B_PORT 7
 
 #define GEAR_LIMIT_SWITCH_PORT 8
 
@@ -45,7 +45,11 @@
 #define GYRO_PORT 0
 
 // POINTERS
-	// Climber subsystem
+
+// Arm subsytem
+std::shared_ptr<Encoder> RobotMap::armEncoder;
+
+// Climber subsystem
 std::shared_ptr<SpeedController> RobotMap::winchMotor;
 std::shared_ptr<Servo> RobotMap::rachetServo;
 std::shared_ptr<Servo> RobotMap::flapServo;
@@ -70,8 +74,17 @@ void RobotMap::init() {
 	//LiveWindow *lw = LiveWindow::GetInstance();
 	Sendable *s;
 
-
 	// Arm subsystem
+	armEncoder.reset(new Encoder(ARM_ENCODER_A_PORT,
+				ARM_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
+	armEncoder->SetMaxPeriod(0.1);
+		armEncoder->SetMinRate(1);
+		armEncoder->SetSamplesToAverage(7);
+		armEncoder->SetReverseDirection(false);
+		armEncoder->SetDistancePerPulse(1); // Not accurate measurement, ratio instead
+
+
+	// Climber subsystem
 	winchMotor.reset(new Victor(WINCH_MOTOR_PORT));
 	rachetServo.reset(new Servo(RATCHET_SERVO_PORT));
 
