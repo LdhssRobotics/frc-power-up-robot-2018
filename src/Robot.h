@@ -8,7 +8,7 @@
 #ifndef SRC_ROBOT_H_
 #define SRC_ROBOT_H_
 
-#include "WPIlib.h"
+#include "WPILib.h"
 #include "Commands/Command.h"
 #include "LiveWindow/LiveWindow.h"
 #include "RobotMap.h"
