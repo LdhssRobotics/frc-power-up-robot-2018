@@ -13,14 +13,22 @@
 class RobotMap {
 public:
 	// Arm subsystem
-	static std::shared_ptr<SpeedController> winchMotor;
-	static std::shared_ptr<Servo> rachetServo;
-	static std::shared_ptr<Servo> flapServo;
+	static std::shared_ptr<Encoder> spineEncoder1;
+	static std::shared_ptr<Encoder> spineEncoder2;
+	static std::shared_ptr<Encoder> armEncoder1;
+	static std::shared_ptr<Encoder> armEncoder2;
+	static std::shared_ptr<DigitalInput> spineSwitch;
+
+	static std::shared_ptr<SpeedController> clawMotor;
+	static std::shared_ptr<SpeedController> spineMotor1;
+	static std::shared_ptr<SpeedController> spineMotor2;
+	static std::shared_ptr<SpeedController> armMotor1;
+	static std::shared_ptr<SpeedController> armMotor2;
 
 	// Drivetrain subsystem
 	static std::shared_ptr<AnalogGyro> gyro;
-	static std::shared_ptr<Encoder> driveEncoder;
-
+	static std::shared_ptr<Encoder> leftDriveEncoder;
+	static std::shared_ptr<Encoder> rightDriveEncoder;
 
 	static std::shared_ptr<SpeedController> frontLeftDrive;
 	static std::shared_ptr<SpeedController> backLeftDrive;
@@ -29,7 +37,6 @@ public:
 	static std::shared_ptr<DifferentialDrive> differentialDrive;
 	static std::shared_ptr<SpeedControllerGroup>leftDrive;
 	static std::shared_ptr<SpeedControllerGroup> rightDrive;
-
 
 	static void init();
 	static void reset();

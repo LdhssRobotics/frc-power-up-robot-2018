@@ -4,12 +4,16 @@
 #include "OI.h"
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
-
 	    gyro = RobotMap::gyro;
-		driveEncoder = RobotMap::driveEncoder;
+
+	    leftDriveEncoder = RobotMap::leftDriveEncoder;
+		rightDriveEncoder = RobotMap::rightDriveEncoder;
+
 		differentialDrive = RobotMap::differentialDrive;
+
 		leftDrive = RobotMap::leftDrive;
 		rightDrive = RobotMap::rightDrive;
+
 		backLeftDrive = RobotMap::backLeftDrive;
 		frontLeftDrive = RobotMap::frontLeftDrive;
 		backRightDrive = RobotMap::backRightDrive;
@@ -21,10 +25,8 @@ void Drivetrain::InitDefaultCommand() {
 	// SetDefaultCommand(new MySpecialCommand());
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
 void Drivetrain::Reset(){
-
+	ArcadeDrive(0,0);
 }
 
 void Drivetrain::ArcadeDrive(double speed, double turn){

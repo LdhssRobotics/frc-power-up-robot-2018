@@ -4,10 +4,19 @@
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
 
-class Arm : public Subsystem {
+class Arm : public frc::Subsystem {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
+	std::shared_ptr<Encoder> armEncoder1;
+	std::shared_ptr<Encoder> armEncoder2;
+	std::shared_ptr<Encoder> spineEncoder1;
+	std::shared_ptr<Encoder> spineEncoder2;
+	std::shared_ptr<DigitalInput> spineSwitch;
+
+	std::shared_ptr<SpeedController> armMotor1;
+	std::shared_ptr<SpeedController> armMotor2;
+	std::shared_ptr<SpeedController> clawMotor;
+	std::shared_ptr<SpeedController> spineMotor1;
+	std::shared_ptr<SpeedController> spineMotor2;
 
 public:
 	Arm();

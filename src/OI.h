@@ -11,7 +11,7 @@
 
 class OI {
 public:
-	std::shared_ptr<Joystick> driveStick;
+	std::shared_ptr<frc::Joystick> driveStick;
 
 	// Drive Stick Buttons
 	JoystickButton *aButtonD;
@@ -35,7 +35,7 @@ public:
 
 	OI();
 
-	std::shared_ptr<Joystick> getDriveStick();
+	std::shared_ptr<frc::Joystick> getDriveStick();
 };
 
 #endif
