@@ -5,16 +5,13 @@
  *      Author: Madeline
  */
 
-#ifndef SRC_ROBOT_H_
-#define SRC_ROBOT_H_
+#ifndef _ROBOT_H_
+#define _ROBOT_H_
 
-#include "WPIlib.h"
+#include "WPILib.h"
 #include "Commands/Command.h"
 #include "LiveWindow/LiveWindow.h"
 #include "RobotMap.h"
-
-// Vision includes
-#include <CameraServer.h>
 
 // Autonomous mode includes
 #include <Commands/AutoModes/CentreAutoMode.h>
@@ -42,6 +39,5 @@ class Robot : public frc::TimedRobot {
 	void AutonomousPeriodic() override;
 	void TeleopInit() override;
 	void TeleopPeriodic() override;
-	void TestPeriodic() override;
 };
 #endif

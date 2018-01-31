@@ -78,12 +78,10 @@ std::shared_ptr<SpeedControllerGroup> RobotMap::rightDrive;
 std::shared_ptr<DifferentialDrive> RobotMap::differentialDrive;
 
 void RobotMap::init() {
-	LiveWindow *lw = LiveWindow::GetInstance();
-	Sendable *s;
+    frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
 
 	// Arm subsystem
 	armEncoder1.reset(new Encoder(ARM_ENCODER_1_A_PORT, ARM_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
-	s->SetName("Arm", "Encoder 1");
 	armEncoder1->SetMaxPeriod(0.1);
 	armEncoder1->SetMinRate(1);
 	armEncoder1->SetSamplesToAverage(15);
@@ -91,7 +89,6 @@ void RobotMap::init() {
 	armEncoder1->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	armEncoder2.reset(new Encoder(ARM_ENCODER_2_A_PORT, ARM_ENCODER_2_B_PORT, false, Encoder::EncodingType::k4X));
-	s->SetName("Arm", "Encoder 2");
 	armEncoder2->SetMaxPeriod(0.1);
 	armEncoder2->SetMinRate(1);
 	armEncoder2->SetSamplesToAverage(15);
@@ -99,7 +96,6 @@ void RobotMap::init() {
 	armEncoder2->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	spineEncoder1.reset(new Encoder(SPINE_ENCODER_1_A_PORT, SPINE_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
-	s->SetName("Spine", "Encoder 1");
 	spineEncoder1->SetMaxPeriod(0.1);
 	spineEncoder1->SetMinRate(1);
 	spineEncoder1->SetSamplesToAverage(15);
@@ -107,7 +103,6 @@ void RobotMap::init() {
 	spineEncoder1->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	spineEncoder2.reset(new Encoder(SPINE_ENCODER_2_A_PORT, SPINE_ENCODER_2_B_PORT, false, Encoder::EncodingType::k4X));
-	s->SetName("Spine", "Encoder 2");
 	spineEncoder2->SetMaxPeriod(0.1);
 	spineEncoder2->SetMinRate(1);
 	spineEncoder2->SetSamplesToAverage(15);
@@ -124,7 +119,6 @@ void RobotMap::init() {
 
 	// Drivetrain subsystem
 	leftDriveEncoder.reset(new Encoder(LEFT_DRIVE_ENCODER_A_PORT, LEFT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
-	s->SetName("Drive", "Left encoder");
 	leftDriveEncoder->SetMaxPeriod(0.1);
 	leftDriveEncoder->SetMinRate(1);
 	leftDriveEncoder->SetSamplesToAverage(15);
@@ -132,7 +126,6 @@ void RobotMap::init() {
 	leftDriveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	rightDriveEncoder.reset(new Encoder(RIGHT_DRIVE_ENCODER_A_PORT, RIGHT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
-	s->SetName("Drive", "Right encoder");
 	rightDriveEncoder->SetMaxPeriod(0.1);
 	rightDriveEncoder->SetMinRate(1);
 	rightDriveEncoder->SetSamplesToAverage(15);
@@ -158,7 +151,6 @@ void RobotMap::init() {
 	differentialDrive->SetMaxOutput(1.0);
 
 	gyro.reset(new AnalogGyro(GYRO_PORT));
-	s->SetName("Drive", "Gyro");
 	gyro->SetSensitivity(0.00666);
 	gyro->Calibrate();
 }
