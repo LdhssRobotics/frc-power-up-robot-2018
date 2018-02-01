@@ -27,7 +27,19 @@ private:
 public:
 	Arm();
 	void InitDefaultCommand();
+	void SetMotorSpeedArm(float speed);
+	void SetMotorSpeedSpine(float speed);
+	float GetArmPosition();
+	float GetSpinePosition();
+	float SetMaxPositionArm();
+	float SetMinPositionArm();
+	float SetMaxPositionSpine();
+	float SetMinPositionSpine();
+	float SafetyPositionSpine();
+
 	void Reset();
+	void ResetEncoder();
+	void Log();
 };
 
 #endif  // Arm_H

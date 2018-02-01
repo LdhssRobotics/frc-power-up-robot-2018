@@ -1,5 +1,6 @@
 #include "Arm.h"
 #include "../RobotMap.h"
+#include "Robot.h"
 
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
@@ -26,8 +27,46 @@ void Arm::InitDefaultCommand() {
 	// SetDefaultCommand(new MySpecialCommand());
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+void Arm::SetMotorSpeedArm(float speed){
+	armMotor1->Set(speed);
+	armMotor2->Set(speed);
+}
+
+void Arm::SetMotorSpeedSpine(float speed) {
+	spineMotor1->Set(speed);
+	spineMotor2->Set(speed);
+}
+
+float Arm::GetArmPosition(){
+	return armEncoder->GetDistance();
+}
+
+float Arm::GetSpinePosition(){
+	return spineEncoder1->GetDistance() && spineEncoder2->GetDistance();
+}
+
+float Arm::SetMaxPositionArm(){
+	return armEncoder->GetDistance() >180;
+}
+
+float Arm::SetMinPositionArm() {
+	return armEncoder->GetDistance() > 0;
+}
+
+float Arm::SetMaxPositionSpine(){
+	return spineEncoder1->GetDistance() > 180 && spineEncoder2->GetDistance() > 180;
+}
+
+float Arm::SetMinPositionSpine(){
+	return spineEncoder1->GetDistance() > 0 && spineEncoder2->GetDistance() > 0;
+}
+
+float Arm::SafetyPositionSpine(){
+	if (armEncoder->GetDistance() > 20){
+		return spineEncoder1->GetDistance() > 360 && spineEncoder2->GetDistance() >360;
+	}
+}
+
 void Arm::Reset(){
 	armEncoder->Reset();
 	spineEncoder1->Reset();
@@ -38,4 +77,9 @@ void Arm::Reset(){
 	clawMotor->Set(0);
 	spineMotor1->Set(0);
 	spineMotor2->Set(0);
+	Log();
+}
+
+void Arm::Log(){
+	SmartDashboard::PutNumber("Arm Encoder:", GetArmPosition());
 }
