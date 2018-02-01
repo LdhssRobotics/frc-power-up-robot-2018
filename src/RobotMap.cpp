@@ -95,60 +95,82 @@ void RobotMap::init() {
 
 	// Arm subsystem
 	armEncoder.reset(new Encoder(ARM_ENCODER_A_PORT, ARM_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
-	armEncoder->SetMaxPeriod(0.1);
-	armEncoder->SetMinRate(1);
-	armEncoder->SetSamplesToAverage(15);
-	armEncoder->SetReverseDirection(true);
-	armEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		armEncoder->Sendable::SetName("Arm", "encoder");
+		armEncoder->SetMaxPeriod(0.1);
+		armEncoder->SetMinRate(1);
+		armEncoder->SetSamplesToAverage(15);
+		armEncoder->SetReverseDirection(true);
+		armEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	spineEncoder1.reset(new Encoder(SPINE_ENCODER_1_A_PORT, SPINE_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
-	spineEncoder1->SetMaxPeriod(0.1);
-	spineEncoder1->SetMinRate(1);
-	spineEncoder1->SetSamplesToAverage(15);
-	spineEncoder1->SetReverseDirection(true);
-	spineEncoder1->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		spineEncoder1->Sendable::SetName("Spine", "encoder 1");
+		spineEncoder1->SetMaxPeriod(0.1);
+		spineEncoder1->SetMinRate(1);
+		spineEncoder1->SetSamplesToAverage(15);
+		spineEncoder1->SetReverseDirection(true);
+		spineEncoder1->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	spineEncoder2.reset(new Encoder(SPINE_ENCODER_2_A_PORT, SPINE_ENCODER_2_B_PORT, false, Encoder::EncodingType::k4X));
-	spineEncoder2->SetMaxPeriod(0.1);
-	spineEncoder2->SetMinRate(1);
-	spineEncoder2->SetSamplesToAverage(15);
-	spineEncoder2->SetReverseDirection(true);
-	spineEncoder2->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		spineEncoder2->Sendable::SetName("Spine", "encoder 2");
+		spineEncoder2->SetMaxPeriod(0.1);
+		spineEncoder2->SetMinRate(1);
+		spineEncoder2->SetSamplesToAverage(15);
+		spineEncoder2->SetReverseDirection(true);
+		spineEncoder2->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	bottomSpineSwitch1.reset(new DigitalInput(BOTTOM_SPINE_SWITCH_1_PORT));
+		bottomSpineSwitch1->Sendable::SetName("Spine", "bottom switch 1");
 	topSpineSwitch1.reset(new DigitalInput(TOP_SPINE_SWITCH_1_PORT));
+		topSpineSwitch1->Sendable::SetName("Spine", "top switch 1");
 	bottomSpineSwitch2.reset(new DigitalInput(BOTTOM_SPINE_SWITCH_2_PORT));
+		bottomSpineSwitch2->Sendable::SetName("Spine", "bottom switch 2");
 	topSpineSwitch2.reset(new DigitalInput(TOP_SPINE_SWITCH_2_PORT));
+		topSpineSwitch2->Sendable::SetName("Spine", "top switch 2");
 	bottomShoulderSwitch.reset(new DigitalInput(BOTTOM_SHOULDER_SWITCH_PORT));
+		bottomShoulderSwitch->Sendable::SetName("Shoulder", "bottom switch");
 	topShoulderSwitch.reset(new DigitalInput(TOP_SHOULDER_SWITCH_PORT));
+		topShoulderSwitch->Sendable::SetName("Shoulder", "top switch");
 	frontClawSwitch.reset(new DigitalInput(FRONT_CLAW_SWITCH_PORT));
+		frontClawSwitch->Sendable::SetName("Claw", "front switch");
 	rearClawSwitch.reset(new DigitalInput(REAR_CLAW_SWITCH_PORT));
+		rearClawSwitch->Sendable::SetName("Claw", "rear switch");
 
-	armMotor1.reset(new PWMTalonSRX(ARM_MOTOR_1_PORT));
-	armMotor2.reset(new PWMTalonSRX(ARM_MOTOR_2_PORT));
+	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
+		lw->AddActuator("Arm", "motor 1", std::static_pointer_cast<frc::VictorSP>(armMotor1));
+	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
+		lw->AddActuator("Arm", "motor 2", std::static_pointer_cast<frc::VictorSP>(armMotor2));
 	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
+		lw->AddActuator("Claw", "motor", std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor));
 	spineMotor1.reset(new PWMTalonSRX(SPINE_MOTOR_1_PORT));
+		lw->AddActuator("Spine", "motor 1", std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1));
 	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
+		lw->AddActuator("Spine", "motor 2", std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
 
 	// Drivetrain subsystem
 	leftDriveEncoder.reset(new Encoder(LEFT_DRIVE_ENCODER_A_PORT, LEFT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
-	leftDriveEncoder->SetMaxPeriod(0.1);
-	leftDriveEncoder->SetMinRate(1);
-	leftDriveEncoder->SetSamplesToAverage(15);
-	leftDriveEncoder->SetReverseDirection(true);
-	leftDriveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		leftDriveEncoder->Sendable::SetName("Drivetrain", "left encoder");
+		leftDriveEncoder->SetMaxPeriod(0.1);
+		leftDriveEncoder->SetMinRate(1);
+		leftDriveEncoder->SetSamplesToAverage(15);
+		leftDriveEncoder->SetReverseDirection(true);
+		leftDriveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	rightDriveEncoder.reset(new Encoder(RIGHT_DRIVE_ENCODER_A_PORT, RIGHT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
-	rightDriveEncoder->SetMaxPeriod(0.1);
-	rightDriveEncoder->SetMinRate(1);
-	rightDriveEncoder->SetSamplesToAverage(15);
-	rightDriveEncoder->SetReverseDirection(true);
-	rightDriveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		rightDriveEncoder->Sendable::SetName("Drivetrain", "right encoder");
+		rightDriveEncoder->SetMaxPeriod(0.1);
+		rightDriveEncoder->SetMinRate(1);
+		rightDriveEncoder->SetSamplesToAverage(15);
+		rightDriveEncoder->SetReverseDirection(true);
+		rightDriveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
-	backLeftDrive.reset(new PWMTalonSRX(BACK_LEFT_DRIVE_PORT));
-	backRightDrive.reset(new PWMTalonSRX(BACK_RIGHT_DRIVE_PORT));
-	frontLeftDrive.reset(new PWMTalonSRX(FRONT_LEFT_DRIVE_PORT));
-	frontRightDrive.reset(new PWMTalonSRX(FRONT_RIGHT_DRIVE_PORT));
+	backLeftDrive.reset(new VictorSP(BACK_LEFT_DRIVE_PORT));
+		lw->AddActuator("Drivetrain", "back left drive", std::static_pointer_cast<frc::VictorSP>(backLeftDrive));
+	backRightDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
+		lw->AddActuator("Drivetrain", "back right drive", std::static_pointer_cast<frc::VictorSP>(backRightDrive));
+	frontLeftDrive.reset(new VictorSP(FRONT_LEFT_DRIVE_PORT));
+		lw->AddActuator("Drivetrain", "front left drive", std::static_pointer_cast<frc::VictorSP>(frontLeftDrive));
+	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
+		lw->AddActuator("Drivetrain", "front right drive", std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
 
 	backLeftDrive->SetInverted(true);
 	backRightDrive->SetInverted(false);
@@ -157,15 +179,16 @@ void RobotMap::init() {
 
 	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
 	rightDrive = std::make_shared <SpeedControllerGroup>(*backRightDrive, *frontRightDrive);
-	differentialDrive.reset(new DifferentialDrive(*leftDrive, *rightDrive));
 
-	differentialDrive->SetSafetyEnabled(false);
-	differentialDrive->SetExpiration(0.1);
-	differentialDrive->SetMaxOutput(1.0);
+	differentialDrive.reset(new DifferentialDrive(*leftDrive, *rightDrive));
+		differentialDrive->SetSafetyEnabled(false);
+		differentialDrive->SetExpiration(0.1);
+		differentialDrive->SetMaxOutput(1.0);
 
 	gyro.reset(new AnalogGyro(GYRO_PORT));
-	gyro->SetSensitivity(0.00666);
-	gyro->Calibrate();
+		gyro->Sendable::SetName("Drivetrain", "gyro");
+		gyro->SetSensitivity(0.00666);
+		gyro->Calibrate();
 }
 
 void RobotMap::reset() {
