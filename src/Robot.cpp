@@ -23,7 +23,6 @@ void Robot::DisabledInit() {
 
 void Robot::DisabledPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
-
 }
 
 void Robot::AutonomousInit() {

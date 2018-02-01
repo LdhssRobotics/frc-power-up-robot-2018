@@ -15,9 +15,15 @@ public:
 	// Arm subsystem
 	static std::shared_ptr<Encoder> spineEncoder1;
 	static std::shared_ptr<Encoder> spineEncoder2;
-	static std::shared_ptr<Encoder> armEncoder1;
-	static std::shared_ptr<Encoder> armEncoder2;
-	static std::shared_ptr<DigitalInput> spineSwitch;
+	static std::shared_ptr<Encoder> armEncoder;
+	static std::shared_ptr<DigitalInput> bottomSpineSwitch1;
+	static std::shared_ptr<DigitalInput> topSpineSwitch1;
+	static std::shared_ptr<DigitalInput> bottomSpineSwitch2;
+	static std::shared_ptr<DigitalInput> topSpineSwitch2;
+	static std::shared_ptr<DigitalInput> bottomShoulderSwitch;
+	static std::shared_ptr<DigitalInput> topShoulderSwitch;
+	static std::shared_ptr<DigitalInput> frontClawSwitch;
+	static std::shared_ptr<DigitalInput> rearClawSwitch;
 
 	static std::shared_ptr<SpeedController> clawMotor;
 	static std::shared_ptr<SpeedController> spineMotor1;
@@ -37,6 +43,10 @@ public:
 	static std::shared_ptr<DifferentialDrive> differentialDrive;
 	static std::shared_ptr<SpeedControllerGroup>leftDrive;
 	static std::shared_ptr<SpeedControllerGroup> rightDrive;
+
+	// Vision
+	static std::shared_ptr<AnalogInput> leftLightReflector;
+	static std::shared_ptr<AnalogInput> rightLightReflector;
 
 	static void init();
 	static void reset();

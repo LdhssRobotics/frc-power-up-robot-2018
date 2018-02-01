@@ -16,46 +16,59 @@
 // PORT MAPPINGS
 	// PWM Ports
 		// Arm subsystem
-#define CLAW_MOTOR_PORT 4
-#define ARM_MOTOR_1_PORT 5
-#define ARM_MOTOR_2_PORT 6
-#define SPINE_MOTOR_1_PORT 7
-#define SPINE_MOTOR_2_PORT 8
+#define CLAW_MOTOR_PORT 8
+#define ARM_MOTOR_1_PORT 6 // in wiring, 1 = left; 2 = right
+#define ARM_MOTOR_2_PORT 7
+#define SPINE_MOTOR_1_PORT 4
+#define SPINE_MOTOR_2_PORT 5
 
 		// Drivetrain subsystem
-#define FRONT_LEFT_DRIVE_PORT 0
-#define BACK_LEFT_DRIVE_PORT 1
-#define FRONT_RIGHT_DRIVE_PORT 2
-#define BACK_RIGHT_DRIVE_PORT 3
+#define FRONT_LEFT_DRIVE_PORT 1
+#define BACK_LEFT_DRIVE_PORT 0
+#define FRONT_RIGHT_DRIVE_PORT 3
+#define BACK_RIGHT_DRIVE_PORT 2
 
 	// Digital Ports
 		// Arm subsystem
-#define SPINE_ENCODER_1_A_PORT 4
-#define SPINE_ENCODER_1_B_PORT 5
-#define SPINE_ENCODER_2_A_PORT 6
-#define SPINE_ENCODER_2_B_PORT 7
-#define ARM_ENCODER_1_A_PORT 8
-#define ARM_ENCODER_1_B_PORT 9
-#define ARM_ENCODER_2_A_PORT 10
-#define ARM_ENCODER_2_B_PORT 11
-#define SPINE_SWITCH_PORT 12
+#define SPINE_ENCODER_1_A_PORT 14
+#define SPINE_ENCODER_1_B_PORT 15
+#define SPINE_ENCODER_2_A_PORT 16
+#define SPINE_ENCODER_2_B_PORT 17
+#define ARM_ENCODER_A_PORT 18
+#define ARM_ENCODER_B_PORT 19
+#define BOTTOM_SPINE_SWITCH_1_PORT 20 // PH
+#define TOP_SPINE_SWITCH_1_PORT 21 // PH
+#define BOTTOM_SPINE_SWITCH_2_PORT 22 // PH
+#define TOP_SPINE_SWITCH_2_PORT 23 // PH
+#define BOTTOM_SHOULDER_SWITCH_PORT 24 // PH
+#define TOP_SHOULDER_SWITCH_PORT 25 // PH
+#define FRONT_CLAW_SWITCH_PORT 26 // PH
+#define REAR_CLAW_SWITCH_PORT 27 // PH
 
 		// Drivetrain subsystem
-#define LEFT_DRIVE_ENCODER_A_PORT 0
-#define LEFT_DRIVE_ENCODER_B_PORT 1
-#define RIGHT_DRIVE_ENCODER_A_PORT 2
-#define RIGHT_DRIVE_ENCODER_B_PORT 3
+#define LEFT_DRIVE_ENCODER_A_PORT 10
+#define LEFT_DRIVE_ENCODER_B_PORT 11
+#define RIGHT_DRIVE_ENCODER_A_PORT 12
+#define RIGHT_DRIVE_ENCODER_B_PORT 13
 
 	//Analog Ports
 #define GYRO_PORT 0
+#define LEFT_LIGHT_REFLECTOR_PORT 1
+#define RIGHT_LIGHT_REFLECTOR_PORT 2
 
 // POINTERS
 	// Arm subsystem
-std::shared_ptr<Encoder> RobotMap::armEncoder1;
-std::shared_ptr<Encoder> RobotMap::armEncoder2;
+std::shared_ptr<Encoder> RobotMap::armEncoder;
 std::shared_ptr<Encoder> RobotMap::spineEncoder1;
 std::shared_ptr<Encoder> RobotMap::spineEncoder2;
-std::shared_ptr<DigitalInput> RobotMap::spineSwitch;
+std::shared_ptr<DigitalInput> RobotMap::bottomSpineSwitch1;
+std::shared_ptr<DigitalInput> RobotMap::topSpineSwitch1;
+std::shared_ptr<DigitalInput> RobotMap::bottomSpineSwitch2;
+std::shared_ptr<DigitalInput> RobotMap::topSpineSwitch2;
+std::shared_ptr<DigitalInput> RobotMap::bottomShoulderSwitch;
+std::shared_ptr<DigitalInput> RobotMap::topShoulderSwitch;
+std::shared_ptr<DigitalInput> RobotMap::frontClawSwitch;
+std::shared_ptr<DigitalInput> RobotMap::rearClawSwitch;
 
 std::shared_ptr<SpeedController> RobotMap::armMotor1;
 std::shared_ptr<SpeedController> RobotMap::armMotor2;
@@ -81,19 +94,12 @@ void RobotMap::init() {
     frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
 
 	// Arm subsystem
-	armEncoder1.reset(new Encoder(ARM_ENCODER_1_A_PORT, ARM_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
-	armEncoder1->SetMaxPeriod(0.1);
-	armEncoder1->SetMinRate(1);
-	armEncoder1->SetSamplesToAverage(15);
-	armEncoder1->SetReverseDirection(true);
-	armEncoder1->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
-
-	armEncoder2.reset(new Encoder(ARM_ENCODER_2_A_PORT, ARM_ENCODER_2_B_PORT, false, Encoder::EncodingType::k4X));
-	armEncoder2->SetMaxPeriod(0.1);
-	armEncoder2->SetMinRate(1);
-	armEncoder2->SetSamplesToAverage(15);
-	armEncoder2->SetReverseDirection(true);
-	armEncoder2->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+	armEncoder.reset(new Encoder(ARM_ENCODER_A_PORT, ARM_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
+	armEncoder->SetMaxPeriod(0.1);
+	armEncoder->SetMinRate(1);
+	armEncoder->SetSamplesToAverage(15);
+	armEncoder->SetReverseDirection(true);
+	armEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
 	spineEncoder1.reset(new Encoder(SPINE_ENCODER_1_A_PORT, SPINE_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
 	spineEncoder1->SetMaxPeriod(0.1);
@@ -109,7 +115,14 @@ void RobotMap::init() {
 	spineEncoder2->SetReverseDirection(true);
 	spineEncoder2->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
 
-	spineSwitch.reset(new DigitalInput(SPINE_SWITCH_PORT));
+	bottomSpineSwitch1.reset(new DigitalInput(BOTTOM_SPINE_SWITCH_1_PORT));
+	topSpineSwitch1.reset(new DigitalInput(TOP_SPINE_SWITCH_1_PORT));
+	bottomSpineSwitch2.reset(new DigitalInput(BOTTOM_SPINE_SWITCH_2_PORT));
+	topSpineSwitch2.reset(new DigitalInput(TOP_SPINE_SWITCH_2_PORT));
+	bottomShoulderSwitch.reset(new DigitalInput(BOTTOM_SHOULDER_SWITCH_PORT));
+	topShoulderSwitch.reset(new DigitalInput(TOP_SHOULDER_SWITCH_PORT));
+	frontClawSwitch.reset(new DigitalInput(FRONT_CLAW_SWITCH_PORT));
+	rearClawSwitch.reset(new DigitalInput(REAR_CLAW_SWITCH_PORT));
 
 	armMotor1.reset(new PWMTalonSRX(ARM_MOTOR_1_PORT));
 	armMotor2.reset(new PWMTalonSRX(ARM_MOTOR_2_PORT));

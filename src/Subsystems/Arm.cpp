@@ -2,11 +2,17 @@
 #include "../RobotMap.h"
 
 Arm::Arm() : Subsystem("Arm") {
-	armEncoder1 = RobotMap::armEncoder1;
-	armEncoder2 = RobotMap::armEncoder2;
+	armEncoder = RobotMap::armEncoder;
 	spineEncoder1 = RobotMap::spineEncoder1;
 	spineEncoder2 = RobotMap::spineEncoder2;
-	spineSwitch = RobotMap::spineSwitch;
+	bottomSpineSwitch1 = RobotMap::bottomSpineSwitch1;
+	topSpineSwitch1 = RobotMap::topSpineSwitch1;
+	bottomSpineSwitch2 = RobotMap::bottomSpineSwitch2;
+	topSpineSwitch2 = RobotMap::topSpineSwitch2;
+	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
+	topShoulderSwitch = RobotMap::topShoulderSwitch;
+	frontClawSwitch = RobotMap::frontClawSwitch;
+	rearClawSwitch = RobotMap::rearClawSwitch;
 
 	armMotor1 = RobotMap::armMotor1;
 	armMotor2 = RobotMap::armMotor2;
@@ -23,8 +29,7 @@ void Arm::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void Arm::Reset(){
-	armEncoder1->Reset();
-	armEncoder2->Reset();
+	armEncoder->Reset();
 	spineEncoder1->Reset();
 	spineEncoder2->Reset();
 
