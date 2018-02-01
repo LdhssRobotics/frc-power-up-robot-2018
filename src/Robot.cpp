@@ -1,42 +1,20 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 #include "Robot.h"
 
-std::shared_ptr<Drivetrain> Robot::drivetrain;
 std::shared_ptr<Arm> Robot::arm;
+std::shared_ptr<Drivetrain> Robot::drivetrain;
 std::unique_ptr<OI> Robot::oi;
 
-/*cs::UsbCamera gearCamera;
-cs::UsbCamera climberCamera;
-cs::VideoSink server;
-cs::CvSink gearCvSink;
-cs::CvSink climberCvSink;
-*/
-void Robot::VisionThread() {
-
-
-	// cscore disconnects any cameras not in use so dummy
-	// cvSinks are created to keep the camera connected
-
-
-}
-
 void Robot::RobotInit() {
-	// We need to run our vision program in a separate Thread.
-	// If not, our robot program will not run
-
-
 	RobotMap::init();
 
-	drivetrain.reset(new Drivetrain());
 	arm.reset(new Arm());
+	drivetrain.reset(new Drivetrain());
 
 	oi.reset(new OI());
+
+	// Select autonomous mode
+	chooser.AddDefault("Centre Auto Mode", new CentreAutoMode()); // Default autonomous mode
+	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 }
 
 void Robot::DisabledInit() {
@@ -44,41 +22,35 @@ void Robot::DisabledInit() {
 }
 
 void Robot::DisabledPeriodic() {
-	Scheduler::GetInstance()->Run();
-
+	frc::Scheduler::GetInstance()->Run();
 }
 
 void Robot::AutonomousInit() {
-	autonomousCommand.reset();
-
-
-	autonomousCommand->Start();
+	autonomousCommand = chooser.GetSelected();
+	if (autonomousCommand != nullptr)
+		autonomousCommand->Start();
 }
 
 void Robot::AutonomousPeriodic() {
-	Scheduler::GetInstance()->Run();
+	frc::Scheduler::GetInstance()->Run();
 
 }
 
 void Robot::TeleopInit() {
-	if (autonomousCommand.get() != nullptr) {
+	if (autonomousCommand != nullptr)
 		autonomousCommand->Cancel();
-	}
 }
 
 void Robot::TeleopPeriodic() {
-	Scheduler::GetInstance()->Run();
+	frc::Scheduler::GetInstance()->Run();
 
 
 	// Checks which side is at the front to determine which camera stream to display
-	/*if(Robot::drivetrain->isGearFront) {
-		server.SetSource(gearCamera);
+	/*if(Robot::drivetrain->isSpineFront) {
+		server.SetSource(cam1);
 	} else {
-		server.SetSource(climberCamera);
+		server.SetSource(cam2);
 	}*/
-}
-
-void Robot::TestPeriodic() {
 }
 
 START_ROBOT_CLASS(Robot);
