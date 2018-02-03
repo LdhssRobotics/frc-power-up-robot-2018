@@ -23,10 +23,10 @@
 #define SPINE_MOTOR_2_PORT 5
 
 		// Drivetrain subsystem
-#define FRONT_LEFT_DRIVE_PORT 1
-#define BACK_LEFT_DRIVE_PORT 0
-#define FRONT_RIGHT_DRIVE_PORT 3
-#define BACK_RIGHT_DRIVE_PORT 2
+#define FRONT_LEFT_DRIVE_PORT 2
+#define BACK_LEFT_DRIVE_PORT 3
+#define FRONT_RIGHT_DRIVE_PORT 0
+#define BACK_RIGHT_DRIVE_PORT 1
 
 	// Digital Ports
 		// Arm subsystem
@@ -173,9 +173,9 @@ void RobotMap::init() {
 		lw->AddActuator("Drivetrain", "front right drive", std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
 
 	backLeftDrive->SetInverted(true);
-	backRightDrive->SetInverted(false);
+	backRightDrive->SetInverted(true);
 	frontLeftDrive->SetInverted(true);
-	frontRightDrive->SetInverted(false);
+	frontRightDrive->SetInverted(true);
 
 	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
 	rightDrive = std::make_shared <SpeedControllerGroup>(*backRightDrive, *frontRightDrive);
