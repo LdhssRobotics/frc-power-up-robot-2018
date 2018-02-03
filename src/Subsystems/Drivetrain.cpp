@@ -3,6 +3,8 @@
 #include "../Robot.h"
 #include "OI.h"
 
+#define SPEED_MULTIPLIER 0.95
+
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 	    gyro = RobotMap::gyro;
 
@@ -31,4 +33,36 @@ void Drivetrain::Reset(){
 
 void Drivetrain::ArcadeDrive(double speed, double turn){
 	differentialDrive->ArcadeDrive(speed, turn);
+}
+
+void Drivetrain::Stop(){
+	ArcadeDrive(0,0);
+}
+
+float Drivetrain::GetLeftDistance(){
+	return leftDriveEncoder->GetDistance();
+}
+
+float Drivetrain::GetRightDistance(){
+	return rightDriveEncoder->GetDistance();
+}
+
+void Drivetrain::CheckEncoders(){
+	if (rightDriveEncoder == leftDriveEncoder){
+
+	}
+	else {
+		AdjustEncoder();
+	}
+}
+
+void Drivetrain::AdjustEncoder() {
+	if (rightDriveEncoder > leftDriveEncoder) {
+		//decrease right motor speed by speedchange
+		frontRightDrive->Set(SPEED_MULTIPLIER * frontRightDrive->Get());
+	}
+	else if (leftDriveEncoder > rightDriveEncoder) {
+		//decrease left motor speed by speedchange
+		frontLeftDrive->Set(SPEED_MULTIPLIER * frontLeftDrive->Get());
+	}
 }

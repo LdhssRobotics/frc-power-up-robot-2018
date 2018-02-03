@@ -21,8 +21,14 @@ public:
 
 	Drivetrain();
 	void InitDefaultCommand();
-	void Reset();
 	void ArcadeDrive(double, double);
+	void Stop();
+	float GetLeftDistance();
+	float GetRightDistance();
+	void Reset();
+	void CheckEncoders();
+	void AdjustEncoder();
+
 };
 
 #endif  // Drivetrain_H
