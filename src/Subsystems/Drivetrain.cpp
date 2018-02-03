@@ -2,14 +2,19 @@
 #include "../RobotMap.h"
 #include "../Robot.h"
 #include "OI.h"
+#include "Commands/DriveWithJoystick.h"
 
-Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
-
+Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
 	    gyro = RobotMap::gyro;
-		driveEncoder = RobotMap::driveEncoder;
+
+	    leftDriveEncoder = RobotMap::leftDriveEncoder;
+		rightDriveEncoder = RobotMap::rightDriveEncoder;
+
 		differentialDrive = RobotMap::differentialDrive;
+
 		leftDrive = RobotMap::leftDrive;
 		rightDrive = RobotMap::rightDrive;
+
 		backLeftDrive = RobotMap::backLeftDrive;
 		frontLeftDrive = RobotMap::frontLeftDrive;
 		backRightDrive = RobotMap::backRightDrive;
@@ -18,15 +23,23 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 
 void Drivetrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
+	SetDefaultCommand(new DriveWithJoystick());
 	// SetDefaultCommand(new MySpecialCommand());
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
 void Drivetrain::Reset(){
-
+	ArcadeDrive(0,0);
 }
 
 void Drivetrain::ArcadeDrive(double speed, double turn){
 	differentialDrive->ArcadeDrive(speed, turn);
 }
+float Drivetrain::GetDistance() {
+	return leftDriveEncoder->GetDistance();
+	return rightDriveEncoder->GetDistance();
+}
+void Drivetrain::Stop(){
+	ArcadeDrive(0, 0);
+}
+
+
