@@ -1,6 +1,8 @@
 #ifndef SRC_SUBSYSTEMS_DRIVETRAIN_H_
 #define SRC_SUBSYSTEMS_DRIVETRAIN_H_
 
+
+
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
@@ -23,6 +25,8 @@ public:
 	void InitDefaultCommand();
 	void Reset();
 	void ArcadeDrive(double, double);
+	float GetDistance();
+	void Stop();
 };
 
 #endif  // Drivetrain_H
