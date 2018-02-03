@@ -5,7 +5,7 @@ const float kP = 0.025;
 DriveDistance::DriveDistance(float distance):
 	targetDistance(distance)
 {
-	Require(Robot::drivetrain.get());// Use Requires() here to declare subsystem dependencies
+	Requires(Robot::drivetrain.get());// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 }
 
@@ -16,7 +16,7 @@ void DriveDistance::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
-	SmartDashboard::PutNumber("Left Distance travelled", Robot::drivetrain->GetLeftDistance();
+	SmartDashboard::PutNumber("Left Distance travelled", Robot::drivetrain->GetLeftDistance());
 	SmartDashboard::PutNumber("Right Distance travelled", Robot::drivetrain->GetRightDistance());
 	SmartDashboard::PutNumber("target distance", targetDistance);
 	Robot::drivetrain->ArcadeDrive(-0.65, 0.05);
