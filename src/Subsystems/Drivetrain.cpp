@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 #include "../Robot.h"
 #include "OI.h"
-
+#include "Commands/DriveWithJoystick.h"
 #define SPEED_MULTIPLIER 0.95
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
@@ -23,7 +23,7 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 }
 
 void Drivetrain::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
+	SetDefaultCommand(new DriveWithJoystick());// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 }
 
