@@ -28,7 +28,9 @@ void Drivetrain::InitDefaultCommand() {
 }
 
 void Drivetrain::Reset(){
-	ArcadeDrive(0,0);
+	rightDriveEncoder->Reset();
+	leftDriveEncoder->Reset();
+	Stop();
 }
 
 void Drivetrain::ArcadeDrive(double speed, double turn){
@@ -66,3 +68,5 @@ void Drivetrain::AdjustEncoder() {
 		frontLeftDrive->Set(SPEED_MULTIPLIER * frontLeftDrive->Get());
 	}
 }
+
+
