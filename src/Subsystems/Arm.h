@@ -29,6 +29,8 @@ public:
 	void InitDefaultCommand();
 	void SetMotorSpeedArm(float speed);
 	void SetMotorSpeedSpine(float speed);
+	bool InSpineMaxPosition();
+	bool InSpineMinPosition();
 	float GetArmPosition();
 	float GetSpinePosition();
 	float SetMaxPositionArm();

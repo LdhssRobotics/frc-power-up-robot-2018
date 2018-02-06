@@ -67,6 +67,15 @@ float Arm::SafetyPositionSpine(){
 	}
 }
 
+bool Arm::InSpineMaxPosition() {
+	return (!(topSpineSwitch1->Get())) && !(topSpineSwitch2->Get());
+}
+
+bool Arm::InSpineMinPosition() {
+	return (!(bottomSpineSwitch1->Get())) && !(bottomSpineSwitch2->Get());
+}
+
+
 void Arm::Reset(){
 	armEncoder->Reset();
 	spineEncoder1->Reset();
