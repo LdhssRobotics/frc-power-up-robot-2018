@@ -12,6 +12,7 @@ private:
 	std::shared_ptr<DifferentialDrive> differentialDrive;
 
 public:
+	bool CubeFront;
 	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
 	std::shared_ptr<SpeedController> frontLeftDrive;
@@ -23,6 +24,11 @@ public:
 	void InitDefaultCommand();
 	void Reset();
 	void ArcadeDrive(double, double);
+	float GetDistance();
+	void Stop();
+	void CheckEncoders();
+	void AdjustEncoder();
+
 };
 
 #endif  // Drivetrain_H

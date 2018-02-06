@@ -8,6 +8,8 @@
 #include "OI.h"
 
 #include <WPILib.h>
+#include "Commands/InvertCam.h"
+#include "Commands/SwitchCommand.h"
 
 OI::OI() {
 
@@ -23,14 +25,14 @@ OI::OI() {
 	selectButtonD = new JoystickButton(driveStick.get(), 7);
 	startButtonD = new JoystickButton(driveStick.get(), 8);
 	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
-	rightStickButtonD = new JoystickButton(driveStick.get(), 1);
+	//rightStickButtonD = new JoystickButton(driveStick.get(), 1);
 
 	// Assigning Commands to Buttons
 
 	// Drive Stick Controls
+	xButtonD->ToggleWhenPressed(new SwitchCommand());
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
 	return driveStick;
 }
-

@@ -23,7 +23,7 @@ public:
 	JoystickButton *selectButtonD;
 	JoystickButton *startButtonD;
 	JoystickButton *leftStickButtonD;
-	JoystickButton *rightStickButtonD;
+	//JoystickButton *rightStickButtonD;
 
 	// Axes
 	static const int LEFT_X_AXIS = 0;

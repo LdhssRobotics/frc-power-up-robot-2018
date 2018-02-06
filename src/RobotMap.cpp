@@ -150,9 +150,9 @@ void RobotMap::init() {
 	frontLeftDrive.reset(new PWMTalonSRX(FRONT_LEFT_DRIVE_PORT));
 	frontRightDrive.reset(new PWMTalonSRX(FRONT_RIGHT_DRIVE_PORT));
 
-	backLeftDrive->SetInverted(true);
+	backLeftDrive->SetInverted(false);
 	backRightDrive->SetInverted(false);
-	frontLeftDrive->SetInverted(true);
+	frontLeftDrive->SetInverted(false);
 	frontRightDrive->SetInverted(false);
 
 	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
