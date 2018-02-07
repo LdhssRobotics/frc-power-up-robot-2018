@@ -26,7 +26,7 @@
 //General Includes
 #include "../Robot.h"
 #include "../RobotMap.h"
-#include "WPILIb.h"
+#include "WPILib.h"
 
 namespace grip {
 
