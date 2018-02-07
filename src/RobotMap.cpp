@@ -139,12 +139,12 @@ void RobotMap::init() {
 		lw->AddActuator("Arm", "motor 1", std::static_pointer_cast<frc::VictorSP>(armMotor1));
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 		lw->AddActuator("Arm", "motor 2", std::static_pointer_cast<frc::VictorSP>(armMotor2));
-	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
-		lw->AddActuator("Claw", "motor", std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor));
-	spineMotor1.reset(new PWMTalonSRX(SPINE_MOTOR_1_PORT));
-		lw->AddActuator("Spine", "motor 1", std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1));
-	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
-		lw->AddActuator("Spine", "motor 2", std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
+	clawMotor.reset(new VictorSP(CLAW_MOTOR_PORT));
+		lw->AddActuator("Claw", "motor", std::static_pointer_cast<frc::VictorSP>(clawMotor));
+	spineMotor1.reset(new VictorSP(SPINE_MOTOR_1_PORT));
+		lw->AddActuator("Spine", "motor 1", std::static_pointer_cast<frc::VictorSP>(spineMotor1));
+	spineMotor2.reset(new VictorSP(SPINE_MOTOR_2_PORT));
+		lw->AddActuator("Spine", "motor 2", std::static_pointer_cast<frc::VictorSP>(spineMotor2));
 
 	// Drivetrain subsystem
 	leftDriveEncoder.reset(new Encoder(LEFT_DRIVE_ENCODER_A_PORT, LEFT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));

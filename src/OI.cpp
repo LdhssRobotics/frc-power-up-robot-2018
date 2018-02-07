@@ -8,6 +8,7 @@
 #include "OI.h"
 #include <WPILib.h>
 
+#include "Commands/SwitchCamera.h"
 OI::OI() {
 
 	driveStick.reset(new Joystick(0));
@@ -27,6 +28,7 @@ OI::OI() {
 	// Assigning Commands to Buttons
 
 	// Drive Stick Controls
+	startButtonD->ToggleWhenPressed(new SwitchCamera());
 	//startButtonD->ToggleWhenPressed(new )
 }
 
