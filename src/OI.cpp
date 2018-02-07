@@ -7,6 +7,8 @@
 
 #include "OI.h"
 #include <WPILib.h>
+#include "Commands/Turn90Degrees.h"
+#include "Commands/Turn180Degrees.h"
 
 OI::OI() {
 
@@ -27,7 +29,10 @@ OI::OI() {
 	// Assigning Commands to Buttons
 
 	// Drive Stick Controls
-	//startButtonD->ToggleWhenPressed(new )
+	xButtonD->ToggleWhenPressed(new Turn90Degrees(true));
+	yButtonD->WhenPressed(new Turn180Degrees(true));
+	bButtonD->ToggleWhenPressed(new Turn90Degrees(false));
+	aButtonD->WhenPressed(new Turn180Degrees(false));
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
