@@ -1,13 +1,13 @@
-#ifndef Spine_H
-#define Spine_H
+#ifndef SpineDown_H
+#define SpineDown_H
 
 #include "WPILib.h"
 #include "Robot.h"
 #include "RobotMap.h"
 
-class Spine : public Command {
+class SpineDown : public Command {
 public:
-	Spine();
+	SpineDown();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -15,4 +15,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // Spine_H
+#endif  // SpineDown_H

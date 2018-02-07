@@ -54,11 +54,11 @@ float Arm::SetMinPositionArm() {
 }
 
 float Arm::SetMaxPositionSpine(){
-	return spineEncoder1->GetDistance() > 180 && spineEncoder2->GetDistance() > 180;
+	return topSpineSwitch1->Get() && topSpineSwitch1->Get();
 }
 
 float Arm::SetMinPositionSpine(){
-	return spineEncoder1->GetDistance() > 0 && spineEncoder2->GetDistance() > 0;
+	return bottomSpineSwitch1->Get() && bottomSpineSwitch2->Get();
 }
 
 float Arm::SafetyPositionSpine(){

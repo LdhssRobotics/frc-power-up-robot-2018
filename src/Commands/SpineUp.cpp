@@ -1,33 +1,40 @@
-#include "Spine.h"
+#include "SpineUp.h"
 
-Spine::Spine() {
+SpineUp::SpineUp() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::arm.get());
 }
 
 // Called just before this Command runs the first time
-void Spine::Initialize() {
+void SpineUp::Initialize() {
+	SmartDashboard::PutString("Spine", "Start");
+		Robot::arm->SetMotorSpeedSpine(0.4);
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Spine::Execute() {
+void SpineUp::Execute() {
+	Robot::arm->Log();
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Spine::IsFinished() {
-	return false;
+bool SpineUp::IsFinished() {
+	return Robot::arm->SetMaxPositionSpine();
 }
 
 // Called once after isFinished returns true
-void Spine::End() {
+void SpineUp::End() {
+	Robot::arm->SetMotorSpeedSpine(0);
+	SmartDashboard::PutString("Spine", "Finished");
+	Robot::arm->ResetEncoder();
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Spine::Interrupted() {
+void SpineUp::Interrupted() {
+	End();
 
 }
