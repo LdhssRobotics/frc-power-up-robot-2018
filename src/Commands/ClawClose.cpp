@@ -1,40 +1,38 @@
-#include "SpineDown.h"
+#include "ClawClose.h"
 
-SpineDown::SpineDown() {
+ClawClose::ClawClose() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::arm.get());
 }
 
 // Called just before this Command runs the first time
-void SpineDown::Initialize() {
-	SmartDashboard::PutString("Spine", "Start");
-	Robot::arm->SetMotorSpeedSpine(-0.4);
-
+void ClawClose::Initialize() {
+	SmartDashboard::PutString("Claw", "Close");
+	Robot::arm->SetMotorSpeedClaw(-0.4);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SpineDown::Execute() {
+void ClawClose::Execute() {
 	Robot::arm->Log();
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool SpineDown::IsFinished() {
-	return Robot::arm->SetMaxPositionSpine();
+bool ClawClose::IsFinished() {
+	return Robot::arm->SetMinPositionClaw();
 }
 
 // Called once after isFinished returns true
-void SpineDown::End() {
-	Robot::arm->SetMotorSpeedSpine(0);
-	SmartDashboard::PutString("Spine", "Finished");
-	Robot::arm->ResetEncoder();
+void ClawClose::End() {
+	Robot::arm->SetMotorSpeedClaw(0);
+	SmartDashboard::PutString("Claw", "Finished");
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void SpineDown::Interrupted() {
+void ClawClose::Interrupted() {
 	End();
 
 }

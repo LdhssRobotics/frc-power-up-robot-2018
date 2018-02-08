@@ -37,6 +37,10 @@ void Arm::SetMotorSpeedSpine(float speed) {
 	spineMotor2->Set(speed);
 }
 
+void Arm::SetMotorSpeedClaw(float speed) {
+	clawMotor->Set(speed);
+}
+
 float Arm::GetArmPosition(){
 	return armEncoder->GetDistance();
 }
@@ -59,6 +63,14 @@ float Arm::SetMaxPositionSpine(){
 
 float Arm::SetMinPositionSpine(){
 	return bottomSpineSwitch1->Get() && bottomSpineSwitch2->Get();
+}
+
+float Arm::SetMaxPositionClaw() {
+	return frontClawSwitch->Get();
+}
+
+float Arm::SetMinPositionClaw() {
+	return rearClawSwitch->Get();
 }
 
 float Arm::SafetyPositionSpine(){

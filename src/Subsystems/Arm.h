@@ -29,6 +29,7 @@ public:
 	void InitDefaultCommand();
 	void SetMotorSpeedArm(float speed);
 	void SetMotorSpeedSpine(float speed);
+	void SetMotorSpeedClaw(float speed);
 	bool InSpineMaxPosition();
 	bool InSpineMinPosition();
 	float GetArmPosition();
@@ -37,6 +38,8 @@ public:
 	float SetMinPositionArm();
 	float SetMaxPositionSpine();
 	float SetMinPositionSpine();
+	float SetMaxPositionClaw();
+	float SetMinPositionClaw();
 	float SafetyPositionSpine();
 
 	void Reset();
