@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 #include "Robot.h"
 
-#include "Commands/Armswing.h"
+#include "Commands/ArmSwing.h"
 
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
