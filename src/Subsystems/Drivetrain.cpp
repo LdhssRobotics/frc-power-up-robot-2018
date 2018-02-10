@@ -64,3 +64,20 @@ void Drivetrain::ResetEncoder(){
 	rightDriveEncoder->Reset();
 	leftDriveEncoder->Reset();
 }
+
+void Drivetrain::Debug() {
+	SmartDashboard::PutNumber("Encoder Right Distance", rightDriveEncoder->GetDistance());
+	SmartDashboard::PutNumber("Encoder Left Distance", leftDriveEncoder->GetDistance());
+
+	SmartDashboard::PutNumber("Left Current Count", leftDriveEncoder->Get());
+	SmartDashboard::PutNumber("Right Current Count", rightDriveEncoder->Get());
+
+	SmartDashboard::PutNumber("Left Period", leftDriveEncoder->GetPeriod());
+	SmartDashboard::PutNumber("Right Period", rightDriveEncoder->GetPeriod());
+
+	SmartDashboard::PutNumber("Left Rate", leftDriveEncoder->GetRate());
+	SmartDashboard::PutNumber("Right Rate", rightDriveEncoder->GetRate());
+
+	SmartDashboard::PutNumber("Left Raw", leftDriveEncoder->GetRaw());
+	SmartDashboard::PutNumber("Right Raw", rightDriveEncoder->GetRaw());
+}

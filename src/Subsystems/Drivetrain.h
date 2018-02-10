@@ -33,6 +33,7 @@ public:
 	float GetRightCount();
 	void Debug();
 	void TankDrive(double leftSpeed, double rightSpeed);
+	void Reset();
 	void ResetEncoder();
 	void Stop();
 };
