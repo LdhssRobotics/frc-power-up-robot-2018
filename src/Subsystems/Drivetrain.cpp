@@ -4,6 +4,8 @@
 #include "OI.h"
 #include "Commands/DriveWithJoystick.h"
 
+#define SPEED_MULTIPLIER 0.95
+
 Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
 	    CubeFront = true;
 		gyro = RobotMap::gyro;
@@ -23,24 +25,59 @@ Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
 }
 
 void Drivetrain::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
 	SetDefaultCommand(new DriveWithJoystick());
-	// SetDefaultCommand(new MySpecialCommand());
 }
 
 void Drivetrain::Reset(){
-	ArcadeDrive(0,0);
+	Stop();
+	ResetEncoder();
 }
 
 void Drivetrain::ArcadeDrive(double speed, double turn){
 	differentialDrive->ArcadeDrive(speed, turn);
 }
-float Drivetrain::GetDistance() {
+
+void Drivetrain::Stop(){
+	ArcadeDrive(0,0);
+}
+
+float Drivetrain::GetLeftDistance(){
 	return leftDriveEncoder->GetDistance();
+}
+
+float Drivetrain::GetRightDistance(){
 	return rightDriveEncoder->GetDistance();
 }
-void Drivetrain::Stop(){
-	ArcadeDrive(0, 0);
+
+float Drivetrain::GetLeftCount(){
+	return leftDriveEncoder->Get();
 }
 
+float Drivetrain::GetRightCount(){
+	return rightDriveEncoder->Get();
+}
+void Drivetrain::TankDrive(double leftSpeed, double rightSpeed){
+	differentialDrive->TankDrive(leftSpeed, rightSpeed);
+}
 
+void Drivetrain::ResetEncoder(){
+	rightDriveEncoder->Reset();
+	leftDriveEncoder->Reset();
+}
+
+void Drivetrain::Debug() {
+	SmartDashboard::PutNumber("Encoder Right Distance", rightDriveEncoder->GetDistance());
+	SmartDashboard::PutNumber("Encoder Left Distance", leftDriveEncoder->GetDistance());
+
+	SmartDashboard::PutNumber("Left Current Count", leftDriveEncoder->Get());
+	SmartDashboard::PutNumber("Right Current Count", rightDriveEncoder->Get());
+
+	SmartDashboard::PutNumber("Left Period", leftDriveEncoder->GetPeriod());
+	SmartDashboard::PutNumber("Right Period", rightDriveEncoder->GetPeriod());
+
+	SmartDashboard::PutNumber("Left Rate", leftDriveEncoder->GetRate());
+	SmartDashboard::PutNumber("Right Rate", rightDriveEncoder->GetRate());
+
+	SmartDashboard::PutNumber("Left Raw", leftDriveEncoder->GetRaw());
+	SmartDashboard::PutNumber("Right Raw", rightDriveEncoder->GetRaw());
+}
