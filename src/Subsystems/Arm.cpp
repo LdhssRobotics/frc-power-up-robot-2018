@@ -89,9 +89,6 @@ bool Arm::InSpineMinPosition() {
 
 
 void Arm::Reset(){
-	armEncoder->Reset();
-	spineEncoder1->Reset();
-	spineEncoder2->Reset();
 
 	armMotor1->Set(0);
 	armMotor2->Set(0);
@@ -99,6 +96,14 @@ void Arm::Reset(){
 	spineMotor1->Set(0);
 	spineMotor2->Set(0);
 	Log();
+}
+
+void Arm::ResetEncoder(){
+
+	armEncoder->Reset();
+	spineEncoder1->Reset();
+	spineEncoder2->Reset();
+
 }
 
 void Arm::Log(){
