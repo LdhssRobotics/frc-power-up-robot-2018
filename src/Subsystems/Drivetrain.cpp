@@ -5,7 +5,8 @@
 #include "Commands/DriveWithJoystick.h"
 
 Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
-	    gyro = RobotMap::gyro;
+	    CubeFront = true;
+		gyro = RobotMap::gyro;
 
 	    leftDriveEncoder = RobotMap::leftDriveEncoder;
 		rightDriveEncoder = RobotMap::rightDriveEncoder;

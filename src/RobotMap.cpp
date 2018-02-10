@@ -13,7 +13,6 @@
 #include "SmartDashboard/Sendable.h"
 #include "Encoder.h"
 
-
 // PORT MAPPINGS
 	// PWM Ports
 		// Arm subsystem
