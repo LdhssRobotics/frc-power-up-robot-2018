@@ -49,24 +49,4 @@ float Drivetrain::GetRightDistance(){
 	return rightDriveEncoder->GetDistance();
 }
 
-void Drivetrain::CheckEncoders(){
-	if (rightDriveEncoder == leftDriveEncoder){
-
-	}
-	else {
-		AdjustEncoder();
-	}
-}
-
-void Drivetrain::AdjustEncoder() {
-	if (rightDriveEncoder > leftDriveEncoder) {
-		//decrease right motor speed by speedchange
-		frontRightDrive->Set(SPEED_MULTIPLIER * frontRightDrive->Get());
-	}
-	else if (leftDriveEncoder > rightDriveEncoder) {
-		//decrease left motor speed by speedchange
-		frontLeftDrive->Set(SPEED_MULTIPLIER * frontLeftDrive->Get());
-	}
-}
-
 
