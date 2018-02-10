@@ -12,6 +12,9 @@
 #include "Commands/Command.h"
 #include "LiveWindow/LiveWindow.h"
 #include "RobotMap.h"
+// Vision includes
+#include <thread>
+#include <CameraServer.h>
 
 // Autonomous mode includes
 #include <Commands/AutoModes/CentreAutoMode.h>
@@ -32,6 +35,8 @@ class Robot : public frc::TimedRobot {
 	frc::SendableChooser<frc::Command*> chooser;
 	static std::shared_ptr<Arm> arm;
 	static std::shared_ptr<Drivetrain> drivetrain;
+
+	static void VisionThread();
 	void RobotInit() override;
 	void DisabledInit() override;
 	void DisabledPeriodic() override;

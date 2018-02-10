@@ -14,6 +14,9 @@ private:
 	std::shared_ptr<DifferentialDrive> differentialDrive;
 
 public:
+
+	bool CubeFront;
+
 	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
 	std::shared_ptr<SpeedController> frontLeftDrive;

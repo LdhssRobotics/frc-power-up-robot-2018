@@ -13,6 +13,7 @@
 #include "Commands/CrabWalk.h"
 #include "Commands/CrabWalk2.h"
 
+#include "Commands/SwitchCamera.h"
 OI::OI() {
 
 	driveStick.reset(new Joystick(0));
@@ -32,12 +33,15 @@ OI::OI() {
 	// Assigning Commands to Buttons
 
 	// Drive Stick Controls
+
 	xButtonD->ToggleWhenPressed(new Turn90Degrees(true));
 	yButtonD->WhenPressed(new Turn180Degrees(true));
 	bButtonD->ToggleWhenPressed(new Turn90Degrees(false));
 	aButtonD->WhenPressed(new Turn180Degrees(false));
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
+  startButtonD->ToggleWhenPressed(new SwitchCamera());
+
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
