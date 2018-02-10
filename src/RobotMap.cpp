@@ -139,15 +139,23 @@ void RobotMap::init() {
 		rearClawSwitch->Sendable::SetName("Claw", "rear switch");
 
 	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
-		lw->AddActuator("Arm", "motor 1", std::static_pointer_cast<frc::VictorSP>(armMotor1));
+	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
+	lw->Add(std::static_pointer_cast<frc::VictorSP>(armMotor1));
+
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
-		lw->AddActuator("Arm", "motor 2", std::static_pointer_cast<frc::VictorSP>(armMotor2));
-	clawMotor.reset(new VictorSP(CLAW_MOTOR_PORT));
-		lw->AddActuator("Claw", "motor", std::static_pointer_cast<frc::VictorSP>(clawMotor));
-	spineMotor1.reset(new VictorSP(SPINE_MOTOR_1_PORT));
-		lw->AddActuator("Spine", "motor 1", std::static_pointer_cast<frc::VictorSP>(spineMotor1));
-	spineMotor2.reset(new VictorSP(SPINE_MOTOR_2_PORT));
-		lw->AddActuator("Spine", "motor 2", std::static_pointer_cast<frc::VictorSP>(spineMotor2));
+	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
+
+	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
+	std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor)->SetName("Claw", "motor");
+	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor));
+
+	spineMotor1.reset(new PWMTalonSRX(SPINE_MOTOR_1_PORT));
+	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
+	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1));
+
+	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
+	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
+	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
 
 	// Drivetrain subsystem
 
@@ -169,13 +177,20 @@ void RobotMap::init() {
 		rightDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 	backLeftDrive.reset(new VictorSP(BACK_LEFT_DRIVE_PORT));
-		lw->AddActuator("Drivetrain", "back left drive", std::static_pointer_cast<frc::VictorSP>(backLeftDrive));
+	std::static_pointer_cast<frc::VictorSP>(backLeftDrive)->SetName("Drivetrain", "back left drive");
+	lw->Add(std::static_pointer_cast<frc::VictorSP>(backLeftDrive));
+
 	backRightDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
-		lw->AddActuator("Drivetrain", "back right drive", std::static_pointer_cast<frc::VictorSP>(backRightDrive));
+	std::static_pointer_cast<frc::VictorSP>(backRightDrive)->SetName("Drivetrain", "back right drive");
+	lw->Add(std::static_pointer_cast<frc::VictorSP>(backRightDrive));
+
 	frontLeftDrive.reset(new VictorSP(FRONT_LEFT_DRIVE_PORT));
-		lw->AddActuator("Drivetrain", "front left drive", std::static_pointer_cast<frc::VictorSP>(frontLeftDrive));
+	std::static_pointer_cast<frc::VictorSP>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
+	lw->Add(std::static_pointer_cast<frc::VictorSP>(frontLeftDrive));
+
 	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
-		lw->AddActuator("Drivetrain", "front right drive", std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
+	std::static_pointer_cast<frc::VictorSP>(frontRightDrive)->SetName("Drivetrain", "front right drive");
+	lw->Add(std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
 
 	backLeftDrive->SetInverted(true);
 	backRightDrive->SetInverted(true);
