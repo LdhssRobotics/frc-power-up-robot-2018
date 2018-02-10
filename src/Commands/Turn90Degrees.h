@@ -1,13 +1,16 @@
-#ifndef DriveWithJoystick_H
-#define DriveWithJoystick_H
+#ifndef Turn90Degrees_H
+#define Turn90Degrees_H
+
 
 #include "../RobotMap.h"
 #include "../Robot.h"
 #include "WPILib.h"
 
-class DriveWithJoystick : public Command {
+class Turn90Degrees : public Command {
+private:
+	bool isLeftTurn;
 public:
-	DriveWithJoystick();
+	Turn90Degrees(bool isLeft);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -15,4 +18,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // DriveWithJoystick_H
+#endif  // Turn90Degrees_H

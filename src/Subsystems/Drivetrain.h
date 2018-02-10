@@ -26,10 +26,15 @@ public:
 
 	Drivetrain();
 	void InitDefaultCommand();
-	void Reset();
 	void ArcadeDrive(double, double);
-	float GetDistance();
+	float GetLeftDistance();
+	float GetRightDistance();
+	float GetLeftCount();
+	float GetRightCount();
+	void Debug();
+	void TankDrive(double leftSpeed, double rightSpeed);
+	void ResetEncoder();
 	void Stop();
 };
 
-#endif  // Drivetrain_H
+#endif // Drivetrain_H
