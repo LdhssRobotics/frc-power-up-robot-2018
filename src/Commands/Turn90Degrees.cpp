@@ -32,7 +32,7 @@ bool Turn90Degrees::IsFinished() {
 	} else {
 		target = Robot::drivetrain->GetRightCount();
 	}
-	float placeholder = 150;
+	float placeholder = 305;
 	return (abs(target) >= abs(placeholder));
 }
 

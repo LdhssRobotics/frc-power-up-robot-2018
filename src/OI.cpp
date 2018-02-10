@@ -9,6 +9,9 @@
 #include <WPILib.h>
 #include "Commands/Turn90Degrees.h"
 #include "Commands/Turn180Degrees.h"
+#include "Commands/CrabWalkGroup.h"
+#include "Commands/CrabWalk.h"
+#include "Commands/CrabWalk2.h"
 
 OI::OI() {
 
@@ -33,6 +36,8 @@ OI::OI() {
 	yButtonD->WhenPressed(new Turn180Degrees(true));
 	bButtonD->ToggleWhenPressed(new Turn90Degrees(false));
 	aButtonD->WhenPressed(new Turn180Degrees(false));
+	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
+	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {

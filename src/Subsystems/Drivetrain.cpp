@@ -78,6 +78,7 @@ void Drivetrain::ResetEncoder(){
 	rightDriveEncoder->Reset();
 	leftDriveEncoder->Reset();
 }
+
 void Drivetrain::Stop(){
 	ArcadeDrive(0, 0);
 }
