@@ -41,6 +41,11 @@ public:
 	float SetMaxPositionClaw();
 	float SetMinPositionClaw();
 	float SafetyPositionSpine();
+	//void SetInBoardPosition(); //Set Arm to have the claw in-board
+	//void SetPickupPosition(); //Pick-Up Power Cubes from floor
+	//void SetSwitchPosition(); //Set Arm to a position where it can drop power cubes in the switch
+	//void SetScalePosition(); //Set Arm to a position where it can drop power cubes in teh scale
+
 
 	void Reset();
 	void ResetEncoder();

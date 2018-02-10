@@ -9,7 +9,7 @@ SpineUp::SpineUp() {
 // Called just before this Command runs the first time
 void SpineUp::Initialize() {
 	SmartDashboard::PutString("Spine", "Start");
-		Robot::arm->SetMotorSpeedSpine(0.4);
+	Robot::arm->SetMotorSpeedSpine(0.4);
 
 }
 
@@ -22,6 +22,7 @@ void SpineUp::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool SpineUp::IsFinished() {
 	return Robot::arm->SetMaxPositionSpine();
+
 }
 
 // Called once after isFinished returns true

@@ -50,6 +50,7 @@ public:
 	OI();
 
 	std::shared_ptr<frc::Joystick> getDriveStick();
+	std::shared_ptr<frc::Joystick> getDriveStick2();
 };
 
 #endif
