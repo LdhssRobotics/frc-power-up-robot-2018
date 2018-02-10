@@ -177,10 +177,10 @@ void RobotMap::init() {
 	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
 		lw->AddActuator("Drivetrain", "front right drive", std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
 
-	backLeftDrive->SetInverted(false);
-	backRightDrive->SetInverted(false);
-	frontLeftDrive->SetInverted(false);
-	frontRightDrive->SetInverted(false);
+	backLeftDrive->SetInverted(true);
+	backRightDrive->SetInverted(true);
+	frontLeftDrive->SetInverted(true);
+	frontRightDrive->SetInverted(true);
 
 	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
 	rightDrive = std::make_shared <SpeedControllerGroup>(*backRightDrive, *frontRightDrive);
