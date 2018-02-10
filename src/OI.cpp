@@ -25,6 +25,20 @@ OI::OI() {
 	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
 	rightStickButtonD = new JoystickButton(driveStick.get(), 1);
 
+	driveStick2.reset(new Joystick(1));
+
+	// Drive Stick Buttons
+	aButtonD = new JoystickButton(driveStick.get(), 1);
+	bButtonD = new JoystickButton(driveStick.get(), 2);
+	xButtonD = new JoystickButton(driveStick.get(), 3);
+	yButtonD = new JoystickButton(driveStick.get(), 4);
+	leftBumperButtonD = new JoystickButton(driveStick.get(), 5);
+	rightBumperButtonD = new JoystickButton(driveStick.get(), 6);
+	selectButtonD = new JoystickButton(driveStick.get(), 7);
+	startButtonD = new JoystickButton(driveStick.get(), 8);
+	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
+	rightStickButtonD = new JoystickButton(driveStick.get(), 1);
+
 	// Assigning Commands to Buttons
 
 	// Drive Stick Controls
