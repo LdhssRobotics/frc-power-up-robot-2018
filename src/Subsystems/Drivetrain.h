@@ -1,6 +1,8 @@
 #ifndef SRC_SUBSYSTEMS_DRIVETRAIN_H_
 #define SRC_SUBSYSTEMS_DRIVETRAIN_H_
 
+
+
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
@@ -12,6 +14,9 @@ private:
 	std::shared_ptr<DifferentialDrive> differentialDrive;
 
 public:
+
+	bool CubeFront;
+
 	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
 	std::shared_ptr<SpeedController> frontLeftDrive;
@@ -22,13 +27,14 @@ public:
 	Drivetrain();
 	void InitDefaultCommand();
 	void ArcadeDrive(double, double);
-	void Stop();
 	float GetLeftDistance();
 	float GetRightDistance();
-	void Reset();
-	void CheckEncoders();
-	void AdjustEncoder();
-
+	float GetLeftCount();
+	float GetRightCount();
+	void Debug();
+	void TankDrive(double leftSpeed, double rightSpeed);
+	void ResetEncoder();
+	void Stop();
 };
 
-#endif  // Drivetrain_H
+#endif // Drivetrain_H

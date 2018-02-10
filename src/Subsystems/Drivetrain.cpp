@@ -3,10 +3,12 @@
 #include "../Robot.h"
 #include "OI.h"
 #include "Commands/DriveWithJoystick.h"
+
 #define SPEED_MULTIPLIER 0.95
 
-Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
-	    gyro = RobotMap::gyro;
+Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
+	    CubeFront = true;
+		gyro = RobotMap::gyro;
 
 	    leftDriveEncoder = RobotMap::leftDriveEncoder;
 		rightDriveEncoder = RobotMap::rightDriveEncoder;
@@ -23,14 +25,12 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
 }
 
 void Drivetrain::InitDefaultCommand() {
-	SetDefaultCommand(new DriveWithJoystick());// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new DriveWithJoystick());
 }
 
 void Drivetrain::Reset(){
-	rightDriveEncoder->Reset();
-	leftDriveEncoder->Reset();
 	Stop();
+	ResetEncoder();
 }
 
 void Drivetrain::ArcadeDrive(double speed, double turn){
@@ -49,4 +49,18 @@ float Drivetrain::GetRightDistance(){
 	return rightDriveEncoder->GetDistance();
 }
 
+float Drivetrain::GetLeftCount(){
+	return leftDriveEncoder->Get();
+}
 
+float Drivetrain::GetRightCount(){
+	return rightDriveEncoder->Get();
+}
+void Drivetrain::TankDrive(double leftSpeed, double rightSpeed){
+	differentialDrive->TankDrive(leftSpeed, rightSpeed);
+}
+
+void Drivetrain::ResetEncoder(){
+	rightDriveEncoder->Reset();
+	leftDriveEncoder->Reset();
+}

@@ -8,6 +8,9 @@
 #ifndef SRC_ROBOTMAP_CPP_
 #define SRC_ROBOTMAP_CPP_
 
+//For Pi Const
+#include <math.h>
+
 #include "RobotMap.h"
 #include "Robot.h"
 #include "SmartDashboard/Sendable.h"
@@ -23,10 +26,10 @@
 #define SPINE_MOTOR_2_PORT 5
 
 		// Drivetrain subsystem
-#define FRONT_LEFT_DRIVE_PORT 1
-#define BACK_LEFT_DRIVE_PORT 0
-#define FRONT_RIGHT_DRIVE_PORT 3
-#define BACK_RIGHT_DRIVE_PORT 2
+#define FRONT_LEFT_DRIVE_PORT 2
+#define BACK_LEFT_DRIVE_PORT 3
+#define FRONT_RIGHT_DRIVE_PORT 0
+#define BACK_RIGHT_DRIVE_PORT 1
 
 	// Digital Ports
 		// Arm subsystem
@@ -100,7 +103,7 @@ void RobotMap::init() {
 		armEncoder->SetMinRate(1);
 		armEncoder->SetSamplesToAverage(15);
 		armEncoder->SetReverseDirection(true);
-		armEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		armEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 	spineEncoder1.reset(new Encoder(SPINE_ENCODER_1_A_PORT, SPINE_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
 		spineEncoder1->Sendable::SetName("Spine", "encoder 1");
@@ -108,7 +111,7 @@ void RobotMap::init() {
 		spineEncoder1->SetMinRate(1);
 		spineEncoder1->SetSamplesToAverage(15);
 		spineEncoder1->SetReverseDirection(true);
-		spineEncoder1->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		spineEncoder1->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 	spineEncoder2.reset(new Encoder(SPINE_ENCODER_2_A_PORT, SPINE_ENCODER_2_B_PORT, false, Encoder::EncodingType::k4X));
 		spineEncoder2->Sendable::SetName("Spine", "encoder 2");
@@ -116,7 +119,7 @@ void RobotMap::init() {
 		spineEncoder2->SetMinRate(1);
 		spineEncoder2->SetSamplesToAverage(15);
 		spineEncoder2->SetReverseDirection(true);
-		spineEncoder2->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		spineEncoder2->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 	bottomSpineSwitch1.reset(new DigitalInput(BOTTOM_SPINE_SWITCH_1_PORT));
 		bottomSpineSwitch1->Sendable::SetName("Spine", "bottom switch 1");
@@ -139,29 +142,31 @@ void RobotMap::init() {
 		lw->AddActuator("Arm", "motor 1", std::static_pointer_cast<frc::VictorSP>(armMotor1));
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 		lw->AddActuator("Arm", "motor 2", std::static_pointer_cast<frc::VictorSP>(armMotor2));
-	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
-		lw->AddActuator("Claw", "motor", std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor));
-	spineMotor1.reset(new PWMTalonSRX(SPINE_MOTOR_1_PORT));
-		lw->AddActuator("Spine", "motor 1", std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1));
-	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
-		lw->AddActuator("Spine", "motor 2", std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
+	clawMotor.reset(new VictorSP(CLAW_MOTOR_PORT));
+		lw->AddActuator("Claw", "motor", std::static_pointer_cast<frc::VictorSP>(clawMotor));
+	spineMotor1.reset(new VictorSP(SPINE_MOTOR_1_PORT));
+		lw->AddActuator("Spine", "motor 1", std::static_pointer_cast<frc::VictorSP>(spineMotor1));
+	spineMotor2.reset(new VictorSP(SPINE_MOTOR_2_PORT));
+		lw->AddActuator("Spine", "motor 2", std::static_pointer_cast<frc::VictorSP>(spineMotor2));
 
 	// Drivetrain subsystem
+
+
 	leftDriveEncoder.reset(new Encoder(LEFT_DRIVE_ENCODER_A_PORT, LEFT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
 		leftDriveEncoder->Sendable::SetName("Drivetrain", "left encoder");
 		leftDriveEncoder->SetMaxPeriod(0.1);
 		leftDriveEncoder->SetMinRate(1);
-		leftDriveEncoder->SetSamplesToAverage(15);
+		leftDriveEncoder->SetSamplesToAverage(5);
 		leftDriveEncoder->SetReverseDirection(true);
-		leftDriveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		leftDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 	rightDriveEncoder.reset(new Encoder(RIGHT_DRIVE_ENCODER_A_PORT, RIGHT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
 		rightDriveEncoder->Sendable::SetName("Drivetrain", "right encoder");
 		rightDriveEncoder->SetMaxPeriod(0.1);
 		rightDriveEncoder->SetMinRate(1);
-		rightDriveEncoder->SetSamplesToAverage(15);
+		rightDriveEncoder->SetSamplesToAverage(5);
 		rightDriveEncoder->SetReverseDirection(true);
-		rightDriveEncoder->SetDistancePerPulse(3.14159265358979323*6.0/360.0); //PLACEHOLDER
+		rightDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 	backLeftDrive.reset(new VictorSP(BACK_LEFT_DRIVE_PORT));
 		lw->AddActuator("Drivetrain", "back left drive", std::static_pointer_cast<frc::VictorSP>(backLeftDrive));
@@ -173,9 +178,9 @@ void RobotMap::init() {
 		lw->AddActuator("Drivetrain", "front right drive", std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
 
 	backLeftDrive->SetInverted(true);
-	backRightDrive->SetInverted(false);
+	backRightDrive->SetInverted(true);
 	frontLeftDrive->SetInverted(true);
-	frontRightDrive->SetInverted(false);
+	frontRightDrive->SetInverted(true);
 
 	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
 	rightDrive = std::make_shared <SpeedControllerGroup>(*backRightDrive, *frontRightDrive);
