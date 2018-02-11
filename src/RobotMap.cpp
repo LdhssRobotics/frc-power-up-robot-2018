@@ -364,23 +364,41 @@ void RobotMap::initProtoCase(frc::LiveWindow *lw) {
 		gyro->Sendable::SetName("Drivetrain", "gyro");
 		gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
-
-
 }
 
 /**
- *  Drivetrain               | PWM | CAN | DIO |
- * =============================================
- *  Left Front Controller    |  2  |  2  |     |
- *  Left Back Controller     |  3  |  3  |     |
- *                           |     |     |     |
- *  Right Front Controller   |  0  |  0  |     |
- *  Right Back Controller    |  1  |  1  |     |
- *                           |     |     |     |
- *  Left Encoder Y           |     |     |  10 |
- *  Left Encoder B           |     |     |  11 |
- *  Right Encoder Y          |     |     |  12 |
- *  Right Encoder B          |     |     |  13 |
+ *  Power UP
+ *
+ *  Drivetrain               | PWM | CAN | DIO | Description |
+ * ===========================================================
+ *  Left Front Controller    |  2  |  2  |     | Victor SPX  |
+ *  Left Back Controller     |  3  |  3  |     | Victor SPX  |
+ *                           |     |     |     |             |
+ *  Right Front Controller   |  0  |  0  |     | Victor SPX  |
+ *  Right Back Controller    |  1  |  1  |     | Victor SPX  |
+ *                           |     |     |     |             |
+ *  Left Encoder Y           |     |     |  10 | E4T         |
+ *  Left Encoder B           |     |     |  11 | E4T         |
+ *  Right Encoder Y          |     |     |  12 | E4T         |
+ *  Right Encoder B          |     |     |  13 | E4T         |
+ *
+ *  Spine                    | PWM | CAN | DIO |             |
+ * ==========================================================|
+ *  Left Spine Controller    |  4  |  ?  |     | Talon SRX   |
+ *  Right Spine Controller   |  5  |  ?  |     | Talon SRX   |
+ *                                                           |
+ *  Left Encoder Y           |     |     |  14 |             |
+ *  Left Encoder B           |     |     |  15 |             |
+ *  Right Encoder Y          |     |     |  16 |             |
+ *  Right Encoder B          |     |     |  17 |             |
+ *
+ *  Arm                      | PWM | CAN | DIO |             |
+ * ==========================================================|
+ *  Left Controller          |  6  |     |     | Victor SP   |
+ *  Right Controller         |  7  |     |     | Victor SP   |
+ *
+ *  Encoder Y                |     |     |  18 |             |
+ *  Encoder B                |     |     |  19 |             |
  *
  */
 
@@ -446,6 +464,23 @@ void RobotMap::initPowerUp(frc::LiveWindow *lw) {
 void RobotMap::initPowerUpProto(frc::LiveWindow *lw) {
 
 }
+
+/**
+ *  Steamworks
+ *
+ *  Drivetrain               | PWM | CAN | DIO | Description |
+ * ===========================================================
+ *  Left Front Controller    |  2  |  2  |     | Victor SP   |
+ *  Left Back Controller     |  3  |  3  |     | Victor SP   |
+ *                           |     |     |     |             |
+ *  Right Front Controller   |  0  |  0  |     | Victor SP   |
+ *  Right Back Controller    |  1  |  1  |     | Victor SP   |
+ *                           |     |     |     |             |
+ *  Left Encoder Y           |     |     |  10 | E4T         |
+ *  Left Encoder B           |     |     |  11 | E4T         |
+ *  Right Encoder Y          |     |     |  12 | E4T         |
+ *  Right Encoder B          |     |     |  13 | E4T         |
+ */
 
 void RobotMap::initSteamworks(frc::LiveWindow *lw) {
 
