@@ -48,51 +48,31 @@ float Arm::GetArmPosition(){
 	return armEncoder->GetDistance();
 }
 
-float Arm::GetSpinePosition(){
-	return spineEncoder1->GetDistance() && spineEncoder2->GetDistance();
+float Arm::GetSpinePos1(){
+	return spineEncoder1->GetDistance();
 }
 
-float Arm::SetMaxPositionArm(){
-	return armEncoder->GetDistance() >180;
-}
-
-float Arm::SetMinPositionArm() {
-	return armEncoder->GetDistance() > 0;
-}
-
-float Arm::SetMaxPositionSpine(){
-	return topSpineSwitch1->Get() && topSpineSwitch1->Get();
-}
-
-float Arm::SetMinPositionSpine(){
-	return bottomSpineSwitch1->Get() && bottomSpineSwitch2->Get();
-}
-
-float Arm::SetMaxPositionClaw() {
-	return frontClawSwitch->Get();
-}
-
-float Arm::SetMinPositionClaw() {
-	return rearClawSwitch->Get();
-}
-
-float Arm::SafetyPositionSpine(){
-	if (armEncoder->GetDistance() > 20){
-		return spineEncoder1->GetDistance() > 360 && spineEncoder2->GetDistance() >360;
-	}
+float Arm::GetSpinePos2(){
+	return spineEncoder2->GetDistance();
 }
 
 bool Arm::InSpineMaxPosition() {
-	return (!(topSpineSwitch1->Get())) && !(topSpineSwitch2->Get());
+	return (topSpineSwitch1->Get() && topSpineSwitch2->Get());
 }
 
 bool Arm::InSpineMinPosition() {
-	return (!(bottomSpineSwitch1->Get())) && !(bottomSpineSwitch2->Get());
+	return (bottomSpineSwitch1->Get() && bottomSpineSwitch2->Get());
 }
 
+void Arm::ResetSpine(){
+	if (bottomSpineSwitch1->Get() && bottomSpineSwitch2->Get()){
+		SetMotorSpeedSpine(0);
+		Reset();
+	}
+}
 
 void Arm::Reset(){
-
+	ResetEncoder();
 	armMotor1->Set(0);
 	armMotor2->Set(0);
 	clawMotor->Set(0);

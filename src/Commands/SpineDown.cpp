@@ -21,7 +21,7 @@ void SpineDown::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool SpineDown::IsFinished() {
-	return Robot::arm->SetMaxPositionSpine();
+
 }
 
 // Called once after isFinished returns true

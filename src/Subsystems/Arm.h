@@ -33,20 +33,9 @@ public:
 	bool InSpineMaxPosition();
 	bool InSpineMinPosition();
 	float GetArmPosition();
-	float GetSpinePosition();
-	float SetMaxPositionArm();
-	float SetMinPositionArm();
-	float SetMaxPositionSpine();
-	float SetMinPositionSpine();
-	float SetMaxPositionClaw();
-	float SetMinPositionClaw();
-	float SafetyPositionSpine();
-	//void SetInBoardPosition(); //Set Arm to have the claw in-board
-	//void SetPickupPosition(); //Pick-Up Power Cubes from floor
-	//void SetSwitchPosition(); //Set Arm to a position where it can drop power cubes in the switch
-	//void SetScalePosition(); //Set Arm to a position where it can drop power cubes in teh scale
-
-
+	float GetSpinePos1();
+	float GetSpinePos2();
+	void ResetSpine();
 	void Reset();
 	void ResetEncoder();
 	void Log();

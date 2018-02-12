@@ -20,7 +20,7 @@ void ClawClose::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ClawClose::IsFinished() {
-	return Robot::arm->SetMinPositionClaw();
+
 }
 
 // Called once after isFinished returns true
