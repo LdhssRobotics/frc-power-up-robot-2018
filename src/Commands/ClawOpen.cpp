@@ -26,7 +26,7 @@ bool ClawOpen::IsFinished() {
 void ClawOpen::End() {
 	Robot::arm->SetMotorSpeedClaw(0);
 	SmartDashboard::PutString("Claw", "Finished");
-	Robot::arm->ResetEncoder();
+
 
 }
 

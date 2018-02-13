@@ -28,7 +28,6 @@ bool SpineDown::IsFinished() {
 void SpineDown::End() {
 	Robot::arm->SetMotorSpeedSpine(0);
 	SmartDashboard::PutString("Spine", "Finished");
-	Robot::arm->ResetEncoder();
 
 }
 

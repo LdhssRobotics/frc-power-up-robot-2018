@@ -29,7 +29,7 @@ bool SpineUp::IsFinished() {
 void SpineUp::End() {
 	Robot::arm->SetMotorSpeedSpine(0);
 	SmartDashboard::PutString("Spine", "Finished");
-	Robot::arm->ResetEncoder();
+
 
 }
 
