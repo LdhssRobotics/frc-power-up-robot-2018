@@ -14,13 +14,13 @@ ArmSwing::ArmSwing() {
 
 void ArmSwing::Initialize(){
 	SmartDashboard::PutString("Arm", "Start");
-	Robot::arm->SetMotorSpeedArm(0);
+	Robot::arm->SetArmSpeed(0);
 }
 
 void ArmSwing::Execute(){
 	float speed = (0.4 * Robot::oi->driveStick2->GetRawAxis(OI::LEFT_Y_AXIS));
 	SmartDashboard::PutString("Arm", "Moving");
-	Robot::arm->SetMotorSpeedArm(speed);
+	Robot::arm->SetArmSpeed(speed);
 	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
 }
 
@@ -29,7 +29,7 @@ bool ArmSwing::IsFinished(){
 }
 
 void ArmSwing::End(){
-	Robot::arm->SetMotorSpeedArm(0);
+	Robot::arm->SetArmSpeed(0);
 	SmartDashboard::PutString("Arm","Finished");
 }
 

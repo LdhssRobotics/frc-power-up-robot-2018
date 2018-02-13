@@ -29,17 +29,17 @@ void Arm::InitDefaultCommand() {
 	SetDefaultCommand(new ArmSwing());
 }
 
-void Arm::SetMotorSpeedArm(float speed){
+void Arm::SetArmSpeed(float speed){
 	armMotor1->Set(speed);
 	armMotor2->Set(speed);
 }
 
-void Arm::SetMotorSpeedSpine(float speed) {
+void Arm::SetSpineSpeed(float speed) {
 	spineMotor1->Set(speed);
 	spineMotor2->Set(speed);
 }
 
-void Arm::SetMotorSpeedClaw(float speed) {
+void Arm::SetClawSpeed(float speed) {
 	clawMotor->Set(speed);
 }
 

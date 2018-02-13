@@ -9,7 +9,7 @@ SpineDown::SpineDown() {
 // Called just before this Command runs the first time
 void SpineDown::Initialize() {
 	SmartDashboard::PutString("Spine", "Start");
-	Robot::arm->SetMotorSpeedSpine(-0.4);
+	Robot::arm->SetSpineSpeed(-0.4);
 
 }
 
@@ -26,7 +26,7 @@ bool SpineDown::IsFinished() {
 
 // Called once after isFinished returns true
 void SpineDown::End() {
-	Robot::arm->SetMotorSpeedSpine(0);
+	Robot::arm->SetSpineSpeed(0);
 	SmartDashboard::PutString("Spine", "Finished");
 
 }

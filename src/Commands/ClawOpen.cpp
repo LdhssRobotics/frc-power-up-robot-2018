@@ -9,7 +9,7 @@ ClawOpen::ClawOpen() {
 // Called just before this Command runs the first time
 void ClawOpen::Initialize() {
 	SmartDashboard::PutString("Claw", "Open");
-	Robot::arm->SetMotorSpeedClaw(0.4);
+	Robot::arm->SetClawSpeed(0.4);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -24,7 +24,7 @@ bool ClawOpen::IsFinished() {
 
 // Called once after isFinished returns true
 void ClawOpen::End() {
-	Robot::arm->SetMotorSpeedClaw(0);
+	Robot::arm->SetClawSpeed(0);
 	SmartDashboard::PutString("Claw", "Finished");
 
 
