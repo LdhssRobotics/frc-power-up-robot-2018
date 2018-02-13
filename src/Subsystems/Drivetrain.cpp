@@ -4,6 +4,11 @@
 #include "OI.h"
 #include "Commands/DriveWithJoystick.h"
 
+#include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
+#include "ctre/phoenix/MotorControl/CAN/WPI_VictorSPX.h"
+#include "ctre/phoenix/MotorControl/SensorCollection.h"
+
+
 #define SPEED_MULTIPLIER 0.95
 
 Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
@@ -35,6 +40,7 @@ void Drivetrain::Reset(){
 
 void Drivetrain::ArcadeDrive(double speed, double turn){
 	differentialDrive->ArcadeDrive(speed, turn);
+	Debug();
 }
 
 void Drivetrain::Stop(){
@@ -58,6 +64,7 @@ float Drivetrain::GetRightCount(){
 }
 void Drivetrain::TankDrive(double leftSpeed, double rightSpeed){
 	differentialDrive->TankDrive(leftSpeed, rightSpeed);
+	Debug();
 }
 
 void Drivetrain::ResetEncoder(){
@@ -80,4 +87,23 @@ void Drivetrain::Debug() {
 
 	SmartDashboard::PutNumber("Left Raw", leftDriveEncoder->GetRaw());
 	SmartDashboard::PutNumber("Right Raw", rightDriveEncoder->GetRaw());
+
+	//if (RobotMap::m_robotType == RobotMap::PROTOCASE) {
+
+		int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetSelectedSensorPosition(0);
+		SmartDashboard::PutNumber("Talon SRX - encoder: ", pos);
+
+		double volt = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetMotorOutputVoltage();
+		SmartDashboard::PutNumber("Talon SRX - volt: ", volt);
+
+		double current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetOutputCurrent();
+		SmartDashboard::PutNumber("Talon SRX - current: ", current);
+
+		ctre::phoenix::motorcontrol::SensorCollection &sc = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetSensorCollection();
+		int fwdLs = sc.IsFwdLimitSwitchClosed();
+		SmartDashboard::PutNumber("Talon SRX - fwdLs: ", fwdLs);
+
+		int revLs = sc.IsRevLimitSwitchClosed();
+		SmartDashboard::PutNumber("Talon SRX - revLs: ", revLs);
+	//}
 }

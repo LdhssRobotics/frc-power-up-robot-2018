@@ -108,7 +108,7 @@ void RobotMap::init() {
 	 *
 	 * default to POWERUP_PROTO
 	 */
-	m_robotType = POWERUP;
+	m_robotType = PROTOCASE;
 
 	switch (m_robotType) {
 	case PROTOCASE:
@@ -192,7 +192,7 @@ void RobotMap::initCommon(frc::LiveWindow *lw) {
 	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor));
 
 	spineMotor1.reset(new PWMTalonSRX(SPINE_MOTOR_1_PORT));
-	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
+	std::dynamic_pointer_cast<frc::PWMTalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
 	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1));
 
 	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
@@ -220,17 +220,19 @@ void RobotMap::initProtoCase(frc::LiveWindow *lw) {
 		rightDriveEncoder->SetReverseDirection(true);
 		rightDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
-	backLeftDrive.reset(new VictorSP(BACK_LEFT_DRIVE_PORT));
-	std::static_pointer_cast<frc::VictorSP>(backLeftDrive)->SetName("Drivetrain", "back left drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(backLeftDrive));
+	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
+	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive));
+
+	frontLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
+	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive));
+
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->Follow(*(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)));
 
 	backRightDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(backRightDrive)->SetName("Drivetrain", "back right drive");
 	lw->Add(std::static_pointer_cast<frc::VictorSP>(backRightDrive));
-
-	frontLeftDrive.reset(new VictorSP(FRONT_LEFT_DRIVE_PORT));
-	std::static_pointer_cast<frc::VictorSP>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(frontLeftDrive));
 
 	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(frontRightDrive)->SetName("Drivetrain", "front right drive");
@@ -334,7 +336,7 @@ void RobotMap::initPowerUpCommon(frc::LiveWindow *lw) {
 	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
 	rightDrive = std::make_shared <SpeedControllerGroup>(*backRightDrive, *frontRightDrive);
 
-	differentialDrive.reset(new DifferentialDrive(*leftDrive, *rightDrive));
+	differentialDrive.reset(new DifferentialDrive(*backLeftDrive, *rightDrive));
 		differentialDrive->SetSafetyEnabled(false);
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
