@@ -1,4 +1,4 @@
-#include "SpineUp.h"
+#include <Commands/Spine.h>
 
 SpineUp::SpineUp() {
 	// Use Requires() here to declare subsystem dependencies
@@ -9,14 +9,19 @@ SpineUp::SpineUp() {
 // Called just before this Command runs the first time
 void SpineUp::Initialize() {
 	SmartDashboard::PutString("Spine", "Start");
-	Robot::arm->SetSpineSpeed(0.4);
+	Robot::arm->SetSpineSpeed(0);
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SpineUp::Execute() {
-	Robot::arm->Log();
-
+	if (Robot::arm->CanMoveSpine()){
+		float speed = (0.4 * Robot::oi->driveStick2->GetRawAxis(OI::RIGHT_Y_AXIS));
+		SmartDashboard::PutString("Spine", "Moving");
+		Robot::arm->SetSpineSpeed(speed);
+		SmartDashboard::PutNumber("Spine Encoder 1", Robot::arm->GetSpinePos1());
+		SmartDashboard::PutNumber("Spine Encoder 2", Robot::arm->GetSpinePos2());
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

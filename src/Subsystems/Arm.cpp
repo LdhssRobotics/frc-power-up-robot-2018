@@ -85,6 +85,14 @@ void Arm::ResetArm(){
 	}
 }
 
+bool Arm::CanMoveSpine(){
+	if(Robot::arm->GetArmPosition() > -5 && Robot::arm->GetArmPosition() < 10){
+		return true;
+	}else if (Robot::arm->GetArmPosition() > 170 && Robot::arm->GetArmPosition() < 190){
+		return true;
+	}else return false;
+}
+
 void Arm::Reset(){
 	ResetArmEncoder();
 	ResetSpineEncoder1();

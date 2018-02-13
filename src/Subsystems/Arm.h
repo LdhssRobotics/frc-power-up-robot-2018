@@ -39,6 +39,7 @@ public:
 	void ResetSpine2();
 	void ResetArm();
 	void Reset();
+	bool CanMoveSpine();
 	void ResetArmEncoder();
 	void ResetSpineEncoder1();
 	void ResetSpineEncoder2();

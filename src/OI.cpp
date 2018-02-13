@@ -56,7 +56,7 @@ OI::OI() {
 	aButtonD->WhenPressed(new Turn180Degrees(false));
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
-  startButtonD->ToggleWhenPressed(new SwitchCamera());
+	startButtonD->ToggleWhenPressed(new SwitchCamera());
 
 }
 
