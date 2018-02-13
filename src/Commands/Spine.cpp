@@ -9,16 +9,17 @@ SpineUp::SpineUp() {
 // Called just before this Command runs the first time
 void SpineUp::Initialize() {
 	SmartDashboard::PutString("Spine", "Start");
-	Robot::arm->SetSpineSpeed(0);
+	Robot::arm->DifferentialSpine(0, 0);
+	Robot::arm->DifferentialSpine(0,0);
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SpineUp::Execute() {
 	if (Robot::arm->CanMoveSpine()){
-		float speed = (0.4 * Robot::oi->driveStick2->GetRawAxis(OI::RIGHT_Y_AXIS));
+		double speed = (0.4 * Robot::oi->driveStick2->GetRawAxis(OI::RIGHT_Y_AXIS));
 		SmartDashboard::PutString("Spine", "Moving");
-		Robot::arm->SetSpineSpeed(speed);
+		Robot::arm->DifferentialSpine(speed, speed);
 		SmartDashboard::PutNumber("Spine Encoder 1", Robot::arm->GetSpinePos1());
 		SmartDashboard::PutNumber("Spine Encoder 2", Robot::arm->GetSpinePos2());
 	}
@@ -32,7 +33,7 @@ bool SpineUp::IsFinished() {
 
 // Called once after isFinished returns true
 void SpineUp::End() {
-	Robot::arm->SetSpineSpeed(0);
+	Robot::arm->DifferentialSpine(0,0);
 	SmartDashboard::PutString("Spine", "Finished");
 
 

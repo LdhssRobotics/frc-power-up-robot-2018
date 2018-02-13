@@ -24,11 +24,16 @@ private:
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;
 
+	std::shared_ptr<DifferentialDrive> differentialSpine;
+
+	double SPEED_MULTIPLIER;
 public:
 	Arm();
 	void InitDefaultCommand();
 	void SetArmSpeed(float speed);
-	void SetSpineSpeed(float speed);
+	void DifferentialSpine(double leftSpeed, double rightSpeed);
+	void CheckEncoders();
+	void AdjustEncoder();
 	void SetClawSpeed(float speed);
 	bool InSpineMaxPosition();
 	bool InSpineMinPosition();

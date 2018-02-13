@@ -32,6 +32,8 @@ public:
 	static std::shared_ptr<SpeedController> armMotor1;
 	static std::shared_ptr<SpeedController> armMotor2;
 
+	static std::shared_ptr<DifferentialDrive> differentialSpine;
+
 	// Drivetrain subsystem
 	static std::shared_ptr<AnalogGyro> gyro;
 	static std::shared_ptr<Encoder> leftDriveEncoder;

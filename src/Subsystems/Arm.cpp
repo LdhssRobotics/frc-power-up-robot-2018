@@ -2,6 +2,8 @@
 #include "../RobotMap.h"
 #include "Robot.h"
 
+#include <algorithm>
+
 #include "Commands/ArmSwing.h"
 
 Arm::Arm() : Subsystem("Arm") {
@@ -21,6 +23,10 @@ Arm::Arm() : Subsystem("Arm") {
 	clawMotor = RobotMap::clawMotor;
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
+
+	differentialSpine = RobotMap::differentialSpine;
+
+	SPEED_MULTIPLIER = 0.02;
 }
 
 void Arm::InitDefaultCommand() {
@@ -34,9 +40,29 @@ void Arm::SetArmSpeed(float speed){
 	armMotor2->Set(speed);
 }
 
-void Arm::SetSpineSpeed(float speed) {
-	spineMotor1->Set(speed);
-	spineMotor2->Set(speed);
+void Arm::DifferentialSpine(double leftSpeed, double rightSpeed) {
+	differentialSpine->TankDrive(std::min(leftSpeed, 0.3), std::min(rightSpeed,0.3));
+}
+
+
+void Arm::CheckEncoders(){
+	if (spineEncoder1 == spineEncoder2){
+
+	}
+	else {
+		AdjustEncoder();
+	}
+}
+
+void Arm::AdjustEncoder() {
+	if (spineEncoder1 > spineEncoder2) {
+		//decrease right motor speed by speedchange
+		spineMotor2->Set(SPEED_MULTIPLIER * spineMotor2->Get());
+	}
+	else if (spineEncoder2 > spineEncoder1) {
+		//decrease left motor speed by speedchange
+		spineMotor1->Set(SPEED_MULTIPLIER * spineMotor1->Get());
+	}
 }
 
 void Arm::SetClawSpeed(float speed) {

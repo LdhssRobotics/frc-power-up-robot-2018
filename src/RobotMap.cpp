@@ -82,6 +82,8 @@ std::shared_ptr<SpeedController> RobotMap::clawMotor;
 std::shared_ptr<SpeedController> RobotMap::spineMotor1;
 std::shared_ptr<SpeedController> RobotMap::spineMotor2;
 
+std::shared_ptr<DifferentialDrive> RobotMap::differentialSpine;
+
 	// Drivetrain subsystem
 std::shared_ptr<AnalogGyro> RobotMap::gyro;
 std::shared_ptr<Encoder> RobotMap::leftDriveEncoder;
@@ -198,6 +200,11 @@ void RobotMap::initCommon(frc::LiveWindow *lw) {
 	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
 	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
+
+	differentialSpine.reset(new DifferentialDrive(*spineMotor1, *spineMotor2));
+			differentialSpine->SetSafetyEnabled(false);
+			differentialSpine->SetExpiration(0.1);
+			differentialSpine->SetMaxOutput(1.0);
 
 }
 
