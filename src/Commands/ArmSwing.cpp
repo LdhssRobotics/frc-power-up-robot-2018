@@ -31,7 +31,6 @@ bool ArmSwing::IsFinished(){
 void ArmSwing::End(){
 	Robot::arm->SetMotorSpeedArm(0);
 	SmartDashboard::PutString("Arm","Finished");
-	Robot::arm->ResetEncoder();
 }
 
 void ArmSwing::Interrupted(){

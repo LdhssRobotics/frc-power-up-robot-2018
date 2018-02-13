@@ -56,22 +56,39 @@ float Arm::GetSpinePos2(){
 }
 
 bool Arm::InSpineMaxPosition() {
-	return (topSpineSwitch1->Get() && topSpineSwitch2->Get());
+	return (topSpineSwitch1->Get() || topSpineSwitch2->Get());
 }
 
 bool Arm::InSpineMinPosition() {
-	return (bottomSpineSwitch1->Get() && bottomSpineSwitch2->Get());
+	return (bottomSpineSwitch1->Get() || bottomSpineSwitch2->Get());
 }
 
-void Arm::ResetSpine(){
-	if (bottomSpineSwitch1->Get() && bottomSpineSwitch2->Get()){
-		SetMotorSpeedSpine(0);
-		Reset();
+void Arm::ResetSpine1(){
+	if (bottomSpineSwitch1->Get()){
+		spineMotor1->Set(0);
+		ResetSpineEncoder1();
+	}
+}
+
+void Arm::ResetSpine2(){
+	if (bottomSpineSwitch2->Get()){
+		spineMotor2->Set(0);
+		ResetSpineEncoder2();
+	}
+}
+
+void Arm::ResetArm(){
+	if (bottomShoulderSwitch->Get()){
+		armMotor1->Set(0);
+		armMotor2->Set(0);
+		ResetArmEncoder();
 	}
 }
 
 void Arm::Reset(){
-	ResetEncoder();
+	ResetArmEncoder();
+	ResetSpineEncoder1();
+	ResetSpineEncoder2();
 	armMotor1->Set(0);
 	armMotor2->Set(0);
 	clawMotor->Set(0);
@@ -80,12 +97,16 @@ void Arm::Reset(){
 	Log();
 }
 
-void Arm::ResetEncoder(){
-
+void Arm::ResetArmEncoder(){
 	armEncoder->Reset();
-	spineEncoder1->Reset();
-	spineEncoder2->Reset();
+}
 
+void Arm::ResetSpineEncoder1(){
+	spineEncoder1->Reset();
+}
+
+void Arm::ResetSpineEncoder2(){
+	spineEncoder2->Reset();
 }
 
 void Arm::Log(){

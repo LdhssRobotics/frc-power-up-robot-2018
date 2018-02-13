@@ -35,9 +35,13 @@ public:
 	float GetArmPosition();
 	float GetSpinePos1();
 	float GetSpinePos2();
-	void ResetSpine();
+	void ResetSpine1();
+	void ResetSpine2();
+	void ResetArm();
 	void Reset();
-	void ResetEncoder();
+	void ResetArmEncoder();
+	void ResetSpineEncoder1();
+	void ResetSpineEncoder2();
 	void Log();
 };
 
