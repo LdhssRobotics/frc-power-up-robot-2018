@@ -52,8 +52,6 @@ public:
 	static void init();
 	static void reset();
 
-private:
-
 	typedef enum robotType {
 		PROTOCASE,
 		STEAMWORKS,
@@ -62,6 +60,9 @@ private:
 	} RobotType_t;
 
 	static RobotType_t m_robotType;
+
+private:
+
 
 
 	/**
