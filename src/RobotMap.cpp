@@ -197,9 +197,9 @@ void RobotMap::initCommon(frc::LiveWindow *lw) {
 	std::dynamic_pointer_cast<frc::PWMTalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
 	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor1));
 
-	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
-	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
-	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
+	spineMotor2.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(SPINE_MOTOR_2_PORT));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
+	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2));
 
 	differentialSpine.reset(new DifferentialDrive(*spineMotor1, *spineMotor2));
 			differentialSpine->SetSafetyEnabled(false);
