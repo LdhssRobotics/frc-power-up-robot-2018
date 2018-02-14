@@ -16,8 +16,10 @@ void SpineUp::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SpineUp::Execute() {
-	if (Robot::arm->CanMoveSpine()){
-		double speed = (0.4 * Robot::oi->driveStick2->GetRawAxis(OI::RIGHT_Y_AXIS));
+	int direction = Robot::oi->driveStick->GetPOV(0);
+
+	if (/*Robot::arm->CanMoveSpine() &&*/ direction == 0){
+		double speed = (0.4);
 		SmartDashboard::PutString("Spine", "Moving");
 		Robot::arm->DifferentialSpine(speed, speed);
 		SmartDashboard::PutNumber("Spine Encoder 1", Robot::arm->GetSpinePos1());

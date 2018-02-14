@@ -38,7 +38,6 @@ public:
 	JoystickButton *leftStickButtonA;
 	JoystickButton *rightStickButtonA;
 
-
 	// Axes
 	static const int LEFT_X_AXIS = 0;
 	static const int LEFT_Y_AXIS = 1;

@@ -28,7 +28,7 @@ OI::OI() {
 	selectButtonD = new JoystickButton(driveStick.get(), 7);
 	startButtonD = new JoystickButton(driveStick.get(), 8);
 	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
-	rightStickButtonD = new JoystickButton(driveStick.get(), 1);
+	rightStickButtonD = new JoystickButton(driveStick.get(), 10);
 
 	driveStick2.reset(new Joystick(1));
 
