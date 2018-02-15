@@ -12,6 +12,7 @@
 #include "Robot.h"
 #include "SmartDashboard/Sendable.h"
 #include "Encoder.h"
+#include "ADXRS450_Gyro.h"
 
 // PORT MAPPINGS
 	// PWM Ports
@@ -77,7 +78,7 @@ std::shared_ptr<SpeedController> RobotMap::spineMotor1;
 std::shared_ptr<SpeedController> RobotMap::spineMotor2;
 
 	// Drivetrain subsystem
-std::shared_ptr<AnalogGyro> RobotMap::gyro;
+std::shared_ptr<ADXRS450_Gyro> RobotMap::gyro;
 std::shared_ptr<Encoder> RobotMap::leftDriveEncoder;
 std::shared_ptr<Encoder> RobotMap::rightDriveEncoder;
 
@@ -185,9 +186,8 @@ void RobotMap::init() {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new AnalogGyro(GYRO_PORT));
+	gyro.reset(new ADXRS450_Gyro());
 		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
 }
 

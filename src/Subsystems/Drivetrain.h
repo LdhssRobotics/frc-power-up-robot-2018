@@ -6,14 +6,16 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
+
+
 class Drivetrain : public frc::Subsystem {
 private:
-	std::shared_ptr<AnalogGyro> gyro;
 	std::shared_ptr<Encoder> leftDriveEncoder;
 	std::shared_ptr<Encoder> rightDriveEncoder;
 	std::shared_ptr<DifferentialDrive> differentialDrive;
 
 public:
+	std::shared_ptr<ADXRS450_Gyro> gyro;
 	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
 	std::shared_ptr<SpeedController> frontLeftDrive;
