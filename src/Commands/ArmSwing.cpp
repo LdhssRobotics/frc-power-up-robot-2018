@@ -19,9 +19,9 @@ void ArmSwing::Initialize(){
 
 void ArmSwing::Execute(){
 	float speed = (0.4 * Robot::oi->driveStick2->GetRawAxis(OI::LEFT_Y_AXIS));
-	SmartDashboard::PutString("Arm", "Moving");
 	Robot::arm->SetArmSpeed(speed);
-	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
+	SmartDashboard::PutString("Arm", "Moving");
+
 }
 
 bool ArmSwing::IsFinished(){

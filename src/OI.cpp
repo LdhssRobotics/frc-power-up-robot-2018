@@ -43,7 +43,6 @@ OI::OI() {
 	startButtonA = new JoystickButton(driveStick2.get(), 8);
 	leftStickButtonA = new JoystickButton(driveStick2.get(), 9);
 	rightStickButtonA = new JoystickButton(driveStick2.get(), 1);
-
 	// Assigning Commands to Buttons
 
 	// Arm Controls

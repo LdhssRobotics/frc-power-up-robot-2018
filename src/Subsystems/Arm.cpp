@@ -44,25 +44,9 @@ void Arm::DifferentialSpine(double leftSpeed, double rightSpeed) {
 	differentialSpine->TankDrive(std::min(leftSpeed, 0.3), std::min(rightSpeed,0.3));
 }
 
-
-void Arm::CheckEncoders(){
-	if (spineEncoder1 == spineEncoder2){
-
-	}
-	else {
-		AdjustEncoder();
-	}
-}
-
-void Arm::AdjustEncoder() {
-	if (spineEncoder1 > spineEncoder2) {
-		//decrease right motor speed by speedchange
-		spineMotor2->Set(SPEED_MULTIPLIER * spineMotor2->Get());
-	}
-	else if (spineEncoder2 > spineEncoder1) {
-		//decrease left motor speed by speedchange
-		spineMotor1->Set(SPEED_MULTIPLIER * spineMotor1->Get());
-	}
+double Arm::AdjustSpine() {
+	double difference = (GetSpinePos2() - GetSpinePos1()) / GetSpinePos1();
+	return (1-difference);
 }
 
 void Arm::SetClawSpeed(float speed) {

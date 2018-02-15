@@ -33,7 +33,7 @@ public:
 	void SetArmSpeed(float speed);
 	void DifferentialSpine(double leftSpeed, double rightSpeed);
 	void CheckEncoders();
-	void AdjustEncoder();
+	double AdjustSpine();
 	void SetClawSpeed(float speed);
 	bool InSpineMaxPosition();
 	bool InSpineMinPosition();

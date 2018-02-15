@@ -8,23 +8,34 @@ SpineUp::SpineUp() {
 
 // Called just before this Command runs the first time
 void SpineUp::Initialize() {
+	//double checkencoderspine = Robot::arm->CheckEncoders();
 	SmartDashboard::PutString("Spine", "Start");
 	Robot::arm->DifferentialSpine(0, 0);
-	Robot::arm->DifferentialSpine(0,0);
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SpineUp::Execute() {
-	int direction = Robot::oi->driveStick->GetPOV(0);
+	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick->GetPOV(0));
+		if (Robot::oi->driveStick->GetPOV(0) == 0){
+			double speed = (0.2);
+			SmartDashboard::PutString("Arm", "Moving");
+			Robot::arm->DifferentialSpine(speed, speed * Robot::arm->AdjustSpine());
+			SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
+		}
+		else if(Robot::oi->driveStick->GetPOV(0) == -1){
+			double speed = (0);
+			SmartDashboard::PutString("Arm", "Moving");
+			Robot::arm->DifferentialSpine(speed, speed);
+			SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
+		}
+		else if(Robot::oi->driveStick->GetPOV(0) == 180){
+			double speed = (-0.4);
+			SmartDashboard::PutString("Arm", "Moving");
+			Robot::arm->DifferentialSpine(speed, speed * Robot::arm->AdjustSpine());
+			SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
+		}
 
-	if (/*Robot::arm->CanMoveSpine() &&*/ direction == 0){
-		double speed = (0.4);
-		SmartDashboard::PutString("Spine", "Moving");
-		Robot::arm->DifferentialSpine(speed, speed);
-		SmartDashboard::PutNumber("Spine Encoder 1", Robot::arm->GetSpinePos1());
-		SmartDashboard::PutNumber("Spine Encoder 2", Robot::arm->GetSpinePos2());
-	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
