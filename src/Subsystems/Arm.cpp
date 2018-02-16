@@ -10,13 +10,9 @@ Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
 	spineEncoder1 = RobotMap::spineEncoder1;
 	spineEncoder2 = RobotMap::spineEncoder2;
-	bottomSpineSwitch1 = RobotMap::bottomSpineSwitch1;
-	topSpineSwitch1 = RobotMap::topSpineSwitch1;
-	bottomSpineSwitch2 = RobotMap::bottomSpineSwitch2;
-	topSpineSwitch2 = RobotMap::topSpineSwitch2;
 	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
-	frontClawSwitch = RobotMap::frontClawSwitch;
-	rearClawSwitch = RobotMap::rearClawSwitch;
+	topShoulderSwitch = RobotMap::topShoulderSwitch;
+
 
 	armMotor1 = RobotMap::armMotor1;
 	armMotor2 = RobotMap::armMotor2;
@@ -41,12 +37,7 @@ void Arm::SetArmSpeed(float speed){
 }
 
 void Arm::DifferentialSpine(double leftSpeed, double rightSpeed) {
-	differentialSpine->TankDrive(std::min(leftSpeed, 0.3), std::min(rightSpeed,0.3));
-}
-
-double Arm::AdjustSpine() {
-	double difference = (GetSpinePos2() - GetSpinePos1()) / GetSpinePos1();
-	return (1-difference);
+	differentialSpine->TankDrive(leftSpeed, rightSpeed);
 }
 
 void Arm::SetClawSpeed(float speed) {
@@ -63,28 +54,6 @@ float Arm::GetSpinePos1(){
 
 float Arm::GetSpinePos2(){
 	return spineEncoder2->GetDistance();
-}
-
-bool Arm::InSpineMaxPosition() {
-	return (topSpineSwitch1->Get() || topSpineSwitch2->Get());
-}
-
-bool Arm::InSpineMinPosition() {
-	return (bottomSpineSwitch1->Get() || bottomSpineSwitch2->Get());
-}
-
-void Arm::ResetSpine1(){
-	if (bottomSpineSwitch1->Get()){
-		spineMotor1->Set(0);
-		ResetSpineEncoder1();
-	}
-}
-
-void Arm::ResetSpine2(){
-	if (bottomSpineSwitch2->Get()){
-		spineMotor2->Set(0);
-		ResetSpineEncoder2();
-	}
 }
 
 void Arm::ResetArm(){

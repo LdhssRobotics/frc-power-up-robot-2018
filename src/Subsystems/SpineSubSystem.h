@@ -1,46 +1,47 @@
-#ifndef Arm_H
-#define Arm_H
+/*
+ * Spine.h
+ *
+ *  Created on: Feb 15, 2018
+ *      Author: Sayfullah
+ */
+
+#ifndef SRC_SUBSYSTEMS_SPINESUBSYSTEM_H_
+#define SRC_SUBSYSTEMS_SPINESUBSYSTEM_H_
 
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
 
-class Arm : public frc::Subsystem {
+class SpineSubSystem : public frc::Subsystem  {
 private:
-	std::shared_ptr<Encoder> armEncoder;
+	//Spine Encoders
 	std::shared_ptr<Encoder> spineEncoder1;
 	std::shared_ptr<Encoder> spineEncoder2;
+
+	//Spine Switches
 	std::shared_ptr<DigitalInput> bottomShoulderSwitch;
 	std::shared_ptr<DigitalInput> topShoulderSwitch;
 
-	std::shared_ptr<SpeedController> armMotor1;
-	std::shared_ptr<SpeedController> armMotor2;
-	std::shared_ptr<SpeedController> clawMotor;
+	//Spine Motors
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;
 
 	std::shared_ptr<DifferentialDrive> differentialSpine;
 
-	double SPEED_MULTIPLIER;
 public:
-	Arm();
+	SpineSubSystem();
 	void InitDefaultCommand();
-	void SetArmSpeed(float speed);
-	void CheckEncoders();
-	void SetClawSpeed(float speed);
-	bool InSpineMaxPosition();
-	bool InSpineMinPosition();
-	float GetArmPosition();
+	double AdjustSpine();
+	void DifferentialSpine(double leftSpeed, double rightSpeed);
 	float GetSpinePos1();
 	float GetSpinePos2();
 	void ResetSpine1();
 	void ResetSpine2();
-	void ResetArm();
 	void Reset();
 	bool CanMoveSpine();
-	void ResetArmEncoder();
 	void ResetSpineEncoder1();
 	void ResetSpineEncoder2();
 	void Log();
+
 };
 
-#endif  // Arm_H
+#endif /* SRC_SUBSYSTEMS_SPINESUBSYSTEM_H_ */

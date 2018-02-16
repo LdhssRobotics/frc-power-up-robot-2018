@@ -35,6 +35,7 @@ void Robot::RobotInit() {
 
 	arm.reset(new Arm());
 	drivetrain.reset(new Drivetrain());
+	spine.reset(new Spine());
 
 	oi.reset(new OI());
 
@@ -69,7 +70,6 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
-
 	if(Robot::drivetrain->CubeFront){
 		server.SetSource(invertableCubeCamera);
 	} else {

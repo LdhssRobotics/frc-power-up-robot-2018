@@ -24,8 +24,8 @@
 // Subsystem includes
 #include "Subsystems/Arm.h"
 #include "Subsystems/Drivetrain.h"
-
 #include "OI.h"
+#include "Subsystems/SpineSubSystem.h"
 
 class Robot : public frc::TimedRobot {
 	public:
@@ -35,6 +35,7 @@ class Robot : public frc::TimedRobot {
 	frc::SendableChooser<frc::Command*> chooser;
 	static std::shared_ptr<Arm> arm;
 	static std::shared_ptr<Drivetrain> drivetrain;
+	static std::shared_ptr<SpineSubSystem> spine;
 
 	static void VisionThread();
 	void RobotInit() override;
