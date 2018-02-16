@@ -20,26 +20,17 @@ private:
 
 	std::shared_ptr<DifferentialDrive> differentialSpine;
 
-	double SPEED_MULTIPLIER;
 public:
 	Arm();
 	void InitDefaultCommand();
 	void SetArmSpeed(float speed);
 	void CheckEncoders();
 	void SetClawSpeed(float speed);
-	bool InSpineMaxPosition();
-	bool InSpineMinPosition();
 	float GetArmPosition();
-	float GetSpinePos1();
-	float GetSpinePos2();
-	void ResetSpine1();
-	void ResetSpine2();
 	void ResetArm();
 	void Reset();
 	bool CanMoveSpine();
 	void ResetArmEncoder();
-	void ResetSpineEncoder1();
-	void ResetSpineEncoder2();
 	void Log();
 };
 

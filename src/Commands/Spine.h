@@ -5,9 +5,9 @@
 #include "Robot.h"
 #include "RobotMap.h"
 
-class SpineUp : public Command {
+class Spine : public Command {
 public:
-	SpineUp();
+	Spine();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

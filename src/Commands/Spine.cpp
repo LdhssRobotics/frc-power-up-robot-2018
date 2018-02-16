@@ -1,25 +1,25 @@
 #include <Commands/Spine.h>
 
-SpineUp::SpineUp() {
+Spine::Spine() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::spine.get());
 }
 
 // Called just before this Command runs the first time
-void SpineUp::Initialize() {
+void Spine::Initialize() {
 	SmartDashboard::PutString("Spine", "Start");
 	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick2->GetPOV(0));
-	SmartDashboard::PutNumber("Spine 1", Robot::arm->GetSpinePos1());
-	SmartDashboard::PutNumber("Spine 2", Robot::arm->GetSpinePos2());
+	SmartDashboard::PutNumber("Spine 1", Robot::spine->GetSpinePos1());
+	SmartDashboard::PutNumber("Spine 2", Robot::spine->GetSpinePos2());
 	Robot::spine->DifferentialSpine(0, 0);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SpineUp::Execute() {
+void Spine::Execute() {
 	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick2->GetPOV(0));
-	SmartDashboard::PutNumber("Spine Encoder 1", Robot::arm->GetSpinePos1());
-	SmartDashboard::PutNumber("Spine Encoder 2", Robot::arm->GetSpinePos2());
+	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
+	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
 	if (Robot::oi->driveStick2->GetPOV(0) == 0){
 		double speed = (0.2);
 		SmartDashboard::PutString("Spine", "Moving");
@@ -39,13 +39,13 @@ void SpineUp::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool SpineUp::IsFinished() {
+bool Spine::IsFinished() {
 	return false;
 
 }
 
 // Called once after isFinished returns true
-void SpineUp::End() {
+void Spine::End() {
 	Robot::spine->DifferentialSpine(0,0);
 	SmartDashboard::PutString("Spine", "Finished");
 
@@ -54,7 +54,7 @@ void SpineUp::End() {
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void SpineUp::Interrupted() {
+void Spine::Interrupted() {
 	End();
 
 }

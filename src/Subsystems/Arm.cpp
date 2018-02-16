@@ -22,7 +22,6 @@ Arm::Arm() : Subsystem("Arm") {
 
 	differentialSpine = RobotMap::differentialSpine;
 
-	SPEED_MULTIPLIER = 0.02;
 }
 
 void Arm::InitDefaultCommand() {
@@ -36,24 +35,12 @@ void Arm::SetArmSpeed(float speed){
 	armMotor2->Set(speed);
 }
 
-void Arm::DifferentialSpine(double leftSpeed, double rightSpeed) {
-	differentialSpine->TankDrive(leftSpeed, rightSpeed);
-}
-
 void Arm::SetClawSpeed(float speed) {
 	clawMotor->Set(speed);
 }
 
 float Arm::GetArmPosition(){
 	return armEncoder->GetDistance();
-}
-
-float Arm::GetSpinePos1(){
-	return spineEncoder1->GetDistance();
-}
-
-float Arm::GetSpinePos2(){
-	return spineEncoder2->GetDistance();
 }
 
 void Arm::ResetArm(){
@@ -74,8 +61,6 @@ bool Arm::CanMoveSpine(){
 
 void Arm::Reset(){
 	ResetArmEncoder();
-	ResetSpineEncoder1();
-	ResetSpineEncoder2();
 	armMotor1->Set(0);
 	armMotor2->Set(0);
 	clawMotor->Set(0);
@@ -86,14 +71,6 @@ void Arm::Reset(){
 
 void Arm::ResetArmEncoder(){
 	armEncoder->Reset();
-}
-
-void Arm::ResetSpineEncoder1(){
-	spineEncoder1->Reset();
-}
-
-void Arm::ResetSpineEncoder2(){
-	spineEncoder2->Reset();
 }
 
 void Arm::Log(){
