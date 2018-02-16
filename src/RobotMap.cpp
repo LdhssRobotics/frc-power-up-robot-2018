@@ -186,11 +186,11 @@ void RobotMap::initProtoCase() {
 		rightDriveEncoder->SetReverseDirection(true);
 		rightDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
-	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(0));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
 	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive));
 
-	frontLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
+	frontLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
 	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive));
 

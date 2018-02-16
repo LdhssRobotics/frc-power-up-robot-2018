@@ -37,6 +37,11 @@ void SpineSubSystem::DifferentialSpine(double leftSpeed, double rightSpeed) {
 	differentialSpine->TankDrive(leftSpeed, rightSpeed);
 }
 
+void SpineSubSystem::SetMotorSpeed(double lspeed, double rspeed){
+	Robot::spine->spineMotor1->Set(lspeed);
+	Robot::spine->spineMotor2->Set(rspeed);
+}
+
 float SpineSubSystem::GetSpinePos1(){
 	return Robot::spine->spineEncoder1->Get();
 }

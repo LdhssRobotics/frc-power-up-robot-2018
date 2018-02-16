@@ -32,6 +32,7 @@ public:
 	void InitDefaultCommand();
 	double AdjustSpine();
 	void DifferentialSpine(double leftSpeed, double rightSpeed);
+	void SetMotorSpeed(double lspeed, double rspeed);
 	float GetSpinePos1();
 	float GetSpinePos2();
 	void ResetSpine1();
