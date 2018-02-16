@@ -9,6 +9,7 @@
 #define ROBOTMAP_H
 
 #include "WPILib.h"
+#include "LiveWindow/LiveWindow.h"
 
 class RobotMap {
 public:
@@ -50,6 +51,49 @@ public:
 
 	static void init();
 	static void reset();
+
+	typedef enum robotType {
+		PROTOCASE,
+		STEAMWORKS,
+		POWERUP_PROTO,
+		POWERUP
+	} RobotType_t;
+
+	static RobotType_t m_robotType;
+
+private:
+
+
+
+	/**
+	 * initialization common to all robots
+	 */
+	static void initCommon(frc::LiveWindow *lw);
+
+	/**
+	 * initialization common to both 2018 Power Up prototype and competition robots
+	 */
+	static void initPowerUpCommon(frc::LiveWindow *lw);
+
+	/**
+	 * initialization specific to 2018 Power Up prototype robot
+	 */
+	static void initPowerUpProto(frc::LiveWindow *lw);
+
+	/**
+	 * initialization specific to 2018 Power Up competition robot
+	 */
+	static void initPowerUp(frc::LiveWindow *lw);
+
+	/**
+	 * initialization specific to protocase robot
+	 */
+	static void initProtoCase(frc::LiveWindow *lw);
+
+	/**
+	 * initialization specific to 2017 steamworks robot
+	 */
+	static void initSteamworks(frc::LiveWindow *lw);
 };
 
 #endif

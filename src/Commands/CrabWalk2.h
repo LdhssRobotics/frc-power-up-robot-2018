@@ -1,13 +1,15 @@
-#ifndef DriveWithJoystick_H
-#define DriveWithJoystick_H
+#ifndef CrabWalk2_H
+#define CrabWalk2_H
 
 #include "../RobotMap.h"
 #include "../Robot.h"
 #include "WPILib.h"
 
-class DriveWithJoystick : public Command {
+class CrabWalk2 : public Command {
+private:
+	bool isLeftWalk;
 public:
-	DriveWithJoystick();
+	CrabWalk2(bool isLeft);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -15,4 +17,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // DriveWithJoystick_H
+#endif  // CrabWalk2_H

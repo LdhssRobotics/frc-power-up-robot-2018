@@ -6,15 +6,15 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-
-
 class Drivetrain : public frc::Subsystem {
 private:
+	std::shared_ptr<AnalogGyro> gyro;
 	std::shared_ptr<Encoder> leftDriveEncoder;
 	std::shared_ptr<Encoder> rightDriveEncoder;
 	std::shared_ptr<DifferentialDrive> differentialDrive;
 
-public:
+public:	
+	bool CubeFront;
 	std::shared_ptr<ADXRS450_Gyro> gyro;
 	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
@@ -25,7 +25,15 @@ public:
 
 	Drivetrain();
 	void InitDefaultCommand();
+	void ArcadeDrive(double, double);
+	float GetLeftDistance();
+	float GetRightDistance();
+	float GetLeftCount();
+	float GetRightCount();
+	void Debug();
+	void TankDrive(double leftSpeed, double rightSpeed);
 	void Reset();
+	void ResetEncoder();
 	void ArcadeDrive(double, double);
 	float GetDistance();
 	void Stop();
