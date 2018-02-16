@@ -35,6 +35,8 @@ public:
 	void ResetEncoder();
 	float GetDistance();
 	void Stop();
+	float EncoderPosition();
+	void MCEncoderReset();
 };
 
 #endif  // Drivetrain_H
