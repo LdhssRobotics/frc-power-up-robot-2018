@@ -1,5 +1,9 @@
 #include "Arm.h"
 #include "../RobotMap.h"
+#include "Drivetrain.h"
+#include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
+#include "SmartDashboard/Sendable.h"
+#include "WPILib.h"
 
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
@@ -19,6 +23,8 @@ Arm::Arm() : Subsystem("Arm") {
 	clawMotor = RobotMap::clawMotor;
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
+
+	IsClawClosed = false;
 }
 
 void Arm::InitDefaultCommand() {
@@ -29,13 +35,30 @@ void Arm::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void Arm::Reset(){
-	armEncoder->Reset();
-	spineEncoder1->Reset();
-	spineEncoder2->Reset();
+	armEncoder.reset();
+	spineEncoder1.reset();
+	spineEncoder2.reset();
 
 	armMotor1->Set(0);
 	armMotor2->Set(0);
 	clawMotor->Set(0);
 	spineMotor1->Set(0);
 	spineMotor2->Set(0);
+}
+
+void Arm::OpenClaw(){
+	clawMotor->Set(0.5);
+}
+void Arm::CloseClaw(){
+	clawMotor->Set(-0.5);
+}
+
+bool Arm::LimitSwitchState(){
+	SmartDashboard::PutBoolean("Claw Limit Switch State: ", rearClawSwitch.get());
+	return(rearClawSwitch.get());
+}
+double Arm::CurrentDraw(){
+	double current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->GetOutputCurrent();
+	SmartDashboard::PutNumber("Talon SRX - current: ", current);
+	return (current);
 }

@@ -24,10 +24,17 @@ private:
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;
 
+	bool IsClawClosed;
+
 public:
 	Arm();
 	void InitDefaultCommand();
+	void Arm::OpenClaw();
+	void Arm::CloseClaw();
+	bool Arm::LimitSwitchState();
+	double Arm::CurrentDraw();
 	void Reset();
+
 };
 
 #endif  // Arm_H
