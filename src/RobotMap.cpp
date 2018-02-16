@@ -225,15 +225,15 @@ void RobotMap::initProtoCase(frc::LiveWindow *lw) {
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
 	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive));
 
-	frontLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive));
+	backRightDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backRightDrive)->SetName("Drivetrain", "front left drive");
+	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backRightDrive));
 
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->Follow(*(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)));
+	//std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->Follow(*(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)));
 
-	backRightDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
-	std::static_pointer_cast<frc::VictorSP>(backRightDrive)->SetName("Drivetrain", "back right drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(backRightDrive));
+	frontLeftDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
+	std::static_pointer_cast<frc::VictorSP>(frontLeftDrive)->SetName("Drivetrain", "back right drive");
+	lw->Add(std::static_pointer_cast<frc::VictorSP>(frontLeftDrive));
 
 	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(frontRightDrive)->SetName("Drivetrain", "front right drive");
@@ -252,9 +252,9 @@ void RobotMap::initProtoCase(frc::LiveWindow *lw) {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new AnalogGyro(GYRO_PORT));
+	gyro.reset(new ADXRS450_Gyro(SPI::Port(GYRO_PORT)));
 		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
+		//gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
 }
 
@@ -342,9 +342,9 @@ void RobotMap::initPowerUpCommon(frc::LiveWindow *lw) {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new AnalogGyro(GYRO_PORT));
-		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
+	gyro.reset(new ADXRS450_Gyro(SPI::Port(0)));
+	gyro->Sendable::SetName("Drivetrain", "gyro");
+		//gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
 
 }

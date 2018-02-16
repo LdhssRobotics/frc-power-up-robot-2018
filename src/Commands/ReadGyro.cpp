@@ -31,7 +31,7 @@ void ReadGyro::Execute() {
 }
 
 bool ReadGyro::IsFinished(){
-
+	return false;
 }
 
 void ReadGyro::End(){
