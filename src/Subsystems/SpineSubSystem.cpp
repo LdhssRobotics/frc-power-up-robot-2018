@@ -58,6 +58,16 @@ void SpineSubSystem::ResetSpineEncoder2(){
 	Robot::spine->spineEncoder2->Reset();
 }
 
+bool SpineSubSystem::CanMoveSpine(){
+	if (Robot::arm->GetArmPosition() < 10 || Robot::arm->GetArmPosition() > -5) {
+		return true;
+	}else if (Robot::arm->GetArmPosition() < 190 || Robot::arm->GetArmPosition() > 170){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 void SpineSubSystem::Reset(){
 	DifferentialSpine(0,0);
 	ResetSpineEncoder1();

@@ -12,6 +12,7 @@
 #include "Commands/CrabWalkGroup.h"
 #include "Commands/CrabWalk.h"
 #include "Commands/CrabWalk2.h"
+#include "Commands/Climb.h"
 
 #include "Commands/SwitchCamera.h"
 OI::OI() {
@@ -42,7 +43,7 @@ OI::OI() {
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
 	startButtonD->ToggleWhenPressed(new SwitchCamera());
-
+	selectButtonD->ToggleWhenPressed(new Climb());
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
