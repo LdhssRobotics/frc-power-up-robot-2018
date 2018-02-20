@@ -9,7 +9,7 @@ Spine::Spine() {
 // Called just before this Command runs the first time
 void Spine::Initialize() {
 	SmartDashboard::PutString("Spine", "Start");
-	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick2->GetPOV(0));
+	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick->GetPOV(0));
 	SmartDashboard::PutNumber("Spine 1", Robot::spine->GetSpinePos1());
 	SmartDashboard::PutNumber("Spine 2", Robot::spine->GetSpinePos2());
 	Robot::spine->DifferentialSpine(0, 0);
@@ -17,20 +17,20 @@ void Spine::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Spine::Execute() {
-	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick2->GetPOV(0));
+	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick->GetPOV(0));
 	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
 	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
-	if (Robot::oi->driveStick2->GetPOV(0) == 0){
+	if (Robot::oi->driveStick->GetPOV(0) == 0){
 		double speed = (0.5);
 		SmartDashboard::PutString("Spine", "Moving Up");
 		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());
 	}
-	else if(Robot::oi->driveStick2->GetPOV(0) == -1){
+	else if(Robot::oi->driveStick->GetPOV(0) == -1){
 		double speed = (0);
 		SmartDashboard::PutString("Spine", "Stopped");
 		Robot::spine->DifferentialSpine(speed, speed);
 	}
-	else if(Robot::oi->driveStick2->GetPOV(0) == 180){
+	else if(Robot::oi->driveStick->GetPOV(0) == 180){
 		double speed = (-0.5);
 		SmartDashboard::PutString("Spine", "Moving Down");
 		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());

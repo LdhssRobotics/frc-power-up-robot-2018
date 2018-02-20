@@ -12,7 +12,6 @@
 class OI {
 public:
 	std::shared_ptr<frc::Joystick> driveStick; //DriveTrain Controller
-	std::shared_ptr<frc::Joystick> driveStick2; //Arm Controller
 
 	// Drive Stick Buttons
 	JoystickButton *aButtonD;
@@ -26,18 +25,6 @@ public:
 	JoystickButton *leftStickButtonD;
 	JoystickButton *rightStickButtonD;
 
-	//Arm Controller Buttons
-	JoystickButton *aButtonA;
-	JoystickButton *bButtonA;
-	JoystickButton *xButtonA;
-	JoystickButton *yButtonA;
-	JoystickButton *leftBumperButtonA;
-	JoystickButton *rightBumperButtonA;
-	JoystickButton *selectButtonA;
-	JoystickButton *startButtonA;
-	JoystickButton *leftStickButtonA;
-	JoystickButton *rightStickButtonA;
-
 	// Axes
 	static const int LEFT_X_AXIS = 0;
 	static const int LEFT_Y_AXIS = 1;
@@ -49,7 +36,6 @@ public:
 	OI();
 
 	std::shared_ptr<frc::Joystick> getDriveStick();
-	std::shared_ptr<frc::Joystick> getDriveStick2();
 };
 
 #endif

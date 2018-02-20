@@ -29,20 +29,6 @@ OI::OI() {
 	startButtonD = new JoystickButton(driveStick.get(), 8);
 	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
 	rightStickButtonD = new JoystickButton(driveStick.get(), 10);
-
-	driveStick2.reset(new Joystick(1));
-
-	// Drive Stick Buttons
-	aButtonA = new JoystickButton(driveStick2.get(), 1);
-	bButtonA = new JoystickButton(driveStick2.get(), 2);
-	xButtonA = new JoystickButton(driveStick2.get(), 3);
-	yButtonA = new JoystickButton(driveStick2.get(), 4);
-	leftBumperButtonA = new JoystickButton(driveStick2.get(), 5);
-	rightBumperButtonA = new JoystickButton(driveStick2.get(), 6);
-	selectButtonA = new JoystickButton(driveStick2.get(), 7);
-	startButtonA = new JoystickButton(driveStick2.get(), 8);
-	leftStickButtonA = new JoystickButton(driveStick2.get(), 9);
-	rightStickButtonA = new JoystickButton(driveStick2.get(), 1);
 	// Assigning Commands to Buttons
 
 	// Arm Controls
@@ -61,8 +47,4 @@ OI::OI() {
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
 	return driveStick;
-}
-
-std::shared_ptr<Joystick> OI::getDriveStick2(){
-	return driveStick2;
 }

@@ -18,9 +18,22 @@ void ArmSwing::Initialize(){
 }
 
 void ArmSwing::Execute(){
-	float speed = (0.4 * Robot::oi->driveStick2->GetRawAxis(OI::LEFT_Y_AXIS));
-	Robot::arm->SetArmSpeed(speed);
-	SmartDashboard::PutString("Arm", "Moving");
+	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
+	if (Robot::oi->driveStick->GetPOV(0) == 90){//ArmSwing up
+		float speed = 0.4;
+		Robot::arm->SetArmSpeed(speed);
+		SmartDashboard::PutString("Arm", "Moving");
+	}
+	else if(Robot::oi->driveStick->GetPOV(0) == -1){
+		float speed = 0.0;
+		Robot::arm->SetArmSpeed(speed);
+		SmartDashboard::PutString("Arm", "Stopped");
+	}
+	else if(Robot::oi->driveStick->GetPOV(0) == 270){//ArmSwing Down
+		float speed = -0.4;
+		Robot::arm->SetArmSpeed(speed);
+		SmartDashboard::PutString("Arm", "Moving");
+	}
 
 }
 
