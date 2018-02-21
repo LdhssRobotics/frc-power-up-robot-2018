@@ -4,6 +4,7 @@
 #include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
 #include "SmartDashboard/Sendable.h"
 #include "WPILib.h"
+#include "Commands/CloseClaw.h"
 
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
@@ -28,8 +29,9 @@ Arm::Arm() : Subsystem("Arm") {
 }
 
 void Arm::InitDefaultCommand() {
+
 	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
+	// SetDefaultCommand(new CloseClaw());
 }
 
 // Put methods for controlling this subsystem
@@ -46,13 +48,15 @@ void Arm::Reset(){
 	spineMotor2->Set(0);
 }
 
-void Arm::OpenClaw(){
-	clawMotor->Set(0.5);
+void Arm::OpenClawMotor(){
+	clawMotor->Set(0.8);
 }
-void Arm::CloseClaw(){
-	clawMotor->Set(-0.5);
+void Arm::CloseClawMotor(){
+	clawMotor->Set(-0.8);
 }
-
+void Arm::StopClaw(){
+	clawMotor->Set(0);
+}
 bool Arm::LimitSwitchState(){
 	SmartDashboard::PutBoolean("Claw Limit Switch State: ", rearClawSwitch.get());
 	return(rearClawSwitch.get());

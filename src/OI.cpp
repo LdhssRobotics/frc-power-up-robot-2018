@@ -12,7 +12,8 @@
 #include "Commands/CrabWalkGroup.h"
 #include "Commands/CrabWalk.h"
 #include "Commands/CrabWalk2.h"
-
+#include "Commands/OpenClaw.h"
+#include "Commands/CloseClaw.h"
 #include "Commands/SwitchCamera.h"
 OI::OI() {
 
@@ -40,7 +41,12 @@ OI::OI() {
 	aButtonD->WhenPressed(new Turn180Degrees(false));
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
-  startButtonD->ToggleWhenPressed(new SwitchCamera());
+	startButtonD->ToggleWhenPressed(new SwitchCamera());
+
+	//Claw Controls
+
+	leftBumperButtonD->WhileHeld(new OpenClaw());
+	leftBumperButtonD->WhenReleased(new CloseClaw());
 
 }
 
