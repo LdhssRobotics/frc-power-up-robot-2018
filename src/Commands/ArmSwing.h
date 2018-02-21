@@ -1,8 +1,8 @@
 /*
- * ArmSwing.h
+ * ArmClimb.h
  *
- *  Created on: Feb 10, 2018
- *      Author: Sayfullah
+ *  Created on: Feb 20, 2018
+ *      Author: raven8
  */
 
 #ifndef SRC_COMMANDS_ARMSWING_H_
@@ -12,9 +12,11 @@
 #include "Robot.h"
 #include "RobotMap.h"
 
-class ArmSwing : public Command {
+class ArmSwing : public Command{
+private:
+	float Position;
 public:
-	ArmSwing();
+	ArmSwing(float P);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

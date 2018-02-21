@@ -1,10 +1,10 @@
+#include <Commands/ArmSwingDPAD.h>
 #include "Arm.h"
 #include "../RobotMap.h"
 #include "Robot.h"
 
 #include <algorithm>
 
-#include "Commands/ArmSwing.h"
 
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
@@ -27,7 +27,7 @@ Arm::Arm() : Subsystem("Arm") {
 void Arm::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ArmSwing());
+	SetDefaultCommand(new ArmSwingDPAD());
 }
 
 void Arm::SetArmSpeed(float speed){

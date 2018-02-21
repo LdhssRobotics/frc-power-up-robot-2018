@@ -5,14 +5,14 @@
  *      Author: Sayfullah
  */
 
+#include <Commands/ArmSwingDPAD.h>
+#include <Commands/SpineDPAD.h>
 #include "Subsystems/SpineSubSystem.h"
 #include "../RobotMap.h"
 #include "Robot.h"
 
 #include <algorithm>
 
-#include "Commands/Spine.h"
-#include "Commands/ArmSwing.h"
 
 SpineSubSystem::SpineSubSystem() : Subsystem("SpineSubSystem")  {
 	spineEncoder1 = RobotMap::spineEncoder1;
@@ -25,7 +25,7 @@ SpineSubSystem::SpineSubSystem() : Subsystem("SpineSubSystem")  {
 }
 
 void SpineSubSystem::InitDefaultCommand(){
-	SetDefaultCommand(new Spine());
+	SetDefaultCommand(new SpineDPAD());
 }
 
 double SpineSubSystem::AdjustSpine() {

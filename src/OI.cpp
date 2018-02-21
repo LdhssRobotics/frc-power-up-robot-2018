@@ -12,7 +12,6 @@
 #include "Commands/CrabWalkGroup.h"
 #include "Commands/CrabWalk.h"
 #include "Commands/CrabWalk2.h"
-#include "Commands/Climb.h"
 
 #include "Commands/SwitchCamera.h"
 OI::OI() {
@@ -32,9 +31,6 @@ OI::OI() {
 	rightStickButtonD = new JoystickButton(driveStick.get(), 10);
 	// Assigning Commands to Buttons
 
-	// Arm Controls
-
-
 	//Drive Stick Controls
 	xButtonD->ToggleWhenPressed(new Turn90Degrees(true));
 	yButtonD->WhenPressed(new Turn180Degrees(true));
@@ -42,8 +38,7 @@ OI::OI() {
 	aButtonD->WhenPressed(new Turn180Degrees(false));
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
-	startButtonD->ToggleWhenPressed(new SwitchCamera());
-	selectButtonD->ToggleWhenPressed(new Climb());
+	selectButtonD->ToggleWhenPressed(new SwitchCamera());
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
