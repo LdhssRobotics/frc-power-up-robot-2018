@@ -319,7 +319,7 @@ void RobotMap::initPowerUpCommon() {
 	leftDrive = std::make_shared <SpeedControllerGroup>(*backLeftDrive, *frontLeftDrive);
 	rightDrive = std::make_shared <SpeedControllerGroup>(*backRightDrive, *frontRightDrive);
 
-	differentialDrive.reset(new DifferentialDrive(*backLeftDrive, *rightDrive));
+	differentialDrive.reset(new DifferentialDrive(*leftDrive, *rightDrive));
 		differentialDrive->SetSafetyEnabled(false);
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
