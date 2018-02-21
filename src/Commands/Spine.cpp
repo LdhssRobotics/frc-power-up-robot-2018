@@ -20,9 +20,9 @@ void Spine::Initialize(){
 
 void Spine::Execute(){
 	if (Robot::spine->GetSpinePos1() < Position) {
-		Robot::spine->SetMotorSpeed(0.4,0.4);
+		Robot::spine->SetMotorSpeed(0.4,0.4 * 1 - Robot::spine->AdjustSpine());
 	}else if (Robot::spine->GetSpinePos1() > Position){
-		Robot::spine->SetMotorSpeed(-0.4,-0.4);
+		Robot::spine->SetMotorSpeed(-0.4,-0.4 * 1 - Robot::spine->AdjustSpine());
 	}else {
 		End();
 	}
