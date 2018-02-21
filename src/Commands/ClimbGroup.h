@@ -13,7 +13,7 @@
 
 class ClimbGroup : public CommandGroup{
 public:
-	ClimbGroup();;
+	ClimbGroup();
 };
 
 #endif /* SRC_COMMANDS_CLIMBGROUP_H_ */

@@ -6,9 +6,13 @@
  */
 
 #include <Commands/ClimbGroup.h>
+#include "Spine.h"
+#include "ArmSwing.h"
+
 
 ClimbGroup::ClimbGroup() {
-	// TODO Auto-generated constructor stub
+	AddSequential(new ArmSwing(0));
+
 
 }
 
