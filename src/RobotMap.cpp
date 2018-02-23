@@ -97,7 +97,7 @@ void RobotMap::init() {
 	 *
 	 * default to POWERUP_PROTO
 	 */
-	m_robotType = POWERUP_PROTO;
+	m_robotType = PROTOCASE;
 
 	switch (m_robotType) {
 	case PROTOCASE:

@@ -14,6 +14,7 @@
 #include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
 #include "ctre/phoenix/MotorControl/CAN/WPI_VictorSPX.h"
 #include "ctre/phoenix/MotorControl/SensorCollection.h"
+#include "ctre/phoenix/MotorControl/FeedbackDevice.h"
 
 #include <algorithm>
 
@@ -23,6 +24,8 @@ SpineSubSystem::SpineSubSystem() : Subsystem("SpineSubSystem")  {
 	spineEncoder2 = RobotMap::spineEncoder2;
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
+
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 0);
 
 }
 
@@ -41,21 +44,21 @@ void SpineSubSystem::SetMotorSpeed(double lspeed, double rspeed){
 }
 
 int SpineSubSystem::GetSpinePos1(){
-	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetSelectedSensorPosition(5);
+	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetSelectedSensorPosition(0);
 	return pos;
 }
 
 int SpineSubSystem::GetSpinePos2(){
-	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetSelectedSensorPosition(4);
+	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetSelectedSensorPosition(0);
 	return pos;
 }
 
 void SpineSubSystem::ResetSpineEncoder1(){
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetSelectedSensorPosition(0,0,1000);
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetSelectedSensorPosition(0,0,1);
 }
 
 void SpineSubSystem::ResetSpineEncoder2(){
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetSelectedSensorPosition(0,0,1000);
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetSelectedSensorPosition(0,0,1);
 }
 
 bool SpineSubSystem::CanMoveSpine(){
@@ -85,4 +88,6 @@ void SpineSubSystem::CheckReset(){
 	if (Limit == 1){
 		ResetSpineEncoder2();
 	}
+	SmartDashboard::PutNumber("Limit 1", limit);
+	SmartDashboard::PutNumber("Limit 2", Limit);
 }

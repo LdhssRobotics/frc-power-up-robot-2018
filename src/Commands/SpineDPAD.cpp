@@ -22,7 +22,7 @@ void SpineDPAD::Execute() {
 	if (Robot::oi->driveStick->GetPOV(0) == 0 && Robot::spine->CanMoveSpine()){
 		double speed = (0.85);
 		SmartDashboard::PutString("Spine", "Moving Up");
-		Robot::spine->SetMotorSpeed(speed, speed); /* Robot::spine->AdjustSpine()*/
+		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == -1){
 		double speed = (0);
@@ -32,7 +32,7 @@ void SpineDPAD::Execute() {
 	else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
 		double speed = (-0.85);
 		SmartDashboard::PutString("Spine", "Moving Down");
-		Robot::spine->SetMotorSpeed(speed, speed); /* Robot::spine->AdjustSpine()*/
+		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());
 	}
 	Robot::spine->CheckReset();
 }
