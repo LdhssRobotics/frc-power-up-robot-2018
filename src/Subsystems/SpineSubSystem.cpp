@@ -11,6 +11,10 @@
 #include "../RobotMap.h"
 #include "Robot.h"
 
+#include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
+#include "ctre/phoenix/MotorControl/CAN/WPI_VictorSPX.h"
+#include "ctre/phoenix/MotorControl/SensorCollection.h"
+
 #include <algorithm>
 
 
@@ -19,8 +23,6 @@ SpineSubSystem::SpineSubSystem() : Subsystem("SpineSubSystem")  {
 	spineEncoder2 = RobotMap::spineEncoder2;
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
-
-	differentialSpine = RobotMap::differentialSpine;
 
 }
 
@@ -33,29 +35,27 @@ double SpineSubSystem::AdjustSpine() {
 	return (1-difference);
 }
 
-void SpineSubSystem::DifferentialSpine(double leftSpeed, double rightSpeed) {
-	differentialSpine->TankDrive(leftSpeed, rightSpeed);
-}
-
 void SpineSubSystem::SetMotorSpeed(double lspeed, double rspeed){
 	Robot::spine->spineMotor1->Set(lspeed);
 	Robot::spine->spineMotor2->Set(rspeed);
 }
 
-float SpineSubSystem::GetSpinePos1(){
-	return Robot::spine->spineEncoder1->Get();
+int SpineSubSystem::GetSpinePos1(){
+	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetSelectedSensorPosition(5);
+	return pos;
 }
 
-float SpineSubSystem::GetSpinePos2(){
-	return Robot::spine->spineEncoder2->Get();
+int SpineSubSystem::GetSpinePos2(){
+	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetSelectedSensorPosition(4);
+	return pos;
 }
 
 void SpineSubSystem::ResetSpineEncoder1(){
-	Robot::spine->spineEncoder1->Reset();
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetSelectedSensorPosition(0,0,1000);
 }
 
 void SpineSubSystem::ResetSpineEncoder2(){
-	Robot::spine->spineEncoder2->Reset();
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetSelectedSensorPosition(0,0,1000);
 }
 
 bool SpineSubSystem::CanMoveSpine(){
@@ -69,7 +69,20 @@ bool SpineSubSystem::CanMoveSpine(){
 }
 
 void SpineSubSystem::Reset(){
-	DifferentialSpine(0,0);
+	SetMotorSpeed(0,0);
 	ResetSpineEncoder1();
 	ResetSpineEncoder2();
+}
+
+void SpineSubSystem::CheckReset(){
+	ctre::phoenix::motorcontrol::SensorCollection limit1 = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetSensorCollection();
+	int limit = limit1.IsFwdLimitSwitchClosed();
+	if (limit == 1){
+		ResetSpineEncoder1();
+	}
+	ctre::phoenix::motorcontrol::SensorCollection limit2 = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetSensorCollection();
+	int Limit = limit2.IsFwdLimitSwitchClosed();
+	if (Limit == 1){
+		ResetSpineEncoder2();
+	}
 }

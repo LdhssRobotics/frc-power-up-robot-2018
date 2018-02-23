@@ -12,7 +12,6 @@ void SpineDPAD::Initialize() {
 	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick->GetPOV(0));
 	SmartDashboard::PutNumber("Spine 1", Robot::spine->GetSpinePos1());
 	SmartDashboard::PutNumber("Spine 2", Robot::spine->GetSpinePos2());
-	Robot::spine->DifferentialSpine(0, 0);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -21,21 +20,21 @@ void SpineDPAD::Execute() {
 	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
 	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
 	if (Robot::oi->driveStick->GetPOV(0) == 0 && Robot::spine->CanMoveSpine()){
-		double speed = (0.5);
+		double speed = (0.85);
 		SmartDashboard::PutString("Spine", "Moving Up");
-		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());
+		Robot::spine->SetMotorSpeed(speed, speed); /* Robot::spine->AdjustSpine()*/
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == -1){
 		double speed = (0);
 		SmartDashboard::PutString("Spine", "Stopped");
-		Robot::spine->DifferentialSpine(speed, speed);
+		Robot::spine->SetMotorSpeed(speed, speed);
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
-		double speed = (-0.5);
+		double speed = (-0.85);
 		SmartDashboard::PutString("Spine", "Moving Down");
-		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());
+		Robot::spine->SetMotorSpeed(speed, speed); /* Robot::spine->AdjustSpine()*/
 	}
-
+	Robot::spine->CheckReset();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -46,7 +45,7 @@ bool SpineDPAD::IsFinished() {
 
 // Called once after isFinished returns true
 void SpineDPAD::End() {
-	Robot::spine->DifferentialSpine(0,0);
+	Robot::spine->SetMotorSpeed(0,0);
 	SmartDashboard::PutString("Spine", "Finished");
 
 

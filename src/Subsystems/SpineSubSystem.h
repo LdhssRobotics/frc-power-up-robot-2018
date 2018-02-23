@@ -25,22 +25,20 @@ private:
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;
 
-	std::shared_ptr<DifferentialDrive> differentialSpine;
-
 public:
 	SpineSubSystem();
 	void InitDefaultCommand();
 	double AdjustSpine();
-	void DifferentialSpine(double leftSpeed, double rightSpeed);
 	void SetMotorSpeed(double lspeed, double rspeed);
-	float GetSpinePos1();
-	float GetSpinePos2();
+	int GetSpinePos1();
+	int GetSpinePos2();
 	void ResetSpine1();
 	void ResetSpine2();
 	void Reset();
 	bool CanMoveSpine();
 	void ResetSpineEncoder1();
 	void ResetSpineEncoder2();
+	void CheckReset();
 	void Log();
 
 };

@@ -2,7 +2,7 @@
 
 std::shared_ptr<Arm> Robot::arm;
 std::shared_ptr<Drivetrain> Robot::drivetrain;
-std::unique_ptr<OI> Robot::oi;\
+std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<SpineSubSystem> Robot::spine;
 
 cs::UsbCamera invertableCubeCamera;

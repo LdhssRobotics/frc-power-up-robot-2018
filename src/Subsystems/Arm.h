@@ -18,8 +18,6 @@ private:
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;
 
-	std::shared_ptr<DifferentialDrive> differentialSpine;
-
 public:
 	Arm();
 	void InitDefaultCommand();

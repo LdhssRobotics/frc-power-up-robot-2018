@@ -73,7 +73,7 @@ void Drivetrain::ResetEncoder(){
 }
 
 void Drivetrain::Debug() {
-	SmartDashboard::PutNumber("Encoder Right Distance", rightDriveEncoder->GetDistance());
+	/*SmartDashboard::PutNumber("Encoder Right Distance", rightDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("Encoder Left Distance", leftDriveEncoder->GetDistance());
 
 	SmartDashboard::PutNumber("Left Current Count", leftDriveEncoder->Get());
@@ -105,5 +105,5 @@ void Drivetrain::Debug() {
 
 		int revLs = sc.IsRevLimitSwitchClosed();
 		SmartDashboard::PutNumber("Talon SRX - revLs: ", revLs);
-	//}
+	//}*/
 }

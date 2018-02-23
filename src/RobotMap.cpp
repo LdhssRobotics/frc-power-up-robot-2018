@@ -25,8 +25,8 @@
 #define CLAW_MOTOR_PORT 8
 #define ARM_MOTOR_1_PORT 6 // in wiring, 1 = left; 2 = right
 #define ARM_MOTOR_2_PORT 7
-#define SPINE_MOTOR_1_PORT 4
-#define SPINE_MOTOR_2_PORT 5
+#define SPINE_MOTOR_1_PORT 5
+#define SPINE_MOTOR_2_PORT 4
 
 		// Drivetrain subsystem
 #define FRONT_LEFT_DRIVE_PORT 2
@@ -71,8 +71,6 @@ std::shared_ptr<SpeedController> RobotMap::clawMotor;
 std::shared_ptr<SpeedController> RobotMap::spineMotor1;
 std::shared_ptr<SpeedController> RobotMap::spineMotor2;
 
-std::shared_ptr<DifferentialDrive> RobotMap::differentialSpine;
-
 	// Drivetrain subsystem
 std::shared_ptr<AnalogGyro> RobotMap::gyro;
 std::shared_ptr<Encoder> RobotMap::leftDriveEncoder;
@@ -99,7 +97,7 @@ void RobotMap::init() {
 	 *
 	 * default to POWERUP_PROTO
 	 */
-	m_robotType = PROTOCASE;
+	m_robotType = POWERUP_PROTO;
 
 	switch (m_robotType) {
 	case PROTOCASE:
@@ -225,11 +223,6 @@ void RobotMap::initProtoCase() {
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
 	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2));
 
-	differentialSpine.reset(new DifferentialDrive(*spineMotor1, *spineMotor2));
-		differentialSpine->SetSafetyEnabled(false);
-		differentialSpine->SetExpiration(0.1);
-		differentialSpine->SetMaxOutput(1.0);
-
 	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
 	std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor)->SetName("Claw", "motor");
 	//lw->Add(std::static_pointer_cast<frc::PWMVictorSPX>(clawMotor));
@@ -258,8 +251,8 @@ void RobotMap::initProtoCase() {
  *
  *  Spine                    | PWM | CAN | DIO |             |
  * ==========================================================|
- *  Left Spine Controller    |  4  |  ?  |     | Talon SRX   |
- *  Right Spine Controller   |  5  |  ?  |     | Talon SRX   |
+ *  Left Spine Controller    |  5  |  ?  |     | Talon SRX   |
+ *  Right Spine Controller   |  4  |  ?  |     | Talon SRX   |
  *                                                           |
  *  Left Encoder Y           |     |     |  14 |             |
  *  Left Encoder B           |     |     |  15 |             |
@@ -332,13 +325,8 @@ void RobotMap::initPowerUpCommon() {
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
 	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2));
 
-	differentialSpine.reset(new DifferentialDrive(*spineMotor1, *spineMotor2));
-		differentialSpine->SetSafetyEnabled(false);
-		differentialSpine->SetExpiration(0.1);
-		differentialSpine->SetMaxOutput(1.0);
-
-	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
-	std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor)->SetName("Claw", "motor");
+	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(CLAW_MOTOR_PORT));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");
 	//lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor));
 
 	gyro.reset(new AnalogGyro(GYRO_PORT));

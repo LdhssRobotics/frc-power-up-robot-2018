@@ -20,8 +20,6 @@ Arm::Arm() : Subsystem("Arm") {
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
 
-	differentialSpine = RobotMap::differentialSpine;
-
 }
 
 void Arm::InitDefaultCommand() {
