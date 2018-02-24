@@ -18,9 +18,12 @@ private:
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;
 
+
+
 public:
 	Arm();
 	void InitDefaultCommand();
+
 	void SetArmSpeed(float speed);
 	void CheckEncoders();
 	void SetClawSpeed(float speed);
@@ -30,6 +33,15 @@ public:
 	bool CanMoveSpine();
 	void ResetArmEncoder();
 	void Log();
+
+	void OpenClawMotor();
+	void CloseClawMotor();
+	void StopClaw();
+	bool LimitSwitchState();
+	double CurrentDraw();
+
+	bool IsClawClosed;
+
 };
 
 #endif  // Arm_H

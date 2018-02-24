@@ -1,9 +1,17 @@
 #include <Commands/ArmSwingDPAD.h>
 #include "Arm.h"
 #include "../RobotMap.h"
+
 #include "Robot.h"
 
 #include <algorithm>
+
+
+#include "Drivetrain.h"
+#include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
+#include "SmartDashboard/Sendable.h"
+#include "WPILib.h"
+#include "Commands/CloseClaw.h"
 
 
 Arm::Arm() : Subsystem("Arm") {
@@ -20,10 +28,15 @@ Arm::Arm() : Subsystem("Arm") {
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
 
+
+	IsClawClosed = false;
+
 }
 
 void Arm::InitDefaultCommand() {
+
 	// Set the default command for a subsystem here.
+
 	// SetDefaultCommand(new MySpecialCommand());
 	SetDefaultCommand(new ArmSwingDPAD());
 }
@@ -40,6 +53,12 @@ void Arm::SetClawSpeed(float speed) {
 float Arm::GetArmPosition(){
 	return armEncoder->GetDistance();
 }
+
+	// SetDefaultCommand(new CloseClaw());
+
+
+// Put methods for controlling this subsystem
+// here. Call these from Commands.
 
 void Arm::ResetArm(){
 	if (bottomShoulderSwitch->Get()){
@@ -73,4 +92,20 @@ void Arm::ResetArmEncoder(){
 
 void Arm::Log(){
 	SmartDashboard::PutNumber("Arm Encoder:", GetArmPosition());
+}
+
+void Arm::OpenClawMotor(){
+	clawMotor->Set(0.8);
+}
+void Arm::CloseClawMotor(){
+	clawMotor->Set(-0.8);
+}
+void Arm::StopClaw(){
+	clawMotor->Set(0);
+}
+
+double Arm::CurrentDraw(){
+	double current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->GetOutputCurrent();
+	SmartDashboard::PutNumber("Talon SRX - current: ", current);
+	return (current);
 }

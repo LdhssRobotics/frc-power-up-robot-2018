@@ -163,6 +163,23 @@ void RobotMap::initCommon() {
 
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
+
+
+
+	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");
+	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor));
+
+	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
+	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1));
+
+
+	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
+	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
+	//lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
+
+
 }
 
 void RobotMap::initProtoCase() {
@@ -184,7 +201,11 @@ void RobotMap::initProtoCase() {
 		rightDriveEncoder->SetReverseDirection(true);
 		rightDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
+
 	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(0));
+
+	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(6));
+
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
 	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive));
 
