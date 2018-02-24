@@ -12,7 +12,12 @@ void DriveWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute() {
-	float direction = -1;
+
+	float direction = 1;
+
+	if (Robot::drivetrain->IsSpine){
+		direction = -1;
+	}
 
 	float speed = direction * (-Robot::oi->driveStick->GetRawAxis(OI::LEFT_Y_AXIS));
 	float turn = (-0.75 * Robot::oi->driveStick->GetRawAxis(OI::RIGHT_X_AXIS));

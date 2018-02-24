@@ -70,7 +70,7 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 
-	if(Robot::drivetrain->CubeFront){
+	if(Robot::drivetrain->IsSpine){
 		server.SetSource(invertableCubeCamera);
 	} else {
 		server.SetSource(backCamera);

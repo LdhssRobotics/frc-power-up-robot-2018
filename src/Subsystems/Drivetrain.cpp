@@ -12,7 +12,7 @@
 #define SPEED_MULTIPLIER 0.95
 
 Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
-	    CubeFront = true;
+	    IsSpine = true;
 		gyro = RobotMap::gyro;
 
 	    leftDriveEncoder = RobotMap::leftDriveEncoder;

@@ -15,7 +15,7 @@ private:
 
 public:
 
-	bool CubeFront;
+	bool IsSpine;
 
 	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
