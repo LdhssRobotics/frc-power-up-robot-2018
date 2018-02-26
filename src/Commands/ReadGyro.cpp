@@ -39,5 +39,5 @@ void ReadGyro::End(){
 }
 
 void ReadGyro::Interrupted(){
-	End();
+
 }
