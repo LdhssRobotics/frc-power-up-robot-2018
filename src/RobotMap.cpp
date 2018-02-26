@@ -15,6 +15,7 @@
 #include "Robot.h"
 #include "SmartDashboard/Sendable.h"
 #include "Encoder.h"
+#include "ADXRS450_Gyro.h"
 
 #include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
 #include "ctre/phoenix/MotorControl/CAN/WPI_VictorSPX.h"
@@ -83,7 +84,7 @@ std::shared_ptr<SpeedController> RobotMap::spineMotor1;
 std::shared_ptr<SpeedController> RobotMap::spineMotor2;
 
 	// Drivetrain subsystem
-std::shared_ptr<AnalogGyro> RobotMap::gyro;
+std::shared_ptr<ADXRS450_Gyro> RobotMap::gyro;
 std::shared_ptr<Encoder> RobotMap::leftDriveEncoder;
 std::shared_ptr<Encoder> RobotMap::rightDriveEncoder;
 
@@ -100,7 +101,6 @@ RobotMap::RobotType_t RobotMap::m_robotType;
 
 void RobotMap::init() {
 
-    frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
 
 	/**
 	 * set m_robotType to PROTOCASE | STEAMWORKS | POWERUP | POWERUP_PROTO
@@ -108,26 +108,26 @@ void RobotMap::init() {
 	 *
 	 * default to POWERUP_PROTO
 	 */
-	m_robotType = PROTOCASE;
+	m_robotType = STEAMWORKS;
 
 	switch (m_robotType) {
 	case PROTOCASE:
-		initCommon(lw);
-		initProtoCase(lw);
+		initCommon();
+		initProtoCase();
 		break;
 	case STEAMWORKS:
-		initCommon(lw);
-		initSteamworks(lw);
+		initCommon();
+		initSteamworks();
 		break;
 	case POWERUP:
-		initCommon(lw);
-		initPowerUpCommon(lw);
-		initPowerUp(lw);
+		initCommon();
+		initPowerUpCommon();
+		initPowerUp();
 		break;
 	case POWERUP_PROTO:
-		initCommon(lw);
-		initPowerUpCommon(lw);
-		initPowerUpProto(lw);
+		initCommon();
+		initPowerUpCommon();
+		initPowerUpProto();
 	}
 }
 
@@ -136,7 +136,7 @@ void RobotMap::reset() {
 	Robot::drivetrain->Reset();
 	}
 
-void RobotMap::initCommon(frc::LiveWindow *lw) {
+void RobotMap::initCommon() {
 
 	// Arm subsystem
 	armEncoder.reset(new Encoder(ARM_ENCODER_A_PORT, ARM_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
@@ -182,27 +182,27 @@ void RobotMap::initCommon(frc::LiveWindow *lw) {
 
 	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(armMotor1));
 
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
 
 	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor));
 
 	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1));
 
+	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
+	std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor)->SetName("Claw", "motor");
+
+	spineMotor1.reset(new PWMTalonSRX(SPINE_MOTOR_1_PORT));
+	std::dynamic_pointer_cast<frc::PWMTalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
 
 	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
-	lw->Add(std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2));
-
 }
 
-void RobotMap::initProtoCase(frc::LiveWindow *lw) {
+void RobotMap::initProtoCase() {
 
 	// Drivetrain subsystem
 	leftDriveEncoder.reset(new Encoder(LEFT_DRIVE_ENCODER_A_PORT, LEFT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
@@ -223,21 +223,20 @@ void RobotMap::initProtoCase(frc::LiveWindow *lw) {
 
 	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(6));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive));
 
-	frontLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive));
+	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+
+	backRightDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backRightDrive)->SetName("Drivetrain", "front left drive");
+
 
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->Follow(*(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)));
 
-	backRightDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
-	std::static_pointer_cast<frc::VictorSP>(backRightDrive)->SetName("Drivetrain", "back right drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(backRightDrive));
+	frontLeftDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
+	std::static_pointer_cast<frc::VictorSP>(frontLeftDrive)->SetName("Drivetrain", "back right drive");
 
 	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(frontRightDrive)->SetName("Drivetrain", "front right drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
 
 	backLeftDrive->SetInverted(true);
 	backRightDrive->SetInverted(true);
@@ -252,9 +251,8 @@ void RobotMap::initProtoCase(frc::LiveWindow *lw) {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new AnalogGyro(GYRO_PORT));
+	gyro.reset(new ADXRS450_Gyro(SPI::Port(GYRO_PORT)));
 		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
 }
 
@@ -294,7 +292,7 @@ void RobotMap::initProtoCase(frc::LiveWindow *lw) {
  *
  */
 
-void RobotMap::initPowerUpCommon(frc::LiveWindow *lw) {
+void RobotMap::initPowerUpCommon() {
 
 	// Drivetrain subsystem
 	leftDriveEncoder.reset(new Encoder(LEFT_DRIVE_ENCODER_A_PORT, LEFT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
@@ -315,19 +313,15 @@ void RobotMap::initPowerUpCommon(frc::LiveWindow *lw) {
 
 	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(3));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backLeftDrive));
 
 	backRightDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(1));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backRightDrive)->SetName("Drivetrain", "back right drive");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backRightDrive));
 
 	frontLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(2));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontLeftDrive));
 
 	frontRightDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontRightDrive)->SetName("Drivetrain", "front right drive");
-	lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(frontRightDrive));
 
 	backLeftDrive->SetInverted(true);
 	backRightDrive->SetInverted(true);
@@ -342,18 +336,19 @@ void RobotMap::initPowerUpCommon(frc::LiveWindow *lw) {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new AnalogGyro(GYRO_PORT));
+	gyro.reset(new ADXRS450_Gyro(SPI::Port(GYRO_PORT)));
 		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
+	gyro.reset(new ADXRS450_Gyro(SPI::Port(0)));
+	gyro->Sendable::SetName("Drivetrain", "gyro");
 		gyro->Calibrate();
 
 }
 
-void RobotMap::initPowerUp(frc::LiveWindow *lw) {
+void RobotMap::initPowerUp() {
 
 }
 
-void RobotMap::initPowerUpProto(frc::LiveWindow *lw) {
+void RobotMap::initPowerUpProto() {
 
 }
 
@@ -374,7 +369,7 @@ void RobotMap::initPowerUpProto(frc::LiveWindow *lw) {
  *  Right Encoder B          |     |     |  13 | E4T         |
  */
 
-void RobotMap::initSteamworks(frc::LiveWindow *lw) {
+void RobotMap::initSteamworks() {
 
 	// Drivetrain subsystem
 	leftDriveEncoder.reset(new Encoder(LEFT_DRIVE_ENCODER_A_PORT, LEFT_DRIVE_ENCODER_B_PORT, false, Encoder::EncodingType::k4X));
@@ -395,19 +390,15 @@ void RobotMap::initSteamworks(frc::LiveWindow *lw) {
 
 	backLeftDrive.reset(new VictorSP(BACK_LEFT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(backLeftDrive)->SetName("Drivetrain", "back left drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(backLeftDrive));
 
 	backRightDrive.reset(new VictorSP(BACK_RIGHT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(backRightDrive)->SetName("Drivetrain", "back right drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(backRightDrive));
 
 	frontLeftDrive.reset(new VictorSP(FRONT_LEFT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(frontLeftDrive)->SetName("Drivetrain", "front left drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(frontLeftDrive));
 
 	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(frontRightDrive)->SetName("Drivetrain", "front right drive");
-	lw->Add(std::static_pointer_cast<frc::VictorSP>(frontRightDrive));
 
 	backLeftDrive->SetInverted(true);
 	backRightDrive->SetInverted(true);
@@ -422,10 +413,9 @@ void RobotMap::initSteamworks(frc::LiveWindow *lw) {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new AnalogGyro(GYRO_PORT));
-		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
-		gyro->Calibrate();
+	//gyro.reset(new ADXRS450_Gyro());
+		//gyro->Sendable::SetName("Drivetrain", "gyro");
+		//gyro->Calibrate();
 }
 
 #endif /* SRC_ROBOTMAP_CPP_ */

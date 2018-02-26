@@ -14,6 +14,8 @@
 #include "Commands/CrabWalk2.h"
 #include "Commands/OpenClaw.h"
 #include "Commands/CloseClaw.h"
+#include "Commands/DriveStraight.h"
+
 #include "Commands/SwitchCamera.h"
 OI::OI() {
 
@@ -39,6 +41,7 @@ OI::OI() {
 	yButtonD->WhenPressed(new Turn180Degrees(true));
 	bButtonD->ToggleWhenPressed(new Turn90Degrees(false));
 	aButtonD->WhenPressed(new Turn180Degrees(false));
+	aButtonD->WhenPressed(new DriveStraight(120));
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
 	startButtonD->ToggleWhenPressed(new SwitchCamera());
