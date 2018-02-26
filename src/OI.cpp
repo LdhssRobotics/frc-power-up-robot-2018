@@ -7,7 +7,14 @@
 
 #include "OI.h"
 #include <WPILib.h>
-
+#include "Commands/Turn90Degrees.h"
+#include "Commands/Turn180Degrees.h"
+#include "Commands/CrabWalkGroup.h"
+#include "Commands/CrabWalk.h"
+#include "Commands/CrabWalk2.h"
+#include "Commands/OpenClaw.h"
+#include "Commands/CloseClaw.h"
+#include "Commands/SwitchCamera.h"
 OI::OI() {
 
 	driveStick.reset(new Joystick(0));
@@ -27,7 +34,20 @@ OI::OI() {
 	// Assigning Commands to Buttons
 
 	// Drive Stick Controls
-	//startButtonD->ToggleWhenPressed(new )
+
+	xButtonD->ToggleWhenPressed(new Turn90Degrees(true));
+	yButtonD->WhenPressed(new Turn180Degrees(true));
+	bButtonD->ToggleWhenPressed(new Turn90Degrees(false));
+	aButtonD->WhenPressed(new Turn180Degrees(false));
+	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
+	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
+	startButtonD->ToggleWhenPressed(new SwitchCamera());
+
+	//Claw Controls
+
+	leftBumperButtonD->WhileHeld(new OpenClaw());
+	leftBumperButtonD->WhenReleased(new CloseClaw());
+
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {

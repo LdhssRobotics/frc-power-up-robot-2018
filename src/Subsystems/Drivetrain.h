@@ -16,6 +16,9 @@ private:
 
 public:
 	std::shared_ptr<ADXRS450_Gyro> gyro;
+
+	bool CubeFront;
+
 	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
 	std::shared_ptr<SpeedController> frontLeftDrive;
@@ -25,10 +28,16 @@ public:
 
 	Drivetrain();
 	void InitDefaultCommand();
-	void Reset();
 	void ArcadeDrive(double, double);
-	float GetDistance();
+	float GetLeftDistance();
+	float GetRightDistance();
+	float GetLeftCount();
+	float GetRightCount();
+	void Debug();
+	void TankDrive(double leftSpeed, double rightSpeed);
+	void Reset();
+	void ResetEncoder();
 	void Stop();
 };
 
-#endif  // Drivetrain_H
+#endif // Drivetrain_H

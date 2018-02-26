@@ -1,8 +1,11 @@
+#include "ClawGroup.h"
+#include "OpenClaw.h"
+#include "CloseClaw.h"
 
-#include "Commands/ReadGyro.h"
+ClawGroup::ClawGroup() {
+	//AddSequential(new OpenClaw());
+	// AddSequential(new CloseClaw());
 
-ReadGyro::ReadGyro() {
-	Requires (Robot::drivetrain.get());
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -19,25 +22,4 @@ ReadGyro::ReadGyro() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-}
-
-void ReadGyro::Initialize() {
-	Robot::drivetrain->gyro->Reset();
-	SmartDashboard::PutNumber("Gyro Angle", Robot::drivetrain->gyro->GetAngle());
-}
-
-void ReadGyro::Execute() {
-	SmartDashboard::PutNumber("Gyro Angle", Robot::drivetrain->gyro->GetAngle());
-}
-
-bool ReadGyro::IsFinished(){
-	return false;
-}
-
-void ReadGyro::End(){
-
-}
-
-void ReadGyro::Interrupted(){
-	End();
 }
