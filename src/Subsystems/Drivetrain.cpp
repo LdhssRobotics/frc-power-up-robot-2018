@@ -107,3 +107,11 @@ void Drivetrain::Debug() {
 		SmartDashboard::PutNumber("Talon SRX - revLs: ", revLs);
 	//}
 }
+float Drivetrain::EncoderPosition(){
+	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetSelectedSensorPosition(0);
+	SmartDashboard::PutNumber("Talon SRX - encoder: ", pos);
+	return (pos);
+}
+void Drivetrain::MCEncoderReset(){
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetSelectedSensorPosition(0,0,10);
+}
