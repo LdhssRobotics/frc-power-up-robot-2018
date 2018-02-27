@@ -42,7 +42,6 @@ void ArmSwingDPAD::Execute(){
 		Robot::arm->SetArmSpeed(abs (currentSpeed * 1.05));
 		SmartDashboard::PutString("Arm", "Moving");
 	}
-
 }
 
 bool ArmSwingDPAD::IsFinished(){
