@@ -73,7 +73,7 @@ void Drivetrain::ResetEncoder(){
 }
 
 void Drivetrain::Debug() {
-	/*SmartDashboard::PutNumber("Encoder Right Distance", rightDriveEncoder->GetDistance());
+	SmartDashboard::PutNumber("Encoder Right Distance", rightDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("Encoder Left Distance", leftDriveEncoder->GetDistance());
 
 	SmartDashboard::PutNumber("Left Current Count", leftDriveEncoder->Get());
@@ -88,7 +88,7 @@ void Drivetrain::Debug() {
 	SmartDashboard::PutNumber("Left Raw", leftDriveEncoder->GetRaw());
 	SmartDashboard::PutNumber("Right Raw", rightDriveEncoder->GetRaw());
 
-	//if (RobotMap::m_robotType == RobotMap::PROTOCASE) {
+/*	//if (RobotMap::m_robotType == RobotMap::PROTOCASE) {
 
 		int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetSelectedSensorPosition(0);
 		SmartDashboard::PutNumber("Talon SRX - encoder: ", pos);
@@ -105,5 +105,5 @@ void Drivetrain::Debug() {
 
 		int revLs = sc.IsRevLimitSwitchClosed();
 		SmartDashboard::PutNumber("Talon SRX - revLs: ", revLs);
-	//}*/
+	}*/
 }

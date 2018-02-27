@@ -20,7 +20,7 @@ void SpineDPAD::Execute() {
 	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
 	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
 	if (Robot::oi->driveStick->GetPOV(0) == 0 && Robot::spine->CanMoveSpine()){
-		double speed = (0.85);
+		double speed = (/*0.85*/0.15);
 		SmartDashboard::PutString("Spine", "Moving Up");
 		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());
 	}
@@ -30,11 +30,12 @@ void SpineDPAD::Execute() {
 		Robot::spine->SetMotorSpeed(speed, speed);
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
-		double speed = (-0.85);
+		double speed = (/*-0.85*/-0.15);
 		SmartDashboard::PutString("Spine", "Moving Down");
 		Robot::spine->SetMotorSpeed(speed, speed * Robot::spine->AdjustSpine());
 	}
 	Robot::spine->CheckReset();
+	SmartDashboard::PutNumber("Difference", Robot::spine->AdjustSpine());
 }
 
 // Make this return true when this Command no longer needs to run execute()

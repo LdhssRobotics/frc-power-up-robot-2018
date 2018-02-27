@@ -13,6 +13,8 @@
 #include "RobotMap.h"
 
 class ArmSwingDPAD : public Command {
+private:
+	float currentSpeed;
 public:
 	ArmSwingDPAD();
 	void Initialize();
