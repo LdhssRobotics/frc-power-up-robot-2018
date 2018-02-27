@@ -44,13 +44,13 @@ OI::OI() {
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
 
+	//Camera Switch Controls
 	selectButtonD->ToggleWhenPressed(new SwitchCamera());
+
+	//Climb Controls
 	startButtonD->WhenPressed(new ClimbGroup());
 
-	startButtonD->ToggleWhenPressed(new SwitchCamera());
-
 	//Claw Controls
-
 	leftBumperButtonD->WhileHeld(new OpenClaw());
 	leftBumperButtonD->WhenReleased(new CloseClaw());
 
