@@ -37,9 +37,9 @@ OI::OI() {
 	// Assigning Commands to Buttons
 
 	//Drive Stick Controls
-	xButtonD->ToggleWhenPressed(new Turn90Degrees(true));
+	bButtonD->ToggleWhenPressed(new Turn90Degrees(true));
 	yButtonD->WhenPressed(new Turn180Degrees(true));
-	bButtonD->ToggleWhenPressed(new Turn90Degrees(false));
+	xButtonD->ToggleWhenPressed(new Turn90Degrees(false));
 	aButtonD->WhenPressed(new Turn180Degrees(false));
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));

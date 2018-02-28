@@ -33,14 +33,14 @@ void SpineSubSystem::InitDefaultCommand(){
 	SetDefaultCommand(new SpineDPAD());
 }
 
-double SpineSubSystem::AdjustSpine() {
+/*double SpineSubSystem::AdjustSpine() {
 	double difference = (GetSpinePos2() - GetSpinePos1()) / GetSpinePos1();
 	return (1-difference);
-}
+}*/
 
 void SpineSubSystem::SetMotorSpeed(double lspeed, double rspeed){
-	Robot::spine->spineMotor1->Set(lspeed);
 	Robot::spine->spineMotor2->Set(rspeed);
+	Robot::spine->spineMotor1->Set(lspeed);
 }
 
 int SpineSubSystem::GetSpinePos1(){
