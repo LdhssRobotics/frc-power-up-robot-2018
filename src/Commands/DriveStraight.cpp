@@ -9,7 +9,6 @@ DriveStraight::DriveStraight(float distance):
 {
 	Requires (Robot::drivetrain.get());
 	straight = 0;
-	currentheading = Robot::drivetrain->gyro->GetAngle();
 }
 
 // Called just before this Command runs the first time
@@ -21,7 +20,7 @@ void DriveStraight::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveStraight::Execute() {
 	//Determine amount to turn
-	currentheading = Robot::drivetrain->gyro->GetAngle();
+	float currentheading = Robot::drivetrain->gyro->GetAngle();
 	Robot::drivetrain->ArcadeDrive(speed, (straight-currentheading) * kP);
 	SmartDashboard::PutNumber("Current Heading: ", currentheading);
 

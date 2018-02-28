@@ -9,7 +9,6 @@
 class DriveStraight : public Command {
 private:
 	double straight;
-	double currentheading;
 	float targetdistance;
 public:
 	DriveStraight(float distance);
