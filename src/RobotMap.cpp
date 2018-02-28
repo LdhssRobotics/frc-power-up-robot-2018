@@ -108,7 +108,7 @@ void RobotMap::init() {
 	 *
 	 * default to POWERUP_PROTO
 	 */
-	m_robotType = PROTOCASE;
+	m_robotType = STEAMWORKS;
 
 	switch (m_robotType) {
 	case PROTOCASE:

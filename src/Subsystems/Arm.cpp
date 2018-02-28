@@ -62,7 +62,13 @@ bool Arm::LimitSwitchState(){
 	return(rearClawSwitch.get());
 }
 double Arm::CurrentDraw(){
-	double current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->GetOutputCurrent();
-	SmartDashboard::PutNumber("Talon SRX - current: ", current);
+	double current = 0.0;
+	if (RobotMap::m_robotType != RobotMap::STEAMWORKS) {
+		current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->GetOutputCurrent();
+		SmartDashboard::PutNumber("Talon SRX - current: ", current);
+	}
+	else {
+		current = 20.0;  // value large enough to stop the claw
+	}
 	return (current);
 }
