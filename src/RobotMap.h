@@ -68,32 +68,32 @@ private:
 	/**
 	 * initialization common to all robots
 	 */
-	static void initCommon(frc::LiveWindow *lw);
+	static void initCommon();
 
 	/**
 	 * initialization common to both 2018 Power Up prototype and competition robots
 	 */
-	static void initPowerUpCommon(frc::LiveWindow *lw);
+	static void initPowerUpCommon();
 
 	/**
 	 * initialization specific to 2018 Power Up prototype robot
 	 */
-	static void initPowerUpProto(frc::LiveWindow *lw);
+	static void initPowerUpProto();
 
 	/**
 	 * initialization specific to 2018 Power Up competition robot
 	 */
-	static void initPowerUp(frc::LiveWindow *lw);
+	static void initPowerUp();
 
 	/**
 	 * initialization specific to protocase robot
 	 */
-	static void initProtoCase(frc::LiveWindow *lw);
+	static void initProtoCase();
 
 	/**
 	 * initialization specific to 2017 steamworks robot
 	 */
-	static void initSteamworks(frc::LiveWindow *lw);
+	static void initSteamworks();
 };
 
 #endif
