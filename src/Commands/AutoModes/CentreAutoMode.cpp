@@ -1,6 +1,14 @@
 #include <Commands/AutoModes/CentreAutoMode.h>
+#include "../DriveStraight.h"
+#include "../Turn90Degrees.h"
 
 CentreAutoMode::CentreAutoMode() {
+	AddSequential(new DriveStraight(70));
+	AddSequential(new Turn90Degrees(true));
+	AddSequential(new DriveStraight(30));
+	AddSequential(new Turn90Degrees(false));
+	AddSequential(new DriveStraight(35));
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
