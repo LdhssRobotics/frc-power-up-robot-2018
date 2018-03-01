@@ -42,7 +42,7 @@
 #define SPINE_ENCODER_2_B_PORT 17
 #define ARM_ENCODER_A_PORT 18
 #define ARM_ENCODER_B_PORT 19
-#define BOTTOM_SHOULDER_SWITCH_PORT 0 // PH
+#define BOTTOM_SHOULDER_SWITCH_PORT 17 // PH
 #define TOP_SHOULDER_SWITCH_PORT 1 // PH
 
 		// Drivetrain subsystem
@@ -97,7 +97,7 @@ void RobotMap::init() {
 	 *
 	 * default to POWERUP_PROTO
 	 */
-	m_robotType = POWERUP_PROTO;
+	m_robotType = POWERUP;
 
 	switch (m_robotType) {
 	case PROTOCASE:
@@ -159,10 +159,11 @@ void RobotMap::initCommon() {
 
 	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
-	//lw->Add(std::static_pointer_cast<frc::VictorSP>(armMotor1));
+	armMotor1->SetInverted(true);
 
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
+	armMotor2->SetInverted(false);
 
 	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");

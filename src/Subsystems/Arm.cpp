@@ -53,12 +53,6 @@ float Arm::GetArmPosition(){
 	return armEncoder->GetDistance();
 }
 
-	// SetDefaultCommand(new CloseClaw());
-
-
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
-
 void Arm::ResetArm(){
 	if (bottomShoulderSwitch->Get()){
 		armMotor1->Set(0);
