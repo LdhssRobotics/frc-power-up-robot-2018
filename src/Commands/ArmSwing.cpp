@@ -21,9 +21,9 @@ void ArmSwing::Initialize(){
 
 void ArmSwing::Execute(){
 	if (Robot::arm->GetArmPosition() < Position) {
-		Robot::arm->SetArmSpeed(0.6);
+		Robot::arm->SetArmSpeed(0.7);
 	}else if (Robot::arm->GetArmPosition() > Position){
-		Robot::arm->SetArmSpeed(-0.3);
+		Robot::arm->SetArmSpeed(-0.5);
 	}else {
 		End();
 	}

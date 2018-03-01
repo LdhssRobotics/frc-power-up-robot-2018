@@ -20,7 +20,7 @@ void ArmSwingDPAD::Initialize(){
 void ArmSwingDPAD::Execute(){
 	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
 	if (Robot::oi->driveStick->GetPOV(0) == 90){//ArmSwing up
-		Robot::arm->SetArmSpeed(0.6);
+		Robot::arm->SetArmSpeed(0.7);
 		SmartDashboard::PutString("Arm", "Moving");
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == -1){
@@ -36,7 +36,7 @@ void ArmSwingDPAD::Execute(){
 		SmartDashboard::PutString("Arm", "Stopped");
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == 270){//ArmSwing Down
-		Robot::arm->SetArmSpeed(-0.3);
+		Robot::arm->SetArmSpeed(-0.5);
 		SmartDashboard::PutString("Arm", "Moving");
 	}
 }
