@@ -24,14 +24,25 @@ public:
 	JoystickButton *startButtonD;
 	JoystickButton *leftStickButtonD;
 	JoystickButton *rightStickButtonD;
+	JoystickButton *leftTriggerButtonD;
+	JoystickButton *rightTriggerButtonD;
+	JoystickButton *homeButtonD;
+	JoystickButton *touchpadButtonD;
 
 	// Axes
-	static const int LEFT_X_AXIS = 0;
-	static const int LEFT_Y_AXIS = 1;
-	static const int LEFT_TRIGGER_AXIS = 2;
-	static const int RIGHT_TRIGGER_AXIS = 3;
-	static const int RIGHT_X_AXIS = 4;
-	static const int RIGHT_Y_AXIS = 5;
+	static int LEFT_X_AXIS;
+	static int LEFT_Y_AXIS;
+	static int LEFT_TRIGGER_AXIS;
+	static int RIGHT_TRIGGER_AXIS;
+	static int RIGHT_X_AXIS;
+	static int RIGHT_Y_AXIS;
+
+	typedef enum controllerType {
+			PLAYSTATION,
+			XBOX,
+		} Controller_t;
+
+		static Controller_t m_controllerType;
 
 	OI();
 
