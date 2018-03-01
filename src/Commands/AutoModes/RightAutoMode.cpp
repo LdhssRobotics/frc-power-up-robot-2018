@@ -1,6 +1,8 @@
 #include "RightAutoMode.h"
+#include "../DriveStraight.h"
 
 RightAutoMode::RightAutoMode() {
+	AddSequential(new DriveStraight(175));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

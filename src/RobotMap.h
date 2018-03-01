@@ -28,7 +28,7 @@ public:
 	static std::shared_ptr<SpeedController> armMotor2;
 
 	// Drivetrain subsystem
-	static std::shared_ptr<AnalogGyro> gyro;
+	static std::shared_ptr<ADXRS450_Gyro> gyro;
 	static std::shared_ptr<Encoder> leftDriveEncoder;
 	static std::shared_ptr<Encoder> rightDriveEncoder;
 

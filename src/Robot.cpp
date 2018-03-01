@@ -42,6 +42,8 @@ void Robot::RobotInit() {
 
 	// Select autonomous mode
 	chooser.AddDefault("Centre Auto Mode", new CentreAutoMode()); // Default autonomous mode
+	chooser.AddObject("Left Auto Mode", new LeftAutoMode());
+	chooser.AddObject("Right Auto Mode", new RightAutoMode());
 	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 }
 

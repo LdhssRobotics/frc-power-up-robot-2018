@@ -8,17 +8,15 @@
 
 class Drivetrain : public frc::Subsystem {
 private:
-	std::shared_ptr<AnalogGyro> gyro;
 	std::shared_ptr<Encoder> leftDriveEncoder;
 	std::shared_ptr<Encoder> rightDriveEncoder;
 	std::shared_ptr<DifferentialDrive> differentialDrive;
 
-public:
-
+public:	
 	bool CubeFront;
-
-	std::shared_ptr<SpeedControllerGroup> leftDrive;
+	std::shared_ptr<ADXRS450_Gyro> gyro;
 	std::shared_ptr<SpeedControllerGroup> rightDrive;
+	std::shared_ptr<SpeedControllerGroup> leftDrive;
 	std::shared_ptr<SpeedController> frontLeftDrive;
 	std::shared_ptr<SpeedController> backLeftDrive;
 	std::shared_ptr<SpeedController> frontRightDrive;
@@ -35,7 +33,10 @@ public:
 	void TankDrive(double leftSpeed, double rightSpeed);
 	void Reset();
 	void ResetEncoder();
+	float GetDistance();
 	void Stop();
+	float EncoderPosition();
+	void MCEncoderReset();
 };
 
-#endif // Drivetrain_H
+#endif  // Drivetrain_H
