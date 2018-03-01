@@ -26,8 +26,8 @@
 #define CLAW_MOTOR_PORT 8
 #define ARM_MOTOR_1_PORT 6 // in wiring, 1 = left; 2 = right
 #define ARM_MOTOR_2_PORT 7
-#define SPINE_MOTOR_1_PORT 4
-#define SPINE_MOTOR_2_PORT 5
+#define SPINE_MOTOR_1_PORT 5
+#define SPINE_MOTOR_2_PORT 4
 
 		// Drivetrain subsystem
 #define FRONT_LEFT_DRIVE_PORT 2
@@ -43,14 +43,8 @@
 #define SPINE_ENCODER_2_B_PORT 17
 #define ARM_ENCODER_A_PORT 18
 #define ARM_ENCODER_B_PORT 19
-#define BOTTOM_SPINE_SWITCH_1_PORT 20 // PH
-#define TOP_SPINE_SWITCH_1_PORT 21 // PH
-#define BOTTOM_SPINE_SWITCH_2_PORT 22 // PH
-#define TOP_SPINE_SWITCH_2_PORT 23 // PH
-#define BOTTOM_SHOULDER_SWITCH_PORT 24 // PH
-#define TOP_SHOULDER_SWITCH_PORT 25 // PH
-#define FRONT_CLAW_SWITCH_PORT 26 // PH
-#define REAR_CLAW_SWITCH_PORT 27 // PH
+#define BOTTOM_SHOULDER_SWITCH_PORT 0 // PH
+#define TOP_SHOULDER_SWITCH_PORT 1 // PH
 
 		// Drivetrain subsystem
 #define LEFT_DRIVE_ENCODER_A_PORT 10
@@ -68,14 +62,9 @@
 std::shared_ptr<Encoder> RobotMap::armEncoder;
 std::shared_ptr<Encoder> RobotMap::spineEncoder1;
 std::shared_ptr<Encoder> RobotMap::spineEncoder2;
-std::shared_ptr<DigitalInput> RobotMap::bottomSpineSwitch1;
-std::shared_ptr<DigitalInput> RobotMap::topSpineSwitch1;
-std::shared_ptr<DigitalInput> RobotMap::bottomSpineSwitch2;
-std::shared_ptr<DigitalInput> RobotMap::topSpineSwitch2;
 std::shared_ptr<DigitalInput> RobotMap::bottomShoulderSwitch;
 std::shared_ptr<DigitalInput> RobotMap::topShoulderSwitch;
 std::shared_ptr<DigitalInput> RobotMap::frontClawSwitch;
-std::shared_ptr<DigitalInput> RobotMap::rearClawSwitch;
 
 std::shared_ptr<SpeedController> RobotMap::armMotor1;
 std::shared_ptr<SpeedController> RobotMap::armMotor2;
@@ -101,14 +90,15 @@ RobotMap::RobotType_t RobotMap::m_robotType;
 
 void RobotMap::init() {
 
-
 	/**
 	 * set m_robotType to PROTOCASE | STEAMWORKS | POWERUP | POWERUP_PROTO
 	 * depending on target robot
 	 *
 	 * default to POWERUP_PROTO
 	 */
+
 	m_robotType = STEAMWORKS;
+
 
 	switch (m_robotType) {
 	case PROTOCASE:
@@ -145,7 +135,7 @@ void RobotMap::initCommon() {
 		armEncoder->SetMinRate(1);
 		armEncoder->SetSamplesToAverage(15);
 		armEncoder->SetReverseDirection(true);
-		armEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
+		armEncoder->SetDistancePerPulse(4096/360); //PLACEHOLDER
 
 	spineEncoder1.reset(new Encoder(SPINE_ENCODER_1_A_PORT, SPINE_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
 		spineEncoder1->Sendable::SetName("Spine", "encoder 1");
@@ -153,7 +143,7 @@ void RobotMap::initCommon() {
 		spineEncoder1->SetMinRate(1);
 		spineEncoder1->SetSamplesToAverage(15);
 		spineEncoder1->SetReverseDirection(true);
-		spineEncoder1->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
+		spineEncoder1->SetDistancePerPulse(4096/360.0); //PLACEHOLDER
 
 	spineEncoder2.reset(new Encoder(SPINE_ENCODER_2_A_PORT, SPINE_ENCODER_2_B_PORT, false, Encoder::EncodingType::k4X));
 		spineEncoder2->Sendable::SetName("Spine", "encoder 2");
@@ -163,22 +153,10 @@ void RobotMap::initCommon() {
 		spineEncoder2->SetReverseDirection(true);
 		spineEncoder2->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
-	bottomSpineSwitch1.reset(new DigitalInput(BOTTOM_SPINE_SWITCH_1_PORT));
-		bottomSpineSwitch1->Sendable::SetName("Spine", "bottom switch 1");
-	topSpineSwitch1.reset(new DigitalInput(TOP_SPINE_SWITCH_1_PORT));
-		topSpineSwitch1->Sendable::SetName("Spine", "top switch 1");
-	bottomSpineSwitch2.reset(new DigitalInput(BOTTOM_SPINE_SWITCH_2_PORT));
-		bottomSpineSwitch2->Sendable::SetName("Spine", "bottom switch 2");
-	topSpineSwitch2.reset(new DigitalInput(TOP_SPINE_SWITCH_2_PORT));
-		topSpineSwitch2->Sendable::SetName("Spine", "top switch 2");
 	bottomShoulderSwitch.reset(new DigitalInput(BOTTOM_SHOULDER_SWITCH_PORT));
 		bottomShoulderSwitch->Sendable::SetName("Shoulder", "bottom switch");
 	topShoulderSwitch.reset(new DigitalInput(TOP_SHOULDER_SWITCH_PORT));
 		topShoulderSwitch->Sendable::SetName("Shoulder", "top switch");
-	frontClawSwitch.reset(new DigitalInput(FRONT_CLAW_SWITCH_PORT));
-		frontClawSwitch->Sendable::SetName("Claw", "front switch");
-	rearClawSwitch.reset(new DigitalInput(REAR_CLAW_SWITCH_PORT));
-		rearClawSwitch->Sendable::SetName("Claw", "rear switch");
 
 	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
@@ -221,10 +199,12 @@ void RobotMap::initProtoCase() {
 		rightDriveEncoder->SetReverseDirection(true);
 		rightDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
-	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(6));
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
 
-	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(0));
+
+	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(6));
+
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
 
 	backRightDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_VictorSPX(0));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_VictorSPX>(backRightDrive)->SetName("Drivetrain", "front left drive");
@@ -251,9 +231,22 @@ void RobotMap::initProtoCase() {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
+
 	gyro.reset(new ADXRS450_Gyro(SPI::Port(GYRO_PORT)));
-		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->Calibrate();
+
+	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
+	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1));
+
+	spineMotor2.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(0));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
+	//lw->Add(std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2));
+
+	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
+	std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor)->SetName("Claw", "motor");
+	//lw->Add(std::static_pointer_cast<frc::PWMVictorSPX>(clawMotor));
+
+;
 }
 
 /**
@@ -274,8 +267,8 @@ void RobotMap::initProtoCase() {
  *
  *  Spine                    | PWM | CAN | DIO |             |
  * ==========================================================|
- *  Left Spine Controller    |  4  |  ?  |     | Talon SRX   |
- *  Right Spine Controller   |  5  |  ?  |     | Talon SRX   |
+ *  Left Spine Controller    |  5  |  ?  |     | Talon SRX   |
+ *  Right Spine Controller   |  4  |  ?  |     | Talon SRX   |
  *                                                           |
  *  Left Encoder Y           |     |     |  14 |             |
  *  Left Encoder B           |     |     |  15 |             |
@@ -336,12 +329,9 @@ void RobotMap::initPowerUpCommon() {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new ADXRS450_Gyro(SPI::Port(GYRO_PORT)));
-		gyro->Sendable::SetName("Drivetrain", "gyro");
 	gyro.reset(new ADXRS450_Gyro(SPI::Port(0)));
 	gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->Calibrate();
-
+	gyro->Calibrate();
 }
 
 void RobotMap::initPowerUp() {
@@ -399,6 +389,7 @@ void RobotMap::initSteamworks() {
 
 	frontRightDrive.reset(new VictorSP(FRONT_RIGHT_DRIVE_PORT));
 	std::static_pointer_cast<frc::VictorSP>(frontRightDrive)->SetName("Drivetrain", "front right drive");
+
 
 	backLeftDrive->SetInverted(true);
 	backRightDrive->SetInverted(true);

@@ -9,14 +9,8 @@ private:
 	std::shared_ptr<Encoder> armEncoder;
 	std::shared_ptr<Encoder> spineEncoder1;
 	std::shared_ptr<Encoder> spineEncoder2;
-	std::shared_ptr<DigitalInput> bottomSpineSwitch1;
-	std::shared_ptr<DigitalInput> topSpineSwitch1;
-	std::shared_ptr<DigitalInput> bottomSpineSwitch2;
-	std::shared_ptr<DigitalInput> topSpineSwitch2;
 	std::shared_ptr<DigitalInput> bottomShoulderSwitch;
 	std::shared_ptr<DigitalInput> topShoulderSwitch;
-	std::shared_ptr<DigitalInput> frontClawSwitch;
-	std::shared_ptr<DigitalInput> rearClawSwitch;
 
 	std::shared_ptr<SpeedController> armMotor1;
 	std::shared_ptr<SpeedController> armMotor2;
@@ -29,13 +23,24 @@ private:
 public:
 	Arm();
 	void InitDefaultCommand();
+	void SetArmSpeed(float speed);
+	void CheckEncoders();
+	void SetClawSpeed(float speed);
+	float GetArmPosition();
+	void ResetArm();
+	void Reset();
+	bool CanMoveSpine();
+	void ResetArmEncoder();
+	void Log();
+
 	void OpenClawMotor();
 	void CloseClawMotor();
 	void StopClaw();
 	bool LimitSwitchState();
 	double CurrentDraw();
-	void Reset();
+
 	bool IsClawClosed;
+
 };
 
 #endif  // Arm_H

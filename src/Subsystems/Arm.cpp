@@ -1,23 +1,25 @@
+#include <Commands/ArmSwingDPAD.h>
 #include "Arm.h"
 #include "../RobotMap.h"
+
+#include "Robot.h"
+
+#include <algorithm>
+
+
 #include "Drivetrain.h"
 #include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
 #include "SmartDashboard/Sendable.h"
 #include "WPILib.h"
 #include "Commands/CloseClaw.h"
 
+
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
 	spineEncoder1 = RobotMap::spineEncoder1;
 	spineEncoder2 = RobotMap::spineEncoder2;
-	bottomSpineSwitch1 = RobotMap::bottomSpineSwitch1;
-	topSpineSwitch1 = RobotMap::topSpineSwitch1;
-	bottomSpineSwitch2 = RobotMap::bottomSpineSwitch2;
-	topSpineSwitch2 = RobotMap::topSpineSwitch2;
 	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
 	topShoulderSwitch = RobotMap::topShoulderSwitch;
-	frontClawSwitch = RobotMap::frontClawSwitch;
-	rearClawSwitch = RobotMap::rearClawSwitch;
 
 	armMotor1 = RobotMap::armMotor1;
 	armMotor2 = RobotMap::armMotor2;
@@ -25,27 +27,70 @@ Arm::Arm() : Subsystem("Arm") {
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
 
+
 	IsClawClosed = false;
+
 }
 
 void Arm::InitDefaultCommand() {
 
 	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new CloseClaw());
+
+	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new ArmSwingDPAD());
 }
+
+void Arm::SetArmSpeed(float speed){
+	armMotor1->Set(speed);
+	armMotor2->Set(speed);
+}
+
+void Arm::SetClawSpeed(float speed) {
+	clawMotor->Set(speed);
+}
+
+float Arm::GetArmPosition(){
+	return armEncoder->GetDistance();
+}
+
+	// SetDefaultCommand(new CloseClaw());
+
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void Arm::Reset(){
-	armEncoder.reset();
-	spineEncoder1.reset();
-	spineEncoder2.reset();
 
+void Arm::ResetArm(){
+	if (bottomShoulderSwitch->Get()){
+		armMotor1->Set(0);
+		armMotor2->Set(0);
+		ResetArmEncoder();
+	}
+}
+
+bool Arm::CanMoveSpine(){
+	if(Robot::arm->GetArmPosition() > -5 && Robot::arm->GetArmPosition() < 10){
+		return true;
+	}else if (Robot::arm->GetArmPosition() > 170 && Robot::arm->GetArmPosition() < 190){
+		return true;
+	}else return false;
+}
+
+void Arm::Reset(){
+	ResetArmEncoder();
 	armMotor1->Set(0);
 	armMotor2->Set(0);
 	clawMotor->Set(0);
 	spineMotor1->Set(0);
 	spineMotor2->Set(0);
+	Log();
+}
+
+void Arm::ResetArmEncoder(){
+	armEncoder->Reset();
+}
+
+void Arm::Log(){
+	SmartDashboard::PutNumber("Arm Encoder:", GetArmPosition());
 }
 
 void Arm::OpenClawMotor(){
@@ -57,10 +102,7 @@ void Arm::CloseClawMotor(){
 void Arm::StopClaw(){
 	clawMotor->Set(0);
 }
-bool Arm::LimitSwitchState(){
-	SmartDashboard::PutBoolean("Claw Limit Switch State: ", rearClawSwitch.get());
-	return(rearClawSwitch.get());
-}
+
 double Arm::CurrentDraw(){
 	double current = 0.0;
 	if(RobotMap::m_robotType != RobotMap::STEAMWORKS) {

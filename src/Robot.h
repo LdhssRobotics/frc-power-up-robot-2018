@@ -10,7 +10,7 @@
 
 #include "WPILib.h"
 #include "Commands/Command.h"
-#include "LiveWindow/LiveWindow.h"
+//#include "LiveWindow/LiveWindow.h"
 #include "RobotMap.h"
 
 // Vision includes
@@ -25,17 +25,18 @@
 // Subsystem includes
 #include "Subsystems/Arm.h"
 #include "Subsystems/Drivetrain.h"
-
 #include "OI.h"
+#include "Subsystems/SpineSubSystem.h"
 
 class Robot : public frc::TimedRobot {
 	public:
 	frc::Command* autonomousCommand = nullptr;
 	static std::unique_ptr<OI> oi;
-	frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
+	//frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
 	frc::SendableChooser<frc::Command*> chooser;
 	static std::shared_ptr<Arm> arm;
 	static std::shared_ptr<Drivetrain> drivetrain;
+	static std::shared_ptr<SpineSubSystem> spine;
 
 	static void VisionThread();
 	void RobotInit() override;

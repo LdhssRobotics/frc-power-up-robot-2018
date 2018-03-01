@@ -11,7 +11,7 @@
 
 class OI {
 public:
-	std::shared_ptr<frc::Joystick> driveStick;
+	std::shared_ptr<frc::Joystick> driveStick; //DriveTrain Controller
 
 	// Drive Stick Buttons
 	JoystickButton *aButtonD;

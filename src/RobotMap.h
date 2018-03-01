@@ -9,7 +9,7 @@
 #define ROBOTMAP_H
 
 #include "WPILib.h"
-#include "LiveWindow/LiveWindow.h"
+//#include "LiveWindow/LiveWindow.h"
 
 class RobotMap {
 public:
@@ -17,14 +17,9 @@ public:
 	static std::shared_ptr<Encoder> spineEncoder1;
 	static std::shared_ptr<Encoder> spineEncoder2;
 	static std::shared_ptr<Encoder> armEncoder;
-	static std::shared_ptr<DigitalInput> bottomSpineSwitch1;
-	static std::shared_ptr<DigitalInput> topSpineSwitch1;
-	static std::shared_ptr<DigitalInput> bottomSpineSwitch2;
-	static std::shared_ptr<DigitalInput> topSpineSwitch2;
 	static std::shared_ptr<DigitalInput> bottomShoulderSwitch;
 	static std::shared_ptr<DigitalInput> topShoulderSwitch;
 	static std::shared_ptr<DigitalInput> frontClawSwitch;
-	static std::shared_ptr<DigitalInput> rearClawSwitch;
 
 	static std::shared_ptr<SpeedController> clawMotor;
 	static std::shared_ptr<SpeedController> spineMotor1;

@@ -18,7 +18,7 @@ void DriveWithJoystick::Execute() {
 	float turn = (-0.75 * Robot::oi->driveStick->GetRawAxis(OI::RIGHT_X_AXIS));
 
 	//Reduce the base speed while the left bumper is held
-	if (Robot::oi->driveStick->GetRawButton(5)) {
+	if (Robot::oi->driveStick->GetRawButton(6)) {
 		speed = 0.65 * speed;
 	}
 
@@ -27,7 +27,11 @@ void DriveWithJoystick::Execute() {
 	}
 
 	Robot::drivetrain->ArcadeDrive(speed, turn);
+	if (speed > 0.3){
+		speed = 0.3;
+	}
 }
+
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveWithJoystick::IsFinished() {
