@@ -108,10 +108,17 @@ void Drivetrain::Debug() {
 	//}*/
 }
 float Drivetrain::EncoderPosition(){
-	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetSelectedSensorPosition(0);
-	SmartDashboard::PutNumber("Talon SRX - encoder: ", pos);
+	int pos = 0;
+
+	if(RobotMap::m_robotType != RobotMap::STEAMWORKS) {
+		pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetSelectedSensorPosition(0);
+		SmartDashboard::PutNumber("Talon SRX - encoder: ", pos);
+	}
 	return (pos);
 }
 void Drivetrain::MCEncoderReset(){
+	if(RobotMap::m_robotType != RobotMap::STEAMWORKS) {
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetSelectedSensorPosition(0,0,10);
+	}
+
 }

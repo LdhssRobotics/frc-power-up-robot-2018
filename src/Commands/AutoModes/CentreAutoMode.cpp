@@ -1,13 +1,14 @@
 #include <Commands/AutoModes/CentreAutoMode.h>
 #include "../DriveStraight.h"
 #include "../Turn90Degrees.h"
+#include "../ResetGyro.h"
 
 CentreAutoMode::CentreAutoMode() {
-	AddSequential(new DriveStraight(70));
+	AddSequential(new DriveStraight(105)); //70
 	AddSequential(new Turn90Degrees(true));
-	AddSequential(new DriveStraight(30));
+	AddSequential(new DriveStraight(65)); //30
 	AddSequential(new Turn90Degrees(false));
-	AddSequential(new DriveStraight(35));
+	AddSequential(new DriveStraight(105)); //35
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

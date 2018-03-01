@@ -413,9 +413,9 @@ void RobotMap::initSteamworks() {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	//gyro.reset(new ADXRS450_Gyro());
-		//gyro->Sendable::SetName("Drivetrain", "gyro");
-		//gyro->Calibrate();
+	gyro.reset(new ADXRS450_Gyro());
+		gyro->Sendable::SetName("Drivetrain", "gyro");
+		gyro->Calibrate();
 }
 
 #endif /* SRC_ROBOTMAP_CPP_ */
