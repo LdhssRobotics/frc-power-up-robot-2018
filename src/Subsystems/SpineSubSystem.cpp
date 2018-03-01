@@ -33,10 +33,10 @@ void SpineSubSystem::InitDefaultCommand(){
 	SetDefaultCommand(new SpineDPAD());
 }
 
-/*double SpineSubSystem::AdjustSpine() {
+double SpineSubSystem::AdjustSpine() {
 	double difference = (GetSpinePos2() - GetSpinePos1()) / GetSpinePos1();
 	return (1-difference);
-}*/
+}
 
 void SpineSubSystem::SetMotorSpeed(double lspeed, double rspeed){
 	Robot::spine->spineMotor2->Set(rspeed);
@@ -79,15 +79,14 @@ void SpineSubSystem::Reset(){
 
 void SpineSubSystem::CheckReset(){
 	ctre::phoenix::motorcontrol::SensorCollection limit1 = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetSensorCollection();
-	int limit = limit1.IsFwdLimitSwitchClosed();
-	if (limit == 1){
-		ResetSpineEncoder1();
-	}
+	int limit = limit1.IsRevLimitSwitchClosed();
 	ctre::phoenix::motorcontrol::SensorCollection limit2 = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetSensorCollection();
-	int Limit = limit2.IsFwdLimitSwitchClosed();
-	if (Limit == 1){
+	int Limit = limit2.IsRevLimitSwitchClosed();
+	if (limit == 1 || Limit == 1){
+		ResetSpineEncoder1();
 		ResetSpineEncoder2();
 	}
+
 	SmartDashboard::PutNumber("Limit 1", limit);
 	SmartDashboard::PutNumber("Limit 2", Limit);
 }
