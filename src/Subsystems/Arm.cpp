@@ -21,7 +21,6 @@ Arm::Arm() : Subsystem("Arm") {
 	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
 	topShoulderSwitch = RobotMap::topShoulderSwitch;
 
-
 	armMotor1 = RobotMap::armMotor1;
 	armMotor2 = RobotMap::armMotor2;
 	clawMotor = RobotMap::clawMotor;

@@ -23,7 +23,6 @@ private:
 public:
 	Arm();
 	void InitDefaultCommand();
-
 	void SetArmSpeed(float speed);
 	void CheckEncoders();
 	void SetClawSpeed(float speed);

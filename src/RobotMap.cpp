@@ -134,7 +134,7 @@ void RobotMap::initCommon() {
 		armEncoder->SetMinRate(1);
 		armEncoder->SetSamplesToAverage(15);
 		armEncoder->SetReverseDirection(true);
-		armEncoder->SetDistancePerPulse(4096/360); //PLACEHOLDER
+		armEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 	spineEncoder1.reset(new Encoder(SPINE_ENCODER_1_A_PORT, SPINE_ENCODER_1_B_PORT, false, Encoder::EncodingType::k4X));
 		spineEncoder1->Sendable::SetName("Spine", "encoder 1");
@@ -150,7 +150,7 @@ void RobotMap::initCommon() {
 		spineEncoder2->SetMinRate(1);
 		spineEncoder2->SetSamplesToAverage(15);
 		spineEncoder2->SetReverseDirection(true);
-		spineEncoder2->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
+		spineEncoder2->SetDistancePerPulse(4096/360); //PLACEHOLDER
 
 	bottomShoulderSwitch.reset(new DigitalInput(BOTTOM_SHOULDER_SWITCH_PORT));
 		bottomShoulderSwitch->Sendable::SetName("Shoulder", "bottom switch");
@@ -163,8 +163,6 @@ void RobotMap::initCommon() {
 
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
-
-
 
 	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");
