@@ -9,7 +9,7 @@
 #define ROBOTMAP_H
 
 #include "WPILib.h"
-#include "LiveWindow/LiveWindow.h"
+//#include "LiveWindow/LiveWindow.h"
 
 class RobotMap {
 public:
@@ -17,14 +17,9 @@ public:
 	static std::shared_ptr<Encoder> spineEncoder1;
 	static std::shared_ptr<Encoder> spineEncoder2;
 	static std::shared_ptr<Encoder> armEncoder;
-	static std::shared_ptr<DigitalInput> bottomSpineSwitch1;
-	static std::shared_ptr<DigitalInput> topSpineSwitch1;
-	static std::shared_ptr<DigitalInput> bottomSpineSwitch2;
-	static std::shared_ptr<DigitalInput> topSpineSwitch2;
 	static std::shared_ptr<DigitalInput> bottomShoulderSwitch;
 	static std::shared_ptr<DigitalInput> topShoulderSwitch;
 	static std::shared_ptr<DigitalInput> frontClawSwitch;
-	static std::shared_ptr<DigitalInput> rearClawSwitch;
 
 	static std::shared_ptr<SpeedController> clawMotor;
 	static std::shared_ptr<SpeedController> spineMotor1;
@@ -68,32 +63,32 @@ private:
 	/**
 	 * initialization common to all robots
 	 */
-	static void initCommon(frc::LiveWindow *lw);
+	static void initCommon();
 
 	/**
 	 * initialization common to both 2018 Power Up prototype and competition robots
 	 */
-	static void initPowerUpCommon(frc::LiveWindow *lw);
+	static void initPowerUpCommon();
 
 	/**
 	 * initialization specific to 2018 Power Up prototype robot
 	 */
-	static void initPowerUpProto(frc::LiveWindow *lw);
+	static void initPowerUpProto();
 
 	/**
 	 * initialization specific to 2018 Power Up competition robot
 	 */
-	static void initPowerUp(frc::LiveWindow *lw);
+	static void initPowerUp();
 
 	/**
 	 * initialization specific to protocase robot
 	 */
-	static void initProtoCase(frc::LiveWindow *lw);
+	static void initProtoCase();
 
 	/**
 	 * initialization specific to 2017 steamworks robot
 	 */
-	static void initSteamworks(frc::LiveWindow *lw);
+	static void initSteamworks();
 };
 
 #endif

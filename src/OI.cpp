@@ -12,8 +12,12 @@
 #include "Commands/CrabWalkGroup.h"
 #include "Commands/CrabWalk.h"
 #include "Commands/CrabWalk2.h"
+
+#include "Commands/ClimbGroup.h"
+
 #include "Commands/OpenClaw.h"
 #include "Commands/CloseClaw.h"
+
 #include "Commands/SwitchCamera.h"
 OI::OI() {
 
@@ -29,28 +33,30 @@ OI::OI() {
 	selectButtonD = new JoystickButton(driveStick.get(), 7);
 	startButtonD = new JoystickButton(driveStick.get(), 8);
 	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
-	rightStickButtonD = new JoystickButton(driveStick.get(), 1);
-
+	rightStickButtonD = new JoystickButton(driveStick.get(), 10);
 	// Assigning Commands to Buttons
 
-	// Drive Stick Controls
-
-	xButtonD->ToggleWhenPressed(new Turn90Degrees(true));
+	//Drive Stick Controls
+	bButtonD->ToggleWhenPressed(new Turn90Degrees(true));
 	yButtonD->WhenPressed(new Turn180Degrees(true));
-	bButtonD->ToggleWhenPressed(new Turn90Degrees(false));
+	xButtonD->ToggleWhenPressed(new Turn90Degrees(false));
 	aButtonD->WhenPressed(new Turn180Degrees(false));
 	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
 	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
-	startButtonD->ToggleWhenPressed(new SwitchCamera());
+
+	//Camera Switch Controls
+	selectButtonD->ToggleWhenPressed(new SwitchCamera());
+
+	//Climb Controls
+	startButtonD->WhenPressed(new ClimbGroup());
 
 	//Claw Controls
-
 	leftBumperButtonD->WhileHeld(new OpenClaw());
 	leftBumperButtonD->WhenReleased(new CloseClaw());
+
 
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
 	return driveStick;
 }
-

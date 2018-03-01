@@ -3,6 +3,7 @@
 std::shared_ptr<Arm> Robot::arm;
 std::shared_ptr<Drivetrain> Robot::drivetrain;
 std::unique_ptr<OI> Robot::oi;
+std::shared_ptr<SpineSubSystem> Robot::spine;
 
 cs::UsbCamera invertableCubeCamera;
 cs::UsbCamera backCamera;
@@ -35,6 +36,7 @@ void Robot::RobotInit() {
 
 	arm.reset(new Arm());
 	drivetrain.reset(new Drivetrain());
+	spine.reset(new SpineSubSystem());
 
 	oi.reset(new OI());
 
@@ -69,7 +71,6 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
-
 	if(Robot::drivetrain->CubeFront){
 		server.SetSource(invertableCubeCamera);
 	} else {
