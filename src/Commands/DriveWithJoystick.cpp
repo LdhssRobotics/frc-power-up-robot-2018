@@ -27,8 +27,8 @@ void DriveWithJoystick::Execute() {
 	}
 
 	Robot::drivetrain->ArcadeDrive(speed, turn);
-	if (speed > 0.3){
-		speed = 0.3;
+	if (speed > 0.6){
+		speed = 0.6;
 	}
 }
 

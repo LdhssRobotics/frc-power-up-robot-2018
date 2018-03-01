@@ -24,8 +24,15 @@ void ArmSwingDPAD::Execute(){
 		SmartDashboard::PutString("Arm", "Moving");
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == -1){
+		float currentArmPosition = Robot::arm->GetArmPosition();
 		float speed = 0.0;
 		Robot::arm->SetArmSpeed(speed);
+		if (currentArmPosition == Robot::arm->GetArmPosition()){
+			Robot::arm->SetArmSpeed(0);
+		}
+		else if (currentArmPosition > Robot::arm->GetArmPosition()){
+			Robot::arm->SetArmSpeed(0.1);
+		}
 		SmartDashboard::PutString("Arm", "Stopped");
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == 270){//ArmSwing Down

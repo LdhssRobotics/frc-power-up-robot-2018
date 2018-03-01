@@ -27,6 +27,7 @@ public:
 	void CheckEncoders();
 	void SetClawSpeed(float speed);
 	float GetArmPosition();
+	float GetCurrentArmPosition();
 	void ResetArm();
 	void Reset();
 	bool CanMoveSpine();
