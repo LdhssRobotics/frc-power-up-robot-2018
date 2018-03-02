@@ -65,8 +65,7 @@ std::shared_ptr<DigitalInput> RobotMap::bottomShoulderSwitch;
 std::shared_ptr<DigitalInput> RobotMap::topShoulderSwitch;
 std::shared_ptr<DigitalInput> RobotMap::frontClawSwitch;
 
-std::shared_ptr<SpeedController> RobotMap::armMotor1;
-std::shared_ptr<SpeedController> RobotMap::armMotor2;
+std::shared_ptr<SpeedController> RobotMap::armMotor;
 std::shared_ptr<SpeedController> RobotMap::clawMotor;
 std::shared_ptr<SpeedController> RobotMap::spineMotor1;
 std::shared_ptr<SpeedController> RobotMap::spineMotor2;
@@ -157,13 +156,9 @@ void RobotMap::initCommon() {
 	topShoulderSwitch.reset(new DigitalInput(TOP_SHOULDER_SWITCH_PORT));
 		topShoulderSwitch->Sendable::SetName("Shoulder", "top switch");
 
-	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
-	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
-	armMotor1->SetInverted(true);
-
-	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
-	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
-	armMotor2->SetInverted(false);
+	armMotor.reset(new VictorSP(ARM_MOTOR_2_PORT));
+	std::static_pointer_cast<frc::VictorSP>(armMotor)->SetName("Arm", "motor 2");
+	armMotor->SetInverted(false);
 
 	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");

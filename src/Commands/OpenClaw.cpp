@@ -9,10 +9,8 @@
 #include <chrono>
 
 OpenClaw::OpenClaw() {
-	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::arm.get());
 	maxcurrent = 15.0;
-	// eg. Requires(Robot::chassis.get());
 }
 
 // Called just before this Command runs the first time

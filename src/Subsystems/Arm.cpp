@@ -21,8 +21,7 @@ Arm::Arm() : Subsystem("Arm") {
 	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
 	topShoulderSwitch = RobotMap::topShoulderSwitch;
 
-	armMotor1 = RobotMap::armMotor1;
-	armMotor2 = RobotMap::armMotor2;
+	armMotor = RobotMap::armMotor;
 	clawMotor = RobotMap::clawMotor;
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
@@ -33,16 +32,11 @@ Arm::Arm() : Subsystem("Arm") {
 }
 
 void Arm::InitDefaultCommand() {
-
-	// Set the default command for a subsystem here.
-
-	// SetDefaultCommand(new MySpecialCommand());
 	SetDefaultCommand(new ArmSwingDPAD());
 }
 
 void Arm::SetArmSpeed(float speed){
-	armMotor1->Set(speed);
-	armMotor2->Set(speed);
+	armMotor->Set(speed);
 }
 
 void Arm::SetClawSpeed(float speed) {
@@ -55,8 +49,7 @@ float Arm::GetArmPosition(){
 
 void Arm::ResetArm(){
 	if (bottomShoulderSwitch->Get()){
-		armMotor1->Set(0);
-		armMotor2->Set(0);
+		armMotor->Set(0);
 		ResetArmEncoder();
 	}
 }
@@ -71,8 +64,7 @@ bool Arm::CanMoveSpine(){
 
 void Arm::Reset(){
 	ResetArmEncoder();
-	armMotor1->Set(0);
-	armMotor2->Set(0);
+	armMotor->Set(0);
 	clawMotor->Set(0);
 	spineMotor1->Set(0);
 	spineMotor2->Set(0);

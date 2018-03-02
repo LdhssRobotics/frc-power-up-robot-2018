@@ -11,7 +11,6 @@
 ArmSwing::ArmSwing(float position):
 	Position(position)
 {
-	// TODO Auto-generated constructor stub
 	Requires(Robot::arm.get());
 }
 
