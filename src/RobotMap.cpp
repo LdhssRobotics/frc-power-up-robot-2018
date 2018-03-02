@@ -22,11 +22,11 @@
 // PORT MAPPINGS
 	// PWM Ports
 		// Arm subsystem
-#define CLAW_MOTOR_PORT 8
+#define CLAW_MOTOR_PORT 8 // CAN
 #define ARM_MOTOR_1_PORT 6 // in wiring, 1 = left; 2 = right
 #define ARM_MOTOR_2_PORT 7
-#define SPINE_MOTOR_1_PORT 5
-#define SPINE_MOTOR_2_PORT 4
+#define SPINE_MOTOR_1_PORT 5  // CAN
+#define SPINE_MOTOR_2_PORT 4  // CAN
 
 		// Drivetrain subsystem
 #define FRONT_LEFT_DRIVE_PORT 2
@@ -46,10 +46,10 @@
 #define TOP_SHOULDER_SWITCH_PORT 1 // PH
 
 		// Drivetrain subsystem
-#define LEFT_DRIVE_ENCODER_A_PORT 10
-#define LEFT_DRIVE_ENCODER_B_PORT 11
-#define RIGHT_DRIVE_ENCODER_A_PORT 12
-#define RIGHT_DRIVE_ENCODER_B_PORT 13
+#define LEFT_DRIVE_ENCODER_A_PORT 12
+#define LEFT_DRIVE_ENCODER_B_PORT 13
+#define RIGHT_DRIVE_ENCODER_A_PORT 10
+#define RIGHT_DRIVE_ENCODER_B_PORT 11
 
 	//Analog Ports
 #define GYRO_PORT 0
