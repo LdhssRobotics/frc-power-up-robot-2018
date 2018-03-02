@@ -2,7 +2,7 @@
 #include "../DriveStraight.h"
 
 RightAutoMode::RightAutoMode() {
-	AddSequential(new DriveStraight(175));
+	AddSequential(new DriveStraight(145));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

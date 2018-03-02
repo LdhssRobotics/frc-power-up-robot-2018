@@ -12,21 +12,25 @@ DriveStraight::DriveStraight(float distance):
 {
 	Requires (Robot::drivetrain.get());
 	straight = 0;
+	SmartDashboard::PutNumber("Is DriveStraight initialized: ", 0);
 }
 
 // Called just before this Command runs the first time
 void DriveStraight::Initialize() {
-	Robot::drivetrain->gyro->Reset();
 	Robot::drivetrain->ResetEncoder();
-	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-	Robot::drivetrain->gyro->Calibrate();
+	Robot::drivetrain->gyro->Reset();
+	SmartDashboard::PutNumber("Is DriveStraight initialized: ", 1);
+
+	//std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	//Robot::drivetrain->gyro->Calibrate();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveStraight::Execute() {
 	//Determine amount to turn
+	SmartDashboard::PutNumber("Is DriveStraight initialized: ", 2);
 	float currentheading = Robot::drivetrain->gyro->GetAngle();
-	Robot::drivetrain->ArcadeDrive(speed, (straight+currentheading) * kP);
+	Robot::drivetrain->ArcadeDrive(speed, (straight + currentheading) * kP);
 	SmartDashboard::PutNumber("Current Heading: ", currentheading);
 
 }
@@ -39,7 +43,6 @@ bool DriveStraight::IsFinished() {
 // Called once after isFinished returns true
 void DriveStraight::End() {
 	Robot::drivetrain->Stop();
-
 }
 
 // Called when another command which requires one or more of the same

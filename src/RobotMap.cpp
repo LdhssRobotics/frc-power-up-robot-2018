@@ -124,6 +124,7 @@ void RobotMap::init() {
 void RobotMap::reset() {
 	Robot::arm->Reset();
 	Robot::drivetrain->Reset();
+	Robot::spine->Reset();
 	}
 
 void RobotMap::initCommon() {
@@ -152,12 +153,13 @@ void RobotMap::initCommon() {
 		spineEncoder2->SetSamplesToAverage(15);
 		spineEncoder2->SetReverseDirection(true);
 		spineEncoder2->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
-
+/*
 	bottomShoulderSwitch.reset(new DigitalInput(BOTTOM_SHOULDER_SWITCH_PORT));
 		bottomShoulderSwitch->Sendable::SetName("Shoulder", "bottom switch");
+
 	topShoulderSwitch.reset(new DigitalInput(TOP_SHOULDER_SWITCH_PORT));
 		topShoulderSwitch->Sendable::SetName("Shoulder", "top switch");
-
+*/
 	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
 
@@ -170,14 +172,14 @@ void RobotMap::initCommon() {
 	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
 
-	clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
+	/*clawMotor.reset(new PWMTalonSRX(CLAW_MOTOR_PORT));
 	std::static_pointer_cast<frc::PWMTalonSRX>(clawMotor)->SetName("Claw", "motor");
 
 	spineMotor1.reset(new PWMTalonSRX(SPINE_MOTOR_1_PORT));
-	std::dynamic_pointer_cast<frc::PWMTalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
+	std::dynamic_pointer_cast<frc::PWMTalonSRX>(spineMotor1)->SetName("Spine", "motor 1");*/
 
-	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
-	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
+	spineMotor2.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(4));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
 }
 
 void RobotMap::initProtoCase() {
@@ -404,7 +406,7 @@ void RobotMap::initSteamworks() {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	gyro.reset(new ADXRS450_Gyro());
+	gyro.reset(new ADXRS450_Gyro(SPI::Port(0)));
 		gyro->Sendable::SetName("Drivetrain", "gyro");
 		gyro->Calibrate();
 }
