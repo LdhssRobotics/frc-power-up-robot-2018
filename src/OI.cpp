@@ -15,8 +15,8 @@
 
 #include "Commands/ClimbGroup.h"
 
-#include "Commands/OpenClaw.h"
-#include "Commands/CloseClaw.h"
+#include "Commands/OpenClawGroup.h"
+#include "Commands/CloseClawGroup.h"
 
 #include "Commands/SwitchCamera.h"
 OI::OI() {
@@ -51,8 +51,8 @@ OI::OI() {
 	startButtonD->WhenPressed(new ClimbGroup());
 
 	//Claw Controls
-	leftBumperButtonD->WhileHeld(new OpenClaw());
-	leftBumperButtonD->WhenReleased(new CloseClaw());
+	leftBumperButtonD->WhileHeld(new OpenClawGroup());
+	leftBumperButtonD->WhenReleased(new CloseClawGroup());
 
 
 }

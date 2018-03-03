@@ -2,8 +2,6 @@
 #include "Robot.h"
 #include "RobotMap.h"
 #include "Subsystems/Arm.h"
-#include <chrono>
-#include <thread>
 
 CloseClaw::CloseClaw() {
 	// Use Requires() here to declare subsystem dependencies
@@ -15,8 +13,6 @@ CloseClaw::CloseClaw() {
 // Called just before this Command runs the first time
 void CloseClaw::Initialize() {
 	Robot::arm->CloseClawMotor();
-	SetTimeout(5);
-	std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }
 
 // Called repeatedly when this Command is scheduled to run
