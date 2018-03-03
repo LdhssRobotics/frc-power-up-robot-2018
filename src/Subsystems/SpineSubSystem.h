@@ -28,7 +28,7 @@ private:
 public:
 	SpineSubSystem();
 	void InitDefaultCommand();
-	double AdjustSpine();
+	double AdjustSpine(bool isGoingUp);
 	void SetMotorSpeed(double lspeed, double rspeed);
 	int GetSpinePos1();
 	int GetSpinePos2();
@@ -36,8 +36,12 @@ public:
 	void ResetSpine2();
 	void Reset();
 	bool CanMoveSpine();
+	bool CheckMove1();
+	bool CheckMove2();
 	void ResetSpineEncoder1();
 	void ResetSpineEncoder2();
+	double Motor1Current();
+	double Motor2Current();
 	void CheckReset();
 	void Log();
 
