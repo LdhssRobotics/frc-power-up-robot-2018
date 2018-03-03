@@ -1,6 +1,8 @@
 #include <Commands/SpineDPAD.h>
 
 SpineDPAD::SpineDPAD() {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::spine.get());
 }
 

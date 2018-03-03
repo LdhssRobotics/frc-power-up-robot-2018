@@ -29,7 +29,7 @@ void CloseClaw::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool CloseClaw::IsFinished() {
-	return  (abs(Robot::arm->CurrentDraw()) > abs(maxcurrent)) || IsTimedOut();
+	return  (abs(Robot::arm->CurrentDraw()) > abs(maxcurrent)) or IsTimedOut();
 }
 
 // Called once after isFinished returns true

@@ -12,7 +12,8 @@ private:
 	std::shared_ptr<DigitalInput> bottomShoulderSwitch;
 	std::shared_ptr<DigitalInput> topShoulderSwitch;
 
-	std::shared_ptr<SpeedController> armMotor;
+	std::shared_ptr<SpeedController> armMotor1;
+	std::shared_ptr<SpeedController> armMotor2;
 	std::shared_ptr<SpeedController> clawMotor;
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;

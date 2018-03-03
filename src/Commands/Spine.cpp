@@ -7,11 +7,10 @@
 
 #include <Commands/Spine.h>
 
-Spine::Spine(float position):
-Position(position)
-{
+Spine::Spine(float P) {
 	// TODO Auto-generated constructor stub
 	Requires(Robot::spine.get());
+	Position = P;
 
 }
 
@@ -27,6 +26,7 @@ void Spine::Execute(){
 	}else {
 		End();
 	}
+
 }
 
 void Spine::End(){
