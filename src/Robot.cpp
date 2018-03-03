@@ -41,7 +41,8 @@ void Robot::RobotInit() {
 	oi.reset(new OI());
 
 	// Select autonomous mode
-	chooser.AddDefault("Centre Auto Mode", new CentreAutoMode()); // Default autonomous mode
+	chooser.AddObject("Centre Auto Mode", new CentreAutoMode()); // Default autonomous mode
+	chooser.AddDefault("Cross Line", new LeftAutoMode());
 	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 }
 
@@ -71,7 +72,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
-	if(Robot::drivetrain->CubeFront){
+	if(Robot::drivetrain->IsSpine){
 		server.SetSource(invertableCubeCamera);
 	} else {
 		server.SetSource(backCamera);

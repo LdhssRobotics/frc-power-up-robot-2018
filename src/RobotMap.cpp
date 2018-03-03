@@ -249,7 +249,7 @@ void RobotMap::initProtoCase() {
 
 	gyro.reset(new AnalogGyro(GYRO_PORT));
 		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
+		//gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
 }
 
@@ -351,7 +351,7 @@ void RobotMap::initPowerUpCommon() {
 
 	gyro.reset(new AnalogGyro(GYRO_PORT));
 		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
+		//gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
 
 }
@@ -431,7 +431,7 @@ void RobotMap::initSteamworks() {
 
 	gyro.reset(new AnalogGyro(GYRO_PORT));
 		gyro->Sendable::SetName("Drivetrain", "gyro");
-		gyro->SetSensitivity(0.00666);
+		//gyro->SetSensitivity(0.00666);
 		gyro->Calibrate();
 }
 

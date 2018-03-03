@@ -16,6 +16,7 @@ OpenClaw::OpenClaw() {
 // Called just before this Command runs the first time
 void OpenClaw::Initialize() {
 	Robot::arm->OpenClawMotor();
+	SetTimeout(4);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -28,7 +29,7 @@ void OpenClaw::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool OpenClaw::IsFinished() {
-	return (abs(Robot::arm->CurrentDraw())> abs(maxcurrent));
+	return (abs(Robot::arm->CurrentDraw())> abs(maxcurrent)) or IsTimedOut();
 	//return false;
 }
 // Called once after isFinished returns true
@@ -44,5 +45,5 @@ void OpenClaw::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void OpenClaw::Interrupted() {
-	IsTimedOut();
+	End();
 }

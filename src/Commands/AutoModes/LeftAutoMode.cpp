@@ -1,6 +1,10 @@
 #include "LeftAutoMode.h"
+#include "../DriveDistance.h"
+
 
 LeftAutoMode::LeftAutoMode() {
+	AddSequential(new DriveDistance(3.3)); //20
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

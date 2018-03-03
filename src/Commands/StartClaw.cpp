@@ -18,11 +18,11 @@ void StartClaw::Initialize(){
 	Robot::arm->SetClawSpeed(0);
 	if (direct) {
 		Robot::arm->OpenClawMotor();
-		SetTimeout(5);
 	} else {
 		Robot::arm->CloseClawMotor();
-		SetTimeout(5);
+
 	}
+	SetTimeout(1);
 }
 
 void StartClaw::Execute(){

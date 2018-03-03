@@ -12,6 +12,5 @@
 CloseClawGroup::CloseClawGroup() {
 	AddSequential(new StartClaw(false));
 	AddSequential(new CloseClaw());
-
 }
 

@@ -13,6 +13,7 @@ CloseClaw::CloseClaw() {
 // Called just before this Command runs the first time
 void CloseClaw::Initialize() {
 	Robot::arm->CloseClawMotor();
+	SetTimeout(4);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -41,5 +42,5 @@ void CloseClaw::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void CloseClaw::Interrupted() {
-
+End();
 }
