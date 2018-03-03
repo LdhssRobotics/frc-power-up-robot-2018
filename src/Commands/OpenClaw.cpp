@@ -16,7 +16,7 @@ OpenClaw::OpenClaw() {
 // Called just before this Command runs the first time
 void OpenClaw::Initialize() {
 	Robot::arm->OpenClawMotor();
-	SetTimeout(4);
+	SetTimeout(2.5);
 }
 
 // Called repeatedly when this Command is scheduled to run
