@@ -35,14 +35,41 @@ void SpineSubSystem::InitDefaultCommand(){
 }
 
 double SpineSubSystem::AdjustSpine(bool isGoingUp) {
-	//double difference = (GetSpinePos2() - GetSpinePos1()) / GetSpinePos1();
 	float increment;
-	if (isGoingUp) {
+	if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() < -50000){
+		std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetSelectedSensorPosition(Robot::spine->GetSpinePos2(),0,1);
+		increment = 0;
+	}else if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() > 50000){
+		std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetSelectedSensorPosition(Robot::spine->GetSpinePos1(),0,1);
+		increment = 0;
+	}else if (isGoingUp) {
 		increment = (percent/someerror)*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
 	} else {
 		increment = (percent/someerror)*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
 	}
-	return increment /*(1-difference)*/;
+	return increment;
+}
+
+void SpineSubSystem::AdjustSimple(bool down){
+	double direction = 1;
+	if (down){
+		direction = -1;
+	}
+	double motorSpeed1 = 0.6 * direction;
+	double motorSpeed2 = 0.6 * direction;
+
+	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
+	if (abs(delta) > 10000){
+		delta = delta * direction;
+		if (delta > 0){
+			motorSpeed1 = 0;
+		}
+		else {
+			motorSpeed2 = 0;
+		}
+	}
+	Robot::spine->spineMotor1->Set(motorSpeed1);
+	Robot::spine->spineMotor2->Set(motorSpeed2);
 }
 
 void SpineSubSystem::SetMotorSpeed(double lspeed, double rspeed){
@@ -58,6 +85,10 @@ void SpineSubSystem::SetMotorSpeed(double lspeed, double rspeed){
 	}
 }
 
+void SpineSubSystem::SetMotor(double spine1, double spine2){
+	Robot::spine->spineMotor1->Set(spine1);
+	Robot::spine->spineMotor2->Set(spine2);
+}
 int SpineSubSystem::GetSpinePos1(){
 	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetSelectedSensorPosition(0);
 	return pos;
@@ -122,15 +153,4 @@ void SpineSubSystem::CheckReset(){
 	SmartDashboard::PutNumber("Limit 2", Limit);
 }
 
-double SpineSubSystem::Motor1Current(){
-	double motor1current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetOutputCurrent();
-	SmartDashboard::PutNumber("Talon SRX - current: ", motor1current);
-		return (motor1current);
 
-}
-
-double SpineSubSystem::Motor2Current(){
-	double motor2current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetOutputCurrent();
-	SmartDashboard::PutNumber("Talon SRX - current: ", motor2current);
-		return (motor2current);
-}
