@@ -55,8 +55,8 @@ void SpineSubSystem::AdjustSimple(bool down){
 	if (down){
 		direction = -1;
 	}
-	double motorSpeed1 = 1 * direction;
-	double motorSpeed2 = 1 * direction;
+	double motorSpeed1 = 0.6 * direction;
+	double motorSpeed2 = 0.6 * direction;
 
 
 	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
