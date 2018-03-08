@@ -10,7 +10,6 @@ private:
 	std::shared_ptr<Encoder> spineEncoder1;
 	std::shared_ptr<Encoder> spineEncoder2;
 	std::shared_ptr<DigitalInput> bottomShoulderSwitch;
-	std::shared_ptr<DigitalInput> topShoulderSwitch;
 
 	std::shared_ptr<SpeedController> armMotor1;
 	std::shared_ptr<SpeedController> armMotor2;

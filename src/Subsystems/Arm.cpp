@@ -16,10 +16,7 @@
 
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
-	spineEncoder1 = RobotMap::spineEncoder1;
-	spineEncoder2 = RobotMap::spineEncoder2;
 	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
-	topShoulderSwitch = RobotMap::topShoulderSwitch;
 
 	armMotor1 = RobotMap::armMotor1;
 	armMotor2 = RobotMap::armMotor2;

@@ -20,7 +20,7 @@ void Robot::VisionThread(){
 
 	server = CameraServer::GetInstance()->GetServer();
 
-	//Making sure Cameras don't disconnect
+	// Holds both feeds open to prevent lag when switching camera feeds
 	invertableCubeCvSink.SetSource(invertableCubeCamera);
 	invertableCubeCvSink.SetEnabled(true);
 

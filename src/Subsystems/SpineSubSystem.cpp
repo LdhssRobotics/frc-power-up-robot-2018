@@ -22,8 +22,6 @@
 #define someerror 24576.0
 
 SpineSubSystem::SpineSubSystem() : Subsystem("SpineSubSystem")  {
-	spineEncoder1 = RobotMap::spineEncoder1;
-	spineEncoder2 = RobotMap::spineEncoder2;
 	spineMotor1 = RobotMap::spineMotor1;
 	spineMotor2 = RobotMap::spineMotor2;
 
