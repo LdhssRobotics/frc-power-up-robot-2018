@@ -19,7 +19,7 @@ void SpineDPAD::Execute() {
 	SmartDashboard::PutNumber("DPAD", Robot::oi->driveStick->GetPOV(0));
 	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
 	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
-	if (Robot::oi->driveStick->GetPOV(0) == 0 && Robot::spine->CanMoveSpine()){
+	if (Robot::oi->driveStick->GetPOV(0) == 0 /*&& Robot::spine->CanMoveSpine()*/){
 		double speed = (0.60);
 		SmartDashboard::PutString("Spine", "Moving Up");
 		Robot::spine->SetMotorSpeed(speed, speed);
@@ -29,7 +29,7 @@ void SpineDPAD::Execute() {
 		SmartDashboard::PutString("Spine", "Stopped");
 		Robot::spine->SetMotorSpeed(speed, speed);
 	}
-	else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
+	else if(Robot::oi->driveStick->GetPOV(0) == 180 /*&& Robot::spine->CanMoveSpine()*/){
 		double speed = (-0.60);
 		SmartDashboard::PutString("Spine", "Moving Down");
 		Robot::spine->SetMotorSpeed(speed, speed);

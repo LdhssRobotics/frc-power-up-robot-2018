@@ -24,8 +24,7 @@ public:
 	static std::shared_ptr<SpeedController> clawMotor;
 	static std::shared_ptr<SpeedController> spineMotor1;
 	static std::shared_ptr<SpeedController> spineMotor2;
-	static std::shared_ptr<SpeedController> armMotor1;
-	static std::shared_ptr<SpeedController> armMotor2;
+	static std::shared_ptr<SpeedController> armMotor;
 
 	// Drivetrain subsystem
 	static std::shared_ptr<AnalogGyro> gyro;

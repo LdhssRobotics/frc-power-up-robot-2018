@@ -8,7 +8,6 @@
 #include <Commands/ClimbGroup.h>
 #include "Spine.h"
 #include "ArmSwing.h"
-#include "Spine.h"
 
 
 ClimbGroup::ClimbGroup() {
