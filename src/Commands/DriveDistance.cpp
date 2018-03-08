@@ -2,9 +2,10 @@
 #include "../Robot.h"
 const float kP = 0.025;
 
-DriveDistance::DriveDistance(float distance):
-	targetDistance(distance)
+DriveDistance::DriveDistance(double time)
 {
+	targetDistance = 0;
+	timeDistance = time;
 	Requires(Robot::drivetrain.get());// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 }
@@ -12,6 +13,7 @@ DriveDistance::DriveDistance(float distance):
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
 	Robot::drivetrain->Reset();
+	SetTimeout(timeDistance);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -24,7 +26,7 @@ void DriveDistance::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
-	return (Robot::drivetrain->GetLeftDistance() >= targetDistance) && (Robot::drivetrain->GetRightDistance() >= targetDistance);
+	return  IsTimedOut();
 }
 
 // Called once after isFinished returns true

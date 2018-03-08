@@ -36,7 +36,7 @@ void ArmSwingDPAD::Execute(){
 		SmartDashboard::PutString("Arm", "Stopped");
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == 270){//ArmSwing Down
-		Robot::arm->SetArmSpeed(-0.3);
+		Robot::arm->SetArmSpeed(-0.1);
 		SmartDashboard::PutString("Arm", "Moving");
 	}
 }
