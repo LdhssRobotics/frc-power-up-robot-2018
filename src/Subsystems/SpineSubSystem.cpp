@@ -18,8 +18,15 @@
 
 #include <algorithm>
 
+/* Spine lead screws run at 10 rotations per inch of elevation
+ * The transmission converts 3 rotations of the motor to 1 rotation of the lead screw
+ * The Encoder reads 4096 pulses per rotation, it placed on motor end, so 4096 pulses per rotation of the motor itself
+ * Therefore 1 inch is (1(10 *3) * 4096) = 122880 pulses
+ * General Equation 122880d = pulses, where 'd' is the distance in inches
+ */
+
+#define EncConst 122880
 #define percent 0.02
-#define someerror 24576.0
 
 SpineSubSystem::SpineSubSystem() : Subsystem("SpineSubSystem")  {
 	spineMotor1 = RobotMap::spineMotor1;
@@ -32,18 +39,29 @@ void SpineSubSystem::InitDefaultCommand(){
 	SetDefaultCommand(new SpineDPAD());
 }
 
+double SpineSubSystem::Converter(bool toInch, double value){
+	double converted = 0;
+	if (toInch){
+		converted = value / EncConst;
+	}else {
+		converted = value * EncConst;
+	}
+	return converted;
+}
+
 double SpineSubSystem::AdjustSpine(bool isGoingUp) {
 	float increment;
-	if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() < -50000){
+	double variance = Converter(false, 0.25);
+	if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() < -variance){
 		std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetSelectedSensorPosition(Robot::spine->GetSpinePos2(),0,1);
 		increment = 0;
-	}else if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() > 50000){
+	}else if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() > variance){
 		std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetSelectedSensorPosition(Robot::spine->GetSpinePos1(),0,1);
 		increment = 0;
 	}else if (isGoingUp) {
-		increment = (percent/someerror)*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
+		increment = (percent/Converter(false, 0.2))*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
 	} else {
-		increment = (percent/someerror)*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
+		increment = (percent/Converter(false, 0.2))*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
 	}
 	return increment;
 }
@@ -55,7 +73,6 @@ void SpineSubSystem::AdjustSimple(bool down){
 	}
 	double motorSpeed1 = 0.6 * direction;
 	double motorSpeed2 = 0.6 * direction;
-
 
 	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
 	if (abs(delta) > 8000){

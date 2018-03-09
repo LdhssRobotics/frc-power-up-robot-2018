@@ -21,24 +21,20 @@ void SpineDPAD::Execute() {
 	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
 
 	if (Robot::oi->driveStick->GetPOV(0) == 0 && Robot::spine->CanMoveSpine()){
-		/*double speed = (0.60);
+		double speed = (0.60);
 		SmartDashboard::PutString("Spine", "Moving Up");
 		Robot::spine->SetMotorSpeed(speed, speed + Robot::spine->AdjustSpine(true));
-		SmartDashboard::PutNumber("Adjust Spine Increment", Robot::spine->AdjustSpine(true));*/
-		Robot::spine->AdjustSimple(false);
+		SmartDashboard::PutNumber("Adjust Spine Increment", Robot::spine->AdjustSpine(true));
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == -1){
-		/*double speed = (0);
 		SmartDashboard::PutString("Spine", "Stopped");
-		Robot::spine->SetMotorSpeed(speed, speed);*/
 		Robot::spine->SetMotor(0,0);
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
-		/*double speed = (-0.60);
+		double speed = (-0.60);
 		SmartDashboard::PutString("Spine", "Moving Down");
 		Robot::spine->SetMotorSpeed(speed, speed + Robot::spine->AdjustSpine(false));
-		SmartDashboard::PutNumber("Adjust Spine Increment", Robot::spine->AdjustSpine(false));*/
-		Robot::spine->AdjustSimple(true);
+		SmartDashboard::PutNumber("Adjust Spine Increment", Robot::spine->AdjustSpine(false));
 	}
 
 	Robot::spine->CheckReset();

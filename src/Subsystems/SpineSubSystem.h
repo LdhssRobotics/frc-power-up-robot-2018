@@ -28,6 +28,7 @@ private:
 public:
 	SpineSubSystem();
 	void InitDefaultCommand();
+	double Converter(bool toInch, double value); //true = convert from pulse to inch, false = convert inches to pulses
 	double AdjustSpine(bool isGoingUp);
 	void AdjustSimple(bool down);
 	void SetMotorSpeed(double lspeed, double rspeed);
