@@ -36,7 +36,7 @@
 
 	// Digital Ports
 		// Arm subsystem
-#define BOTTOM_SHOULDER_SWITCH_PORT 1
+#define BOTTOM_SHOULDER_SWITCH_PORT 17
 #define ARM_ENCODER_A_PORT 18
 #define ARM_ENCODER_B_PORT 19
 
@@ -137,6 +137,7 @@ void RobotMap::initCommon() {
 	armMotor2->SetInverted(false);
 
 	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");
 
 	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
