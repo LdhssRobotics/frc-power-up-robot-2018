@@ -1,28 +1,31 @@
 /*
- * Spine.cpp
+ * SpineSubSystem.cpp
  *
  *  Created on: Feb 15, 2018
  *      Author: Sayfullah
  */
 
-#include <Commands/ArmSwingDPAD.h>
 #include <Commands/SpineDPAD.h>
 #include "Subsystems/SpineSubSystem.h"
 #include "../RobotMap.h"
 #include "Robot.h"
+#include "WPILib.h"
 
 #include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
 #include "ctre/phoenix/MotorControl/CAN/WPI_VictorSPX.h"
 #include "ctre/phoenix/MotorControl/SensorCollection.h"
 #include "ctre/phoenix/MotorControl/FeedbackDevice.h"
 
-#include <algorithm>
 
-/* Spine lead screws run at 10 rotations per inch of elevation
- * The transmission converts 3 rotations of the motor to 1 rotation of the lead screw
- * The Encoder reads 4096 pulses per rotation, it placed on motor end, so 4096 pulses per rotation of the motor itself
- * Therefore 1 inch is (1(10 *3) * 4096) = 122880 pulses
- * General Equation 122880d = pulses, where 'd' is the distance in inches
+/* The spine subsystem deals with the 2 CAN WPI_TalonSRX motors that drive the spine lead screws up and down.
+ * These 2 motors are defined as spineMotor1 and spineMotor2, their speed is set like a normal speed/motor controller.
+ * But the sensor functions are placed in the ctre::phoenix libraries.
+ *
+ * Spine lead screws run at 10 rotations per inch of elevation.
+ * The transmission converts 3 rotations of the motor to 1 rotation of the lead screw.
+ * The Encoder reads 4096 pulses per rotation, it placed on motor end, so 4096 pulses per rotation of the motor itself.
+ * Therefore 1 inch is (1(10 *3) * 4096) = 122880 pulses.
+ * General Equation 122880d = pulses, where 'd' is the distance in inches.
  */
 
 #define EncConst 122880

@@ -14,31 +14,29 @@ private:
 	std::shared_ptr<SpeedController> armMotor1;
 	std::shared_ptr<SpeedController> armMotor2;
 	std::shared_ptr<SpeedController> clawMotor;
-	std::shared_ptr<SpeedController> spineMotor1;
-	std::shared_ptr<SpeedController> spineMotor2;
 
 
 
 public:
 	Arm();
 	void InitDefaultCommand();
+	void Log();
+	void Reset();
+	/* Do we need this? */
+	bool LimitSwitchState();
+	// Arm/Shoulder Functions
 	void SetArmSpeed(float speed);
-	void CheckEncoders();
-	void SetClawSpeed(float speed);
 	float GetArmPosition();
 	float GetCurrentArmPosition();
 	void ResetArm();
-	void Reset();
-	bool CanMoveSpine();
 	void ResetArmEncoder();
-	void Log();
-
+	// Claw Functions
+	void SetClawSpeed(float speed);
 	void OpenClawMotor();
 	void CloseClawMotor();
 	void StopClaw();
-	bool LimitSwitchState();
 	double CurrentDraw();
-
+	// Claw Variables
 	bool IsClawClosed;
 
 };
