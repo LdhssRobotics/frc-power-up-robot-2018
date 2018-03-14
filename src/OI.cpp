@@ -54,20 +54,20 @@ OI::OI() {
 	} else if(m_controllerType == PLAYSTATION){
 */
 	// Drive Stick Buttons
-	aButtonD = new JoystickButton(driveStick.get(), 2);
-	bButtonD = new JoystickButton(driveStick.get(), 3);
-	xButtonD = new JoystickButton(driveStick.get(), 1);
-	yButtonD = new JoystickButton(driveStick.get(), 4);
-	leftBumperButtonD = new JoystickButton(driveStick.get(), 5);
-	rightBumperButtonD = new JoystickButton(driveStick.get(), 6);
-	leftTriggerButtonD = new JoystickButton(driveStick.get(), 7);
-	rightTriggerButtonD = new JoystickButton(driveStick.get(), 8);
-	selectButtonD = new JoystickButton(driveStick.get(), 9);
-	startButtonD = new JoystickButton(driveStick.get(), 10);
-	leftStickButtonD = new JoystickButton(driveStick.get(), 11);
-	rightStickButtonD = new JoystickButton(driveStick.get(), 12);
-	homeButtonD = new JoystickButton(driveStick.get(), 13);
-	touchpadButtonD = new JoystickButton(driveStick.get(), 14);
+	aButtonD = new JoystickButton(driveStick.get(), 2); //'X' on PS
+	bButtonD = new JoystickButton(driveStick.get(), 3); //'O' on PS
+	xButtonD = new JoystickButton(driveStick.get(), 1); //'SQUARE' on PS
+	yButtonD = new JoystickButton(driveStick.get(), 4); //'TRIANGLE' on PS
+	leftBumperButtonD = new JoystickButton(driveStick.get(), 5); //'L1' on PS
+	rightBumperButtonD = new JoystickButton(driveStick.get(), 6); //'R1' on PS
+	leftTriggerButtonD = new JoystickButton(driveStick.get(), 7); //'L2' on PS
+	rightTriggerButtonD = new JoystickButton(driveStick.get(), 8); //'R2' on PS
+	selectButtonD = new JoystickButton(driveStick.get(), 9); //'Share/Back' on PS
+	startButtonD = new JoystickButton(driveStick.get(), 10); //'Start' on PS
+	leftStickButtonD = new JoystickButton(driveStick.get(), 11); //'L3' on PS
+	rightStickButtonD = new JoystickButton(driveStick.get(), 12); //'R3' on PS
+	homeButtonD = new JoystickButton(driveStick.get(), 13); //'PS' on PS
+	touchpadButtonD = new JoystickButton(driveStick.get(), 14); //'Touchpad' on PS
 /*
 	LEFT_X_AXIS = 0;
 	LEFT_Y_AXIS = 1;
@@ -77,25 +77,22 @@ OI::OI() {
 	RIGHT_Y_AXIS = 5;
 */
 //	}
+
 	// Assigning Commands to Buttons
 
 	//Drive Stick Controls
-	bButtonD->ToggleWhenPressed(new Turn90Degrees(true));
-	yButtonD->WhenPressed(new Turn180Degrees(true));
-	xButtonD->ToggleWhenPressed(new Turn90Degrees(false));
-	aButtonD->WhenPressed(new Turn180Degrees(false));
-	leftStickButtonD->WhenPressed(new CrabWalkGroup(true));
-	rightStickButtonD->WhenPressed(new CrabWalkGroup(false));
+	//bButtonD->ToggleWhenPressed(new "Switch()");
+	//aButtonD->WhenPressed(new "Exchange()");
 
 	//Camera Switch Controls
 	selectButtonD->ToggleWhenPressed(new SwitchCamera());
 
 	//Climb Controls
-	startButtonD->WhenPressed(new ClimbGroup());
+	touchpadButtonD->WhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
 
 	//Claw Controls
-	leftBumperButtonD->WhileHeld(new OpenClawGroup());
-	leftBumperButtonD->WhenReleased(new CloseClawGroup());
+	rightBumperButtonD->WhileHeld(new OpenClawGroup());
+	rightBumperButtonD->WhenReleased(new CloseClawGroup());
 
 
 }
