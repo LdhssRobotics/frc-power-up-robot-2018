@@ -19,9 +19,18 @@
 #include "Commands/CloseClawGroup.h"
 
 #include "Commands/SwitchCamera.h"
+
+//OI::ControllerType_t OI::m_controllerType;
+
 OI::OI() {
 
+
+
 	driveStick.reset(new Joystick(0));
+
+//	m_controllerType = XBOX;
+/*
+	if(m_controllerType == XBOX){
 
 	// Drive Stick Buttons
 	aButtonD = new JoystickButton(driveStick.get(), 1);
@@ -34,6 +43,40 @@ OI::OI() {
 	startButtonD = new JoystickButton(driveStick.get(), 8);
 	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
 	rightStickButtonD = new JoystickButton(driveStick.get(), 10);
+
+	LEFT_X_AXIS = 0;
+	LEFT_Y_AXIS = 1;
+	LEFT_TRIGGER_AXIS = 2;
+	RIGHT_TRIGGER_AXIS = 3;
+	RIGHT_X_AXIS = 4;
+	RIGHT_Y_AXIS = 5;
+
+	} else if(m_controllerType == PLAYSTATION){
+*/
+	// Drive Stick Buttons
+	aButtonD = new JoystickButton(driveStick.get(), 2);
+	bButtonD = new JoystickButton(driveStick.get(), 3);
+	xButtonD = new JoystickButton(driveStick.get(), 1);
+	yButtonD = new JoystickButton(driveStick.get(), 4);
+	leftBumperButtonD = new JoystickButton(driveStick.get(), 5);
+	rightBumperButtonD = new JoystickButton(driveStick.get(), 6);
+	leftTriggerButtonD = new JoystickButton(driveStick.get(), 7);
+	rightTriggerButtonD = new JoystickButton(driveStick.get(), 8);
+	selectButtonD = new JoystickButton(driveStick.get(), 9);
+	startButtonD = new JoystickButton(driveStick.get(), 10);
+	leftStickButtonD = new JoystickButton(driveStick.get(), 11);
+	rightStickButtonD = new JoystickButton(driveStick.get(), 12);
+	homeButtonD = new JoystickButton(driveStick.get(), 13);
+	touchpadButtonD = new JoystickButton(driveStick.get(), 14);
+/*
+	LEFT_X_AXIS = 0;
+	LEFT_Y_AXIS = 1;
+	LEFT_TRIGGER_AXIS = 3;
+	RIGHT_TRIGGER_AXIS = 4;
+	RIGHT_X_AXIS = 2;
+	RIGHT_Y_AXIS = 5;
+*/
+//	}
 	// Assigning Commands to Buttons
 
 	//Drive Stick Controls

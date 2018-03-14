@@ -24,17 +24,27 @@ public:
 	JoystickButton *startButtonD;
 	JoystickButton *leftStickButtonD;
 	JoystickButton *rightStickButtonD;
+	JoystickButton *leftTriggerButtonD;
+	JoystickButton *rightTriggerButtonD;
+	JoystickButton *homeButtonD;
+	JoystickButton *touchpadButtonD;
 
 	// Axes
 	static const int LEFT_X_AXIS = 0;
 	static const int LEFT_Y_AXIS = 1;
-	static const int LEFT_TRIGGER_AXIS = 2;
-	static const int RIGHT_TRIGGER_AXIS = 3;
-	static const int RIGHT_X_AXIS = 4;
+	static const int LEFT_TRIGGER_AXIS = 3;
+	static const int RIGHT_TRIGGER_AXIS = 4;
+	static const int RIGHT_X_AXIS = 2;
 	static const int RIGHT_Y_AXIS = 5;
 
-	OI();
+	typedef enum controllerType {
+		PLAYSTATION,
+		XBOX
+	} ControllerType_t;
 
+	static ControllerType_t m_controllerType;
+
+	OI();
 	std::shared_ptr<frc::Joystick> getDriveStick();
 };
 
