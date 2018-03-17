@@ -7,10 +7,10 @@
 
 #include <Commands/Spine.h>
 
-Spine::Spine(float P) {
-	// TODO Auto-generated constructor stub
+Spine::Spine(float P, bool isGoingUp) {
 	Requires(Robot::spine.get());
 	Position = P;
+	GoingUp = isGoingUp;
 
 }
 
@@ -20,9 +20,9 @@ void Spine::Initialize(){
 
 void Spine::Execute(){
 	if (Robot::spine->GetSpinePos1() < Position) {
-		//Robot::spine->SetMotorSpeed(0.85,0.85 * Robot::spine->AdjustSpine());
+		Robot::spine->SetMotorSpeed(0.8,0.8 + Robot::spine->AdjustSpine(GoingUp));
 	}else if (Robot::spine->GetSpinePos1() > Position){
-		//Robot::spine->SetMotorSpeed(-0.85,-0.85 * Robot::spine->AdjustSpine());
+		Robot::spine->SetMotorSpeed(-0.8,-0.8 + Robot::spine->AdjustSpine(GoingUp));
 	}else {
 		End();
 	}

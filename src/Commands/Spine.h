@@ -15,8 +15,9 @@
 class Spine : public Command {
 private:
 	float Position;
+	bool GoingUp;
 public:
-	Spine(float P);
+	Spine(float P, bool isGoingUp);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -13,9 +13,9 @@
 
 ClimbGroup::ClimbGroup() {
 	AddSequential(new ArmSwing(0));
-	AddSequential(new Spine(737280));
+	AddSequential(new Spine(737280, false));
 	AddSequential(new ArmSwing(180));
-	AddSequential(new Spine(6826));
+	AddSequential(new Spine(6826, false));
 }
 
 

@@ -46,7 +46,7 @@ void SpineSubSystem::InitDefaultCommand(){
 }
 
 double SpineSubSystem::Converter(bool toInch, double value){
-	/* Converts the value given from inches to pulses or inches to pulses using the math derived at the top
+	/* Converts the value given from pulses to inches or inches to pulses using the math derived at the top
 	 * General Equation 122880d = pulses, where 'd' is the distance in inches
 	 * toInch - Set true to convert from pulses to inches, set false for inches to pulses
 	 */

@@ -1,4 +1,4 @@
-#include "LeftAutoMode.h"
+#include <Commands/AutoModes/LeftAutoMode.h>
 #include "../DriveDistance.h"
 
 
