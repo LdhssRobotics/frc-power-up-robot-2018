@@ -13,12 +13,18 @@
 #include "Commands/CrabWalk.h"
 #include "Commands/CrabWalk2.h"
 
+#include "Commands/Switch.h"
+#include "Commands/Exchange.h"
+
 #include "Commands/ClimbGroup.h"
 
 #include "Commands/OpenClawGroup.h"
 #include "Commands/CloseClawGroup.h"
 
 #include "Commands/SwitchCamera.h"
+
+//for testing
+#include "Commands/ArmSwing.h"
 
 //OI::ControllerType_t OI::m_controllerType;
 
@@ -56,8 +62,8 @@ OI::OI() {
 	// Drive Stick Buttons
 	aButtonD = new JoystickButton(driveStick.get(), 2); //'X' on PS
 	bButtonD = new JoystickButton(driveStick.get(), 3); //'O' on PS
-	xButtonD = new JoystickButton(driveStick.get(), 1); //'SQUARE' on PS
-	yButtonD = new JoystickButton(driveStick.get(), 4); //'TRIANGLE' on PS
+	xButtonD = new JoystickButton(driveStick.get(), 1); //'[]' on PS
+	yButtonD = new JoystickButton(driveStick.get(), 4); //'/\' on PS
 	leftBumperButtonD = new JoystickButton(driveStick.get(), 5); //'L1' on PS
 	rightBumperButtonD = new JoystickButton(driveStick.get(), 6); //'R1' on PS
 	leftTriggerButtonD = new JoystickButton(driveStick.get(), 7); //'L2' on PS
@@ -81,8 +87,9 @@ OI::OI() {
 	// Assigning Commands to Buttons
 
 	//Drive Stick Controls
-	//bButtonD->ToggleWhenPressed(new "Switch()");
-	//aButtonD->WhenPressed(new "Exchange()");
+	bButtonD->ToggleWhenPressed(new Switch());
+	aButtonD->ToggleWhenPressed(new Exchange());
+	yButtonD->ToggleWhenPressed(new ArmSwing(735));
 
 	//Camera Switch Controls
 	selectButtonD->ToggleWhenPressed(new SwitchCamera());

@@ -20,13 +20,14 @@ void ArmSwing::Initialize(){
 }
 
 void ArmSwing::Execute(){
-	if (Robot::arm->GetArmPosition() < Position) {
+	if (Robot::arm->GetArmPosition() < Position * 1.01) {
 		Robot::arm->SetArmSpeed(0.6);
-	}else if (Robot::arm->GetArmPosition() > Position){
+	}else if (Robot::arm->GetArmPosition() > Position * 0.99){
 		Robot::arm->SetArmSpeed(-0.3);
 	}else {
 		End();
 	}
+	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
 }
 
 void ArmSwing::End(){

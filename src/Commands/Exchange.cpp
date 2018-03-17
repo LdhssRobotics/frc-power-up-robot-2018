@@ -10,6 +10,8 @@
 #include "Spine.h"
 
 Exchange::Exchange() {
+	SmartDashboard::PutString("Command", "Exchange");
 	AddSequential(new ArmSwing(0));
 	AddSequential(new Spine(0, false));
+
 }

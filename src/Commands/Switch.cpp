@@ -10,6 +10,8 @@
 #include "ArmSwing.h"
 
 Switch::Switch() {
-	AddSequential(new Spine(1250000, false));
+	SmartDashboard::PutString("Command", "Switch");
+	AddSequential(new Spine(1250000, true));
 	AddSequential(new ArmSwing(735));
+
 }

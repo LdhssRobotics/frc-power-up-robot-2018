@@ -11,7 +11,7 @@ Spine::Spine(float P, bool isGoingUp) {
 	Requires(Robot::spine.get());
 	Position = P;
 	GoingUp = isGoingUp;
-
+	finished = false;
 }
 
 void Spine::Initialize(){
@@ -19,13 +19,16 @@ void Spine::Initialize(){
 }
 
 void Spine::Execute(){
-	if (Robot::spine->GetSpinePos1() < Position) {
+	finished = false;
+	if ((Robot::spine->GetSpinePos1() < Position) and GoingUp) {
 		Robot::spine->SetMotorSpeed(0.8,0.8 + Robot::spine->AdjustSpine(GoingUp));
-	}else if (Robot::spine->GetSpinePos1() > Position){
+	}else if ((Robot::spine->GetSpinePos1() > Position) and !GoingUp){
 		Robot::spine->SetMotorSpeed(-0.8,-0.8 + Robot::spine->AdjustSpine(GoingUp));
 	}else {
-		End();
+		finished = true;
 	}
+	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
+	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
 
 }
 
@@ -34,7 +37,7 @@ void Spine::End(){
 }
 
 bool Spine::IsFinished(){
-	return false;
+	return finished;
 }
 
 void Spine::Interrupted(){
