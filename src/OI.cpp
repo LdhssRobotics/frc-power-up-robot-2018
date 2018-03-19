@@ -7,14 +7,11 @@
 
 #include "OI.h"
 #include <WPILib.h>
-#include "Commands/Turn90Degrees.h"
-#include "Commands/Turn180Degrees.h"
-#include "Commands/CrabWalkGroup.h"
-#include "Commands/CrabWalk.h"
-#include "Commands/CrabWalk2.h"
 
 #include "Commands/Switch.h"
 #include "Commands/Exchange.h"
+#include "Commands/Inboard.h"
+#include "Commands/Scale.h"
 
 #include "Commands/ClimbGroup.h"
 
@@ -23,8 +20,6 @@
 
 #include "Commands/SwitchCamera.h"
 
-//for testing
-#include "Commands/ArmSwing.h"
 
 //OI::ControllerType_t OI::m_controllerType;
 
@@ -87,15 +82,16 @@ OI::OI() {
 	// Assigning Commands to Buttons
 
 	//Drive Stick Controls
-	bButtonD->ToggleWhenPressed(new Switch());
+	bButtonD->ToggleWhenPressed(new Inboard());
+	xButtonD->ToggleWhenPressed(new Switch());
 	aButtonD->ToggleWhenPressed(new Exchange());
-	yButtonD->ToggleWhenPressed(new ArmSwing(735));
+	yButtonD->ToggleWhenPressed(new Scale());
 
 	//Camera Switch Controls
 	selectButtonD->ToggleWhenPressed(new SwitchCamera());
 
 	//Climb Controls
-	touchpadButtonD->WhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
+	touchpadButtonD->ToggleWhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
 
 	//Claw Controls
 	rightBumperButtonD->WhileHeld(new OpenClawGroup());

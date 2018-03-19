@@ -21,20 +21,44 @@ void SpineDPAD::Execute() {
 	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
 
 	if (Robot::oi->driveStick->GetPOV(0) == 0 && Robot::spine->CanMoveSpine()){
+		//Move Spine upwards when DPAD up is pressed
 		double speed = (0.60);
 		SmartDashboard::PutString("Spine", "Moving Up");
 		Robot::spine->SetMotorSpeed(speed, speed + Robot::spine->AdjustSpine(true));
 		SmartDashboard::PutNumber("Adjust Spine Increment", Robot::spine->AdjustSpine(true));
-	}
-	else if(Robot::oi->driveStick->GetPOV(0) == -1){
+	} else if(Robot::oi->driveStick->GetPOV(0) == -1){
+		//Stops spine when no DPAD button is pressed
 		SmartDashboard::PutString("Spine", "Stopped");
 		Robot::spine->SetMotor(0,0);
-	}
-	else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
+	} else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
+		//Move Spine downwards when DPAD down is pressed
 		double speed = (-0.60);
 		SmartDashboard::PutString("Spine", "Moving Down");
 		Robot::spine->SetMotorSpeed(speed, speed + Robot::spine->AdjustSpine(false));
 		SmartDashboard::PutNumber("Adjust Spine Increment", Robot::spine->AdjustSpine(false));
+	} else if (Robot::oi->driveStick->GetPOV(90)){
+		// Turns the robot 90 degrees to the right when DPAD right is pressed
+		bool finished = false;
+		float currentReading;
+		float target = 305;
+		while (!finished){
+			currentReading = Robot::drivetrain->GetRightCount();
+			if (currentReading != target){
+				Robot::drivetrain->TankDrive(1,-1);
+			} else { finished = true; }
+		}
+
+	} else if (Robot::oi->driveStick->GetPOV(270)){
+		// Turns the robot 90 degrees to the left when DPAD left is pressed
+		bool finished = false;
+		float currentReading;
+		float target = 305;
+		while (!finished){
+			currentReading = Robot::drivetrain->GetLeftCount();
+			if (currentReading != target){
+				Robot::drivetrain->TankDrive(-1,1);
+			} else { finished = true; }
+		}
 	}
 
 	Robot::spine->CheckReset();
