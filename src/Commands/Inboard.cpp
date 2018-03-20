@@ -10,6 +10,6 @@
 #include "Spine.h"
 
 Inboard::Inboard() {
-	AddSequential(new ArmSwing(367.5));
 	AddSequential(new Spine(Robot::spine->Converter(false, 10), false));
+	AddSequential(new ArmSwing(367.5));
 }

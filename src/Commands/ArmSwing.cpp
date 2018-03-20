@@ -8,10 +8,9 @@
 #include <Commands/ArmSwing.h>
 
 
-ArmSwing::ArmSwing(float position):
-	Position(position)
+ArmSwing::ArmSwing(float position)
 {
-	// TODO Auto-generated constructor stub
+	Position = position;
 	Requires(Robot::arm.get());
 }
 
