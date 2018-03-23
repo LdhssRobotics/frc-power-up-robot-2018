@@ -8,7 +8,7 @@
 class DriveDistance : public Command {
 private:
 	float targetDistance;
-	double timeDistance;
+	float speed;
 public:
 	DriveDistance(double time);
 	void Initialize();

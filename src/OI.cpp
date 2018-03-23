@@ -18,6 +18,8 @@
 #include "Commands/OpenClawGroup.h"
 #include "Commands/CloseClawGroup.h"
 
+#include "Commands/Turn90Degrees.h"
+
 #include "Commands/SwitchCamera.h"
 
 
@@ -96,6 +98,9 @@ OI::OI() {
 	//Claw Controls
 	rightBumperButtonD->WhileHeld(new OpenClawGroup());
 	rightBumperButtonD->WhenReleased(new CloseClawGroup());
+
+	//90 Degree Turn Control
+	leftBumperButtonD->WhileHeld(new Turn90Degrees(true));
 
 
 }

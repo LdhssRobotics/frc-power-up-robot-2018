@@ -9,7 +9,7 @@
 #include "../DriveDistance.h"
 
 AutoStraight::AutoStraight() {
-    AddSequential(new DriveDistance(120));//Wall to Auto line
+    AddSequential(new DriveDistance(110));//Wall to Auto line
 
     // Add Commands here:
     // e.g. AddSequential(new Command1());

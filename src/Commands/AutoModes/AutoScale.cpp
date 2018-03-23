@@ -14,14 +14,14 @@
 #include "../Exchange.h"
 
 AutoScale::AutoScale(bool isLeft) {
-    AddSequential(new DriveDistance(10));//Ph
-//    AddParallel(new Scale());
+    AddSequential(new DriveDistance(262.5));//Cross auto line, move towards scale, to turn in place for scale
+//    AddParallel(new Scale()); Command for scale position for arm and spine
     AddSequential(new Turn45Degrees(isLeft));
-    AddSequential(new DriveDistance(10));//Ph
+    AddSequential(new DriveDistance(10));//calculated estimation on a 45 degree angle
     AddSequential(new OpenClaw());
     Wait(4);
     AddSequential(new CloseClaw());
-    AddSequential(new DriveDistance(-10));//Ph
+    AddSequential(new DriveDistance(-20));//calculated estimation to back away from scale
     AddSequential(new Exchange());
 
     // Add Commands here:

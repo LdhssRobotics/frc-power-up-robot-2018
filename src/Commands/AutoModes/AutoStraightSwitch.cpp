@@ -13,7 +13,7 @@
 #include "../Exchange.h"
 
 AutoStraightSwitch::AutoStraightSwitch() {
-    AddSequential(new DriveDistance(10));//Ph
+    AddSequential(new DriveDistance(110));//From the starting point to the switch; straight (140 inches - bot)
     AddSequential(new Switch());
     AddSequential(new OpenClaw());
     Wait(4);
