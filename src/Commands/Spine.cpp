@@ -15,15 +15,15 @@ Spine::Spine(float P, bool isGoingUp) {
 }
 
 void Spine::Initialize(){
-	Robot::spine->SetMotorSpeed(0,0);
+	Robot::spine->SetMotor(0,0);
 }
 
 void Spine::Execute(){
 	finished = false;
 	if ((Robot::spine->GetSpinePos1() < Position) and GoingUp) {
-		Robot::spine->SetMotorSpeed(0.8,0.8 + Robot::spine->AdjustSpine(GoingUp));
+		Robot::spine->SetMotor(0.8,0.8 + Robot::spine->AdjustSpine(GoingUp));
 	}else if ((Robot::spine->GetSpinePos1() > Position) and !GoingUp){
-		Robot::spine->SetMotorSpeed(-0.8,-0.8 + Robot::spine->AdjustSpine(GoingUp));
+		Robot::spine->SetMotor(-0.8,-0.8 + Robot::spine->AdjustSpine(GoingUp));
 	}else {
 		finished = true;
 	}
@@ -33,7 +33,7 @@ void Spine::Execute(){
 }
 
 void Spine::End(){
-	Robot::spine->SetMotorSpeed(0,0);
+	Robot::spine->SetMotor(0,0);
 }
 
 bool Spine::IsFinished(){
