@@ -2,15 +2,15 @@
  * Spine.cpp
  *
  *  Created on: Feb 20, 2018
- *      Author: raven8
+ *      Author: incognito
  */
 
 #include <Commands/Spine.h>
 
-Spine::Spine(float P, bool isGoingUp) {
+Spine::Spine(float P, bool isGoingDown){
 	Requires(Robot::spine.get());
 	Position = P;
-	GoingUp = isGoingUp;
+	GoingDown = isGoingDown;
 	finished = false;
 }
 
@@ -19,12 +19,13 @@ void Spine::Initialize(){
 }
 
 void Spine::Execute(){
+	int limitFlag = Robot::spine->CheckReset();
 	finished = false;
-	if ((Robot::spine->GetSpinePos1() < Position) and GoingUp) {
-		Robot::spine->SetMotor(0.8,0.8 + Robot::spine->AdjustSpine(GoingUp));
-	}else if ((Robot::spine->GetSpinePos1() > Position) and !GoingUp){
-		Robot::spine->SetMotor(-0.8,-0.8 + Robot::spine->AdjustSpine(GoingUp));
-	}else {
+	if((Robot::spine->GetSpinePos1() < Position) and !GoingDown){
+		Robot::spine->AdjustSimple(GoingDown, limitFlag);
+	}else if ((Robot::spine->GetSpinePos1() > Position) and GoingDown){
+		Robot::spine->AdjustSimple(GoingDown, limitFlag);
+	}else{
 		finished = true;
 	}
 	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
