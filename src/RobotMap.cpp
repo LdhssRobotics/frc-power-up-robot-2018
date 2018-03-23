@@ -135,16 +135,6 @@ void RobotMap::initCommon() {
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
 	armMotor2->SetInverted(false);
-
-	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->SetName("Claw", "motor");
-
-	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
-	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
-
-	spineMotor2.reset(new PWMTalonSRX(SPINE_MOTOR_2_PORT));
-	std::static_pointer_cast<frc::PWMTalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
-
 }
 
 void RobotMap::initProtoCase() {

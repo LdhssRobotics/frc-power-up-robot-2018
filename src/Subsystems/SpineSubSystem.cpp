@@ -61,21 +61,14 @@ double SpineSubSystem::Converter(bool toInch, double value){
 
 double SpineSubSystem::AdjustSpine(bool isGoingUp) {
 	/* An advanced spine adjust code.
-	 * The first 2 sections of the if/else statement deal with any motor slips in the gear box.
-	 * The second 2 parts calculate an increment to be added to the speed of the Spine2 motor.
+	 * The first 2 parts calculate an increment to be added to the speed of the Spine2 motor.
 	 * This increment outputs a larger increment as the difference between the motors increases.
 	 * It outputs a smaller increment when the difference is smaller than 0.2 inches, for fine tuning.
 	 * isGoingUp - Set true if spine is going up, false if down
 	 */
 	float increment;
 	double variance = Converter(false, 0.25);
-	if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() < -variance){
-		std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetSelectedSensorPosition(Robot::spine->GetSpinePos2(),0,1);
-		increment = 0;
-	}else if (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2() > variance){
-		std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetSelectedSensorPosition(Robot::spine->GetSpinePos1(),0,1);
-		increment = 0;
-	}else if (isGoingUp) {
+	if (isGoingUp) {
 		increment = (percent/Converter(false, 0.2))*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
 	} else {
 		increment = (percent/Converter(false, 0.2))*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
@@ -83,48 +76,56 @@ double SpineSubSystem::AdjustSpine(bool isGoingUp) {
 	return increment;
 }
 
-void SpineSubSystem::AdjustSimple(bool down){
+void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 	/* Simple function trying to keep the spine motors level when
 	 * going up or down. Does this by stopping the motor that is ahead.
 	 * Keeps the motors within 0.06 inches of each other.
 	 */
-	double direction = 1;
+	double adjustFactor = 1.1; //Adds 10% to base speed to allow the motor to catch up
+	double direction = 1; //Default direction, upwards
+	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2()); //Calculation of the difference between the 2 spine motors
+	double baseSpeed = 0.6; //Base speed set to the motors, this can be altered
+	double maxDelta = Converter(false, 0.06); //Maximum tolerated variance, 0.06 inches
+
 	if (down){
 		direction = -1;
 	}
-	double motorSpeed1 = 0.6 * direction;
-	double motorSpeed2 = 0.6 * direction;
 
-	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
-	if (abs(delta) > Converter(false, 0.06)){
+	double motorSpeed1 = baseSpeed * direction;
+	double motorSpeed2 = baseSpeed * direction;
+
+	if (abs(delta) > maxDelta){
+		/* If the current difference between the spines is greater than the maximum tolerated, maxDelta,
+		 * then stop the motor that is ahead.
+		 */
 		delta = delta * direction;
 		if (delta > 0){
 			motorSpeed1 = 0;
-		}
-		else {
+		} else {
 			motorSpeed2 = 0;
 		}
+	} else {
+		/*
+		 * Else, compensate the lagging motor by 10%
+		 */
+		if (delta > 0) {
+			motorSpeed2 = motorSpeed2 * adjustFactor;
+		} else {
+			motorSpeed1 = motorSpeed1 * adjustFactor;
+		}
 	}
-	Robot::spine->spineMotor1->Set(motorSpeed1);
-	Robot::spine->spineMotor2->Set(motorSpeed2);
-}
 
-void SpineSubSystem::SetMotorSpeed(double Spine1Speed, double Spine2Speed){
-	/*	Function to set both Spine motors to a speed,
-	 * 	with a check if there is any stalling.
-	 * 	And tries to correct the stalling
-	 * 	<INCOMPLETE>
-	 */
-	if (!Robot::spine->CheckMove1()){
-		Robot::spine->spineMotor2->Set(0);
-		Robot::spine->spineMotor1->Set(Spine1Speed);
-	}else if (!Robot::spine->CheckMove2()){
-		Robot::spine->spineMotor1->Set(0);
-		Robot::spine->spineMotor2->Set(Spine2Speed);
-	} else{
-		Robot::spine->spineMotor2->Set(Spine2Speed);
-		Robot::spine->spineMotor1->Set(Spine1Speed);
+	if (((limitFlag & 1)== 1) && down) {
+		motorSpeed1 = 0;
 	}
+
+	if (((limitFlag & 2)== 2) && down) {
+		motorSpeed2 = 0;
+	}
+
+	SmartDashboard::PutNumber("Motor 1 Speed", motorSpeed1);
+	SmartDashboard::PutNumber("Motor 2 Speed", motorSpeed2);
+	Robot::spine->SetMotor(motorSpeed1, motorSpeed2);
 }
 
 void SpineSubSystem::SetMotor(double spine1, double spine2){
@@ -196,12 +197,12 @@ bool SpineSubSystem::CheckMove2(){
 void SpineSubSystem::Reset(){
 	/*Called when the spine needs to stop and reset the encoders
 	 */
-	SetMotorSpeed(0,0);
+	SetMotor(0,0);
 	ResetSpineEncoder1();
 	ResetSpineEncoder2();
 }
 
-void SpineSubSystem::CheckReset(){
+int SpineSubSystem::CheckReset(){
 	/* The function checks if either of the limit switches have been triggered.
 	 * A SensorCollection object has to be created for each limit switch, Spine1Limit and Spine2Limit.
 	 * The IsRevLimitSwitchClosed() is called on both of these objects to check if the switch is triggered.
@@ -213,12 +214,30 @@ void SpineSubSystem::CheckReset(){
 	int Limit1 = Spine1Limit.IsRevLimitSwitchClosed();
 	ctre::phoenix::motorcontrol::SensorCollection Spine2Limit = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetSensorCollection();
 	int Limit2 = Spine2Limit.IsRevLimitSwitchClosed();
-	if (Limit2 == 1 || Limit1 == 1){
-		Reset();
-	}
 
 	SmartDashboard::PutNumber("Spine Limit Switch 1", Limit1);
 	SmartDashboard::PutNumber("Spine Limit Switch 2", Limit2);
+
+	int returnValue = 0;
+
+	if (Limit1 == 1) {
+		returnValue |= 1;
+		ResetSpineEncoder1();
+	}
+
+	if (Limit2 == 1) {
+		returnValue |= 2;
+		ResetSpineEncoder2();
+	}
+	frc::SmartDashboard::PutNumber("return val", returnValue);
+	return returnValue;
+}
+
+void SpineSubSystem::DisplaySpineCurrents(){
+	double Spine1current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetOutputCurrent();
+	SmartDashboard::PutNumber("Spine1 - current: ", Spine1current);
+	double Spine2current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetOutputCurrent();
+	SmartDashboard::PutNumber("Spine2 - current: ", Spine2current);
 }
 
 
