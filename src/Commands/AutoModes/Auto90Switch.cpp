@@ -13,25 +13,22 @@
 #include "../OpenClaw.h"
 #include "../Exchange.h"
 
-/*Auto: drive forward, turn 90 degrees then drive forward a bit,
- * do the switch and arm back to original position
- */
 
 Auto90Switch::Auto90Switch(bool isLeft) {
-	if (RobotMap::m_robotType == RobotMap::POWERUP || RobotMap::m_robotType == RobotMap::POWERUP_PROTO) {
-		AddSequential(new DriveDistance(125));		//Cross auto line a bit to turn in place for switch
-		AddSequential(new Turn90Degrees(isLeft));
-		AddSequential(new DriveDistance(12));//Ph
-		AddSequential(new Switch());
-		AddSequential(new OpenClaw());
-		Wait(4);
-		AddSequential(new CloseClaw());
-		AddSequential(new Exchange());
-	}else if(RobotMap::m_robotType == RobotMap::STEAMWORKS){
-		AddSequential(new DriveDistance(125));//Cross auto line a bit to turn in place for switch
-		AddSequential(new Turn90Degrees(isLeft));
-		AddSequential(new DriveDistance(12));//Ph
-	}
+    AddSequential(new DriveDistance(150));//Cross auto line a bit to turn in place for switch
+    AddSequential(new Turn90Degrees(isLeft));
+    AddSequential(new DriveDistance(25));//Move towards switch(85"-30"-30")
+    AddSequential(new Switch());
+    AddSequential(new OpenClaw());
+    Wait(4);
+    AddSequential(new CloseClaw());
+    AddSequential(new Exchange());
 }
+    // Add Commands here:
+    // e.g. AddSequential(new Command1());
+    //      AddSequential(new Command2());
+    // these will run in order.
+
+
 
 

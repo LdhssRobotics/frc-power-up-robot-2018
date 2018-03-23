@@ -12,22 +12,25 @@
 #include "../CloseClaw.h"
 #include "../Exchange.h"
 
-/*Auto: drive forward and drop box in switch
- * then put arm and spine in original position
- */
 
 AutoStraightSwitch::AutoStraightSwitch() {
-	if (RobotMap::m_robotType == RobotMap::POWERUP || RobotMap::m_robotType == RobotMap::POWERUP_PROTO) {
-		AddSequential(new DriveDistance(130));//Ph
-		AddSequential(new Switch());
-		AddSequential(new OpenClaw());
-		Wait(4);
-		AddSequential(new CloseClaw());
-		AddSequential(new Exchange());
-	}
-	else if (RobotMap::m_robotType == RobotMap::STEAMWORKS) {
-		AddSequential(new DriveDistance(130));
-	}
+    AddSequential(new DriveDistance(110));//From the starting point to the switch; straight (140 inches - bot)
+    AddSequential(new Switch());
+    AddSequential(new OpenClaw());
+    Wait(4);
+    AddSequential(new CloseClaw());
+    AddSequential(new Exchange());
+    // Add Commands here:
+    // e.g. AddSequential(new Command1());
+    //      AddSequential(new Command2());
+    // these will run in order.
+
+    // To run multiple commands at the same time,
+    // use AddParallel()
+    // e.g. AddParallel(new Command1());
+    //      AddSequential(new Command2());
+    // Command1 and Command2 will run in parallel.
+
 }
 
 
