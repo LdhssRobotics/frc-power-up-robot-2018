@@ -12,34 +12,32 @@
 #include "../CloseClaw.h"
 #include "../OpenClaw.h"
 #include "../Exchange.h"
+#include "../Scale.h"
 
+/*Auto: drive forward and while doing that start the scale motion
+ * turn 45 degrees, drive forward and drop box in scale,
+ * back up and put arm and spine in original position
+ */
 AutoScale::AutoScale(bool isLeft) {
-    AddSequential(new DriveDistance(10));//Ph
-//    AddParallel(new Scale());
-    AddSequential(new Turn45Degrees(isLeft));
-    AddSequential(new DriveDistance(10));//Ph
-    AddSequential(new OpenClaw());
-    Wait(4);
-    AddSequential(new CloseClaw());
-    AddSequential(new DriveDistance(-10));//Ph
-    AddSequential(new Exchange());
+	if (RobotMap::m_robotType == RobotMap::POWERUP || RobotMap::m_robotType == RobotMap::POWERUP_PROTO) {
+		AddSequential(new DriveDistance(10));//Ph
+		AddParallel(new Scale());
+		AddSequential(new Turn45Degrees(isLeft));
+		AddSequential(new DriveDistance(10));//Ph
+		AddSequential(new OpenClaw());
+		Wait(4);
+		AddSequential(new CloseClaw());
+		AddSequential(new DriveDistance(-10));//Ph
+		AddSequential(new Exchange());
+	} else if(RobotMap::m_robotType == RobotMap::STEAMWORKS){
+		AddSequential(new DriveDistance(10));//Ph
+		AddParallel(new Scale());
+		AddSequential(new Turn45Degrees(isLeft));
+		AddSequential(new DriveDistance(10));//Ph
+		Wait(4);
+		AddSequential(new DriveDistance(-10));
+	}
 
-    // Add Commands here:
-    // e.g. AddSequential(new Command1());
-    //      AddSequential(new Command2());
-    // these will run in order.
-
-    // To run multiple commands at the same time,
-    // use AddParallel()
-    // e.g. AddParallel(new Command1());
-    //      AddSequential(new Command2());
-    // Command1 and Command2 will run in parallel.
-
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
 }
 
 

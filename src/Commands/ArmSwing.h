@@ -14,9 +14,10 @@
 
 class ArmSwing : public Command{
 private:
-	float Position;
+	bool GoingUp;
 public:
-	ArmSwing(float position);
+	ArmSwing(float position, bool isGoingUp);
+	float Position;
 	void Initialize();
 	void Execute();
 	bool IsFinished();

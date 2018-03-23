@@ -5,14 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Switch.h"
-#include "Spine.h"
-#include "ArmSwing.h"
+#pragma once
 
-Switch::Switch() {
-	SmartDashboard::PutString("Command", "Switch");
-	AddSequential(new Spine(1250000, true));
-	AddSequential(new ArmSwing(735, true));
-	Robot::arm->armTarget = 735;
+#include "WPILib.h"
+#include "RobotMap.h"
+#include "Robot.h"
 
-}
+class ArmStay : public Command {
+private:
+	float armTargetPOS;
+public:
+	ArmStay();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
+};

@@ -1,4 +1,4 @@
-#include <Commands/ArmSwingDPAD.h>
+#include <Commands/ArmStay.h>
 #include "Arm.h"
 #include "../RobotMap.h"
 #include "Robot.h"
@@ -16,6 +16,7 @@
  * On the physical robot the second arm motor is not there, but when trying to remove from the software,
  * many errors occurred.
  */
+
 Arm::Arm() : Subsystem("Arm") {
 	armEncoder = RobotMap::armEncoder;
 	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
@@ -25,15 +26,13 @@ Arm::Arm() : Subsystem("Arm") {
 	clawMotor = RobotMap::clawMotor;
 
 	IsClawClosed = false;
+	armTarget = 0;
 
 }
 
 void Arm::InitDefaultCommand() {
 
-	// Set the default command for a subsystem here.
-
-	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new ArmSwingDPAD());
+	SetDefaultCommand(new ArmStay());
 }
 
 void Arm::SetArmSpeed(float speed){
@@ -82,8 +81,7 @@ void Arm::Reset(){
 }
 
 void Arm::ResetArmEncoder(){
-	/* Function is called when the arm encoder needs to be reset to '0'
-	 */
+	//Function is called when the arm encoder needs to be reset to '0'
 	armEncoder->Reset();
 }
 
@@ -95,18 +93,15 @@ void Arm::Log(){
 }
 
 void Arm::OpenClawMotor(){
-	/* Sets the claw motor at '0.8' speed to open the claw.
-	 */
+	// Sets the claw motor at '0.8' speed to open the claw.
 	clawMotor->Set(0.8);
 }
 void Arm::CloseClawMotor(){
-	/* Sets the claw motor at '-0.8' speed to close the claw.
-	 */
+	// Sets the claw motor at '-0.8' speed to close the claw.
 	clawMotor->Set(-0.8);
 }
 void Arm::StopClaw(){
-	/* Sets the claw motor speed to '0' to stop movement.
-	 */
+	// Sets the claw motor speed to '0' to stop movement.
 	clawMotor->Set(0);
 }
 
