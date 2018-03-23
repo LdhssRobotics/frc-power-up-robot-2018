@@ -12,8 +12,14 @@
 #include "../CloseClaw.h"
 #include "../OpenClaw.h"
 #include "../Exchange.h"
+#include "../Scale.h"
 
+/*Auto: drive forward and while doing that start the scale motion
+ * turn 45 degrees, drive forward and drop box in scale,
+ * back up and put arm and spine in original position
+ */
 AutoScale::AutoScale(bool isLeft) {
+
     AddSequential(new DriveDistance(262.5));//Cross auto line, move towards scale, to turn in place for scale
 //    AddParallel(new Scale()); Command for scale position for arm and spine
     AddSequential(new Turn45Degrees(isLeft));
@@ -24,22 +30,6 @@ AutoScale::AutoScale(bool isLeft) {
     AddSequential(new DriveDistance(-20));//calculated estimation to back away from scale
     AddSequential(new Exchange());
 
-    // Add Commands here:
-    // e.g. AddSequential(new Command1());
-    //      AddSequential(new Command2());
-    // these will run in order.
-
-    // To run multiple commands at the same time,
-    // use AddParallel()
-    // e.g. AddParallel(new Command1());
-    //      AddSequential(new Command2());
-    // Command1 and Command2 will run in parallel.
-
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
 }
 
 

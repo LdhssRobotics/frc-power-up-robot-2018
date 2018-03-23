@@ -10,6 +10,7 @@
 #include "Spine.h"
 
 Scale::Scale() {
-	AddSequential(new ArmSwing(1102.5));
+	AddSequential(new ArmSwing(1102.5, true));
+	Robot::arm->armTarget = 1102.5;
 	AddSequential(new Spine(Robot::spine->Converter(false, 10), false));
 }

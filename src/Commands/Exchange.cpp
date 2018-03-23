@@ -11,7 +11,7 @@
 
 Exchange::Exchange() {
 	SmartDashboard::PutString("Command", "Exchange");
-	AddSequential(new ArmSwing(0));
+	AddSequential(new ArmSwing(0, false));
+	Robot::arm->armTarget = 0;
 	AddSequential(new Spine(0, false));
-
 }

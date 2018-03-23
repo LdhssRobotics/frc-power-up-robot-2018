@@ -11,5 +11,6 @@
 
 Inboard::Inboard() {
 	AddSequential(new Spine(Robot::spine->Converter(false, 10), false));
-	AddSequential(new ArmSwing(367.5));
+	AddSequential(new ArmSwing(367.5, true));
+	Robot::arm->armTarget = 367.5;
 }

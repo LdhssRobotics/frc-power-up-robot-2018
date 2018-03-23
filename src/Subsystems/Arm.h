@@ -19,6 +19,7 @@ private:
 
 public:
 	Arm();
+	float armTarget;
 	void InitDefaultCommand();
 	void Log();
 	void Reset();

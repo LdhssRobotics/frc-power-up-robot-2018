@@ -30,8 +30,7 @@ public:
 	void InitDefaultCommand();
 	double Converter(bool toInch, double value); //true = convert from pulse to inch, false = convert inches to pulses
 	double AdjustSpine(bool isGoingUp);
-	void AdjustSimple(bool down);
-	void SetMotorSpeed(double lspeed, double rspeed);
+	void AdjustSimple(bool down, int limitFlag);
 	void SetMotor(double spine1, double spine2);
 	int GetSpinePos1();
 	int GetSpinePos2();
@@ -45,9 +44,9 @@ public:
 	void ResetSpineEncoder2();
 	double Motor1Current();
 	double Motor2Current();
-	void CheckReset();
+	int CheckReset();
 	void Log();
-
+	void DisplaySpineCurrents();
 };
 
 #endif /* SRC_SUBSYSTEMS_SPINESUBSYSTEM_H_ */

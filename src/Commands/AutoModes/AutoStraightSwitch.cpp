@@ -12,6 +12,7 @@
 #include "../CloseClaw.h"
 #include "../Exchange.h"
 
+
 AutoStraightSwitch::AutoStraightSwitch() {
     AddSequential(new DriveDistance(110));//From the starting point to the switch; straight (140 inches - bot)
     AddSequential(new Switch());
@@ -30,11 +31,6 @@ AutoStraightSwitch::AutoStraightSwitch() {
     //      AddSequential(new Command2());
     // Command1 and Command2 will run in parallel.
 
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
 }
 
 

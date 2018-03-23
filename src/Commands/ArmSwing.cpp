@@ -8,9 +8,10 @@
 #include <Commands/ArmSwing.h>
 
 
-ArmSwing::ArmSwing(float position)
+ArmSwing::ArmSwing(float position, bool isGoingUp)
 {
 	Position = position;
+	GoingUp = isGoingUp;
 	Requires(Robot::arm.get());
 }
 
@@ -19,9 +20,9 @@ void ArmSwing::Initialize(){
 }
 
 void ArmSwing::Execute(){
-	if (Robot::arm->GetArmPosition() < Position * 1.01) {
+	if (Robot::arm->GetArmPosition() <= Position * 1.01 && GoingUp) {
 		Robot::arm->SetArmSpeed(0.6);
-	}else if (Robot::arm->GetArmPosition() > Position * 0.99){
+	}else if (Robot::arm->GetArmPosition() >= Position * 0.99 && !GoingUp){
 		Robot::arm->SetArmSpeed(-0.3);
 	}else {
 		End();
