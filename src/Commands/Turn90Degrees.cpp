@@ -4,8 +4,6 @@ Turn90Degrees::Turn90Degrees(bool isLeft):
 	isLeftTurn(isLeft)
 
 {
-
-Requires(Robot::drivetrain.get());
 	Requires(Robot::drivetrain.get());
 }
 
@@ -21,6 +19,11 @@ void Turn90Degrees::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Turn90Degrees::Execute() {
+	if(Robot::oi->driveStick->GetRawButton(11)){
+		Robot::drivetrain->TankDrive(-1,1);
+	}else if(Robot::oi->driveStick->GetRawButton(12)){
+		Robot::drivetrain->TankDrive(1,-1);
+	}
 	Robot::drivetrain->Debug();
 }
 
@@ -45,5 +48,4 @@ void Turn90Degrees::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void Turn90Degrees::Interrupted() {
-	End();
 }
