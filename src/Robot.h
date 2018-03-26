@@ -21,6 +21,7 @@
 #include <Commands/AutoModes/AutoScale.h>
 #include <Commands/AutoModes/AutoStraight.h>
 #include <Commands/AutoModes/AutoStraightSwitch.h>
+#include <Commands/AutoModes/LeftAutoMode.h>
 
 // Subsystem includes
 #include "Subsystems/Arm.h"

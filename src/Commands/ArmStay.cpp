@@ -22,7 +22,7 @@ void ArmStay::Initialize() {
 void ArmStay::Execute() {
 	SmartDashboard::PutNumber("ArmCurrentPosition",Robot::arm->GetArmPosition());
 
-	if (armTargetPOS < Robot::arm->GetArmPosition()) {
+	if (armTargetPOS < Robot::arm->GetArmPosition()) { //ASA shouldn't this be >? with an offset?, What stops it?
 		Robot::arm->SetArmSpeed(0.15);
 	}
 

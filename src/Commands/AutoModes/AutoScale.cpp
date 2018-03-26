@@ -28,7 +28,7 @@ AutoScale::AutoScale(bool isLeft) {
     Wait(4);
     AddSequential(new CloseClaw());
     AddSequential(new DriveDistance(-20));//calculated estimation to back away from scale
-    AddSequential(new Exchange());
+ //ASA   AddSequential(new Exchange());
 
 }
 

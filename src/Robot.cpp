@@ -41,7 +41,9 @@ void Robot::RobotInit() {
     oi.reset(new OI());
 
     // Select autonomous mode
-    chooser.AddDefault("BasicAuto", DEFAULT);
+    // ASA chooser.AddDefault("BasicAuto", DEFAULT);
+    chooser.AddDefault("Cross Line", DEFAULT);
+//ASA    chooser.AddObject("BasicAuto", DEFAULT)
     chooser.AddObject("Left", LEFT);
     chooser.AddObject("Centre", CENTRE); // Default autonomous mode
     chooser.AddObject("Right", RIGHT);
@@ -55,6 +57,17 @@ void Robot::DisabledInit() {
 void Robot::DisabledPeriodic() {
     frc::Scheduler::GetInstance()->Run();
 }
+
+// ASA algorithm could have been simpler using logic...
+// if(gameData[GE_SCALE] == 'L') {
+//	fieldPosition = SCALE;
+//}
+//if((gameData[GE_SWITCH_1] == 'L') &&
+//   (matchData == "kElimination") || (gameData[GE_SCALE] == 'R')
+//   {
+//	 fieldPosition = SWITCH;
+//}
+
 
 void Robot::handleLeft(void) {
     if(gameData[GE_SWITCH_1] == 'L'){
@@ -71,6 +84,7 @@ void Robot::handleLeft(void) {
             }
         }
     }
+    //ASA If the Switch is on the right, we exit and run nothing...
 }
 
 void Robot::handleRight(void) {
@@ -88,8 +102,10 @@ void Robot::handleRight(void) {
             }
         }
     }
+    //ASA if switch is on the left, we don't run anything?
     //autonomousCommand = ???;
 }
+
 
 void Robot::AutonomousInit() {
     fieldPosition = NONE;
@@ -118,9 +134,10 @@ void Robot::AutonomousInit() {
                 autonomousCommand = new AutoStraight();
                 break;
         }
+        autonomousCommand = new LeftAutoMode(); //ASA overriding
         if (autonomousCommand != nullptr) {
             autonomousCommand->Start();
-        }
+        }// ASA where is the error handling? How o I know I ran nothing?
     }
 
 
@@ -190,7 +207,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
     frc::Scheduler::GetInstance()->Run();
-    if(Robot::drivetrain->IsSpine){
+    if(Robot::drivetrain->IsSpine){     //ASA are we running this continuously or once?
         server.SetSource(invertableCubeCamera);
     } else {
         server.SetSource(backCamera);

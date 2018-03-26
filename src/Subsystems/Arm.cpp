@@ -1,4 +1,5 @@
 #include <Commands/ArmStay.h>
+#include <Commands/ArmSwingDPAD.h>
 #include "Arm.h"
 #include "../RobotMap.h"
 #include "Robot.h"
@@ -22,17 +23,18 @@ Arm::Arm() : Subsystem("Arm") {
 	bottomShoulderSwitch = RobotMap::bottomShoulderSwitch;
 
 	armMotor1 = RobotMap::armMotor1;
-	armMotor2 = RobotMap::armMotor2;
+	armMotor2 = RobotMap::armMotor2;   //ASA only one motor now a day.
 	clawMotor = RobotMap::clawMotor;
 
 	IsClawClosed = false;
-	armTarget = 0;
+	armTarget = 0;						//ASA assuming this is 0 on encoder, so at bottom
 
 }
 
 void Arm::InitDefaultCommand() {
 
-	SetDefaultCommand(new ArmStay());
+	    SetDefaultCommand(new ArmSwingDPAD());
+//ASA	SetDefaultCommand(new ArmStay());
 }
 
 void Arm::SetArmSpeed(float speed){
@@ -73,7 +75,7 @@ void Arm::Reset(){
 	/* Function is called when a full reset of the arm subsystem is required.
 	 * Sets all motors to '0' and resets the the arm encoder.
 	 */
-	ResetArmEncoder();
+	ResetArmEncoder();  // ASA should reset enconder after motors are stopped...
 	armMotor1->Set(0);
 	armMotor2->Set(0);
 	clawMotor->Set(0);

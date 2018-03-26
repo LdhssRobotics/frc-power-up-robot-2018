@@ -15,11 +15,11 @@
 
 AutoStraightSwitch::AutoStraightSwitch() {
     AddSequential(new DriveDistance(110));//From the starting point to the switch; straight (140 inches - bot)
-    AddSequential(new Switch());
+ //ASA   AddSequential(new Switch());
     AddSequential(new OpenClaw());
     Wait(4);
     AddSequential(new CloseClaw());
-    AddSequential(new Exchange());
+ //ASA   AddSequential(new Exchange());
     // Add Commands here:
     // e.g. AddSequential(new Command1());
     //      AddSequential(new Command2());

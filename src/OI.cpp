@@ -93,14 +93,14 @@ OI::OI() {
 	selectButtonD->ToggleWhenPressed(new SwitchCamera());
 
 	//Climb Controls
-	touchpadButtonD->ToggleWhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
+//ASA	touchpadButtonD->ToggleWhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
 
 	//Claw Controls
 	rightBumperButtonD->WhileHeld(new OpenClawGroup());
 	rightBumperButtonD->WhenReleased(new CloseClawGroup());
 
 	//90 Degree Turn Control
-	leftBumperButtonD->WhileHeld(new Turn90Degrees(true));
+//ASA	leftBumperButtonD->WhileHeld(new Turn90Degrees(true));
 
 
 }

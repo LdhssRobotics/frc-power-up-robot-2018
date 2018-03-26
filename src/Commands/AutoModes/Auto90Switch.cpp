@@ -18,11 +18,11 @@ Auto90Switch::Auto90Switch(bool isLeft) {
     AddSequential(new DriveDistance(150));//Cross auto line a bit to turn in place for switch
     AddSequential(new Turn90Degrees(isLeft));
     AddSequential(new DriveDistance(25));//Move towards switch(85"-30"-30")
-    AddSequential(new Switch());
+ //ASA   AddSequential(new Switch());
     AddSequential(new OpenClaw());
     Wait(4);
     AddSequential(new CloseClaw());
-    AddSequential(new Exchange());
+ //ASA   AddSequential(new Exchange());
 }
     // Add Commands here:
     // e.g. AddSequential(new Command1());

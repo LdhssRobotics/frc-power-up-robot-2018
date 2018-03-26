@@ -81,6 +81,8 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 	 * going up or down. Does this by stopping the motor that is ahead.
 	 * Keeps the motors within 0.06 inches of each other.
 	 */
+
+	//ASA need to adjust back, suggesting the 1.1 and 0.6 values back
 	double adjustFactor = 1.06; //Adds 10% to base speed to allow the motor to catch up
 	double direction = 1; //Default direction, upwards
 	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2()); //Calculation of the difference between the 2 spine motors
