@@ -25,11 +25,11 @@ void ArmSwingDPAD::Execute(){
 	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
 
 	if (Robot::oi->driveStick->GetPOV(0) == 90){//ArmSwing up
-		Robot::arm->SetArmSpeed(0.6);
+		Robot::arm->SetArmSpeed(0.58);
 		armTargetPOS = Robot::arm->GetArmPosition();
-		//if (armTargetPOS < 0){
-		//	armTargetPOS = 0;
-		//}
+		if (armTargetPOS < 0){
+			armTargetPOS = 0;
+		}
 		SmartDashboard::PutString("Arm", "Moving");
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == -1){
@@ -43,7 +43,7 @@ void ArmSwingDPAD::Execute(){
 		float speed = 0.0;
 		Robot::arm->SetArmSpeed(speed); //ASA remove
 		if (armTargetPOS > (1.01 * Robot::arm->GetArmPosition())){ //ASA would use a >= Set Position +8
-			Robot::arm->SetArmSpeed(0.3); //ASA may not be enough power.... 0.3 is my bet.
+			Robot::arm->SetArmSpeed(0.34); //ASA may not be enough power.... 0.3 is my bet.
 		}
 		else { // ASA would use <= Set Position -8
 			Robot::arm->SetArmSpeed(0);
@@ -54,12 +54,12 @@ void ArmSwingDPAD::Execute(){
 	else if(Robot::oi->driveStick->GetPOV(0) == 270){//ArmSwing Down
 		Robot::arm->SetArmSpeed(-0.25);   //ASA not powerful enough to bring the arm back, try -0.25
 		armTargetPOS = Robot::arm->GetArmPosition();
-		//if (armTargetPOS < 0){
-		//	armTargetPOS = 0;
-		//}
+		if (armTargetPOS < 0){
+			armTargetPOS = 0;
+		}
 		SmartDashboard::PutString("Arm", "Moving");
 	}
-	//Robot::arm->ResetArm();
+	Robot::arm->ResetArm();
 }
 
 bool ArmSwingDPAD::IsFinished(){

@@ -15,11 +15,11 @@ StartClaw::StartClaw(bool direction) {
 }
 
 void StartClaw::Initialize(){
-	Robot::arm->SetClawSpeed(0);
+	Robot::claw->SetClawSpeed(0);
 	if (direct) {
-		Robot::arm->OpenClawMotor();
+		Robot::claw->OpenClawMotor();
 	} else {
-		Robot::arm->CloseClawMotor();
+		Robot::claw->CloseClawMotor();
 
 	}
 	SetTimeout(1);

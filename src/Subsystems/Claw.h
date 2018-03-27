@@ -7,18 +7,22 @@
 
 #pragma once
 
+#include <Commands/Subsystem.h>
 #include "WPILib.h"
-#include "RobotMap.h"
-#include "Robot.h"
 
-class ArmStay : public Command {
+class Claw : public frc::Subsystem {
 private:
-	float armTargetPOS;
+	std::shared_ptr<SpeedController> clawMotor;
+
 public:
-	ArmStay();
-	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
+	Claw();
+	void InitDefaultCommand();
+	void SetClawSpeed(float speed);
+	void OpenClawMotor();
+	void CloseClawMotor();
+	void StopClaw();
+	double CurrentDraw();
+	// Claw Variables
+	bool IsClawClosed;
 };
+

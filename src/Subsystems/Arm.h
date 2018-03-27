@@ -13,13 +13,12 @@ private:
 
 	std::shared_ptr<SpeedController> armMotor1;
 	std::shared_ptr<SpeedController> armMotor2;
-	std::shared_ptr<SpeedController> clawMotor;
+
 
 
 
 public:
 	Arm();
-	float armTarget;
 	void InitDefaultCommand();
 	void Log();
 	void Reset();
@@ -31,14 +30,6 @@ public:
 	float GetCurrentArmPosition();
 	void ResetArm();
 	void ResetArmEncoder();
-	// Claw Functions
-	void SetClawSpeed(float speed);
-	void OpenClawMotor();
-	void CloseClawMotor();
-	void StopClaw();
-	double CurrentDraw();
-	// Claw Variables
-	bool IsClawClosed;
 
 };
 

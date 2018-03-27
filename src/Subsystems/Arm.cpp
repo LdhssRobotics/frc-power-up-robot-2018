@@ -1,4 +1,3 @@
-#include <Commands/ArmStay.h>
 #include <Commands/ArmSwingDPAD.h>
 #include "Arm.h"
 #include "../RobotMap.h"
@@ -24,10 +23,6 @@ Arm::Arm() : Subsystem("Arm") {
 
 	armMotor1 = RobotMap::armMotor1;
 	armMotor2 = RobotMap::armMotor2;   //ASA only one motor now a day.
-	clawMotor = RobotMap::clawMotor;
-
-	IsClawClosed = false;
-	armTarget = 0;						//ASA assuming this is 0 on encoder, so at bottom
 
 }
 
@@ -46,13 +41,6 @@ void Arm::SetArmSpeed(float speed){
 	armMotor2->Set(speed);
 }
 
-void Arm::SetClawSpeed(float speed) {
-	/* Function sets the speed of the motor.
-	 * speed - any value between '-1' and '1', positive opens the claw.
-	 */
-	clawMotor->Set(speed);
-}
-
 float Arm::GetArmPosition(){
 	/* Function returns the current reading on the arm motor encoder.
 	 */
@@ -63,7 +51,7 @@ void Arm::ResetArm(){
 	/* Function resets the encoder and motors on the arm,
 	 * when the limit switch is triggered.
 	 */
-	if (bottomShoulderSwitch->Get()){
+	if (!bottomShoulderSwitch->Get()){
 		armMotor1->Set(0);
 		armMotor2->Set(0);
 		ResetArmEncoder();
@@ -74,10 +62,9 @@ void Arm::Reset(){
 	/* Function is called when a full reset of the arm subsystem is required.
 	 * Sets all motors to '0' and resets the the arm encoder.
 	 */
-	ResetArmEncoder();  // ASA should reset enconder after motors are stopped...
+	ResetArmEncoder();  // ASA should reset encoder after motors are stopped...
 	armMotor1->Set(0);
 	armMotor2->Set(0);
-	clawMotor->Set(0);
 	Log();
 }
 
@@ -91,26 +78,4 @@ void Arm::Log(){
 	 * on the SmartDashboard.
 	 */
 	SmartDashboard::PutNumber("Arm Encoder:", GetArmPosition());
-}
-
-void Arm::OpenClawMotor(){
-	// Sets the claw motor at '0.8' speed to open the claw.
-	clawMotor->Set(0.8);
-}
-void Arm::CloseClawMotor(){
-	// Sets the claw motor at '-0.8' speed to close the claw.
-	clawMotor->Set(-0.8);
-}
-void Arm::StopClaw(){
-	// Sets the claw motor speed to '0' to stop movement.
-	clawMotor->Set(0);
-}
-
-double Arm::CurrentDraw(){
-	/* Function reads and returns the output current from the claw motor.
-	 * It also displays this current on the SmartDashboard.
-	 */
-	double current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->GetOutputCurrent();
-	SmartDashboard::PutNumber("Talon SRX - current: ", current);
-	return (current);
 }

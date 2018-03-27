@@ -85,7 +85,7 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 	double adjustFactor = 1.06; //Adds 10% to base speed to allow the motor to catch up
 	double direction = 1; //Default direction, upwards
 	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2()); //Calculation of the difference between the 2 spine motors
-	double baseSpeed = 0.8; //Base speed set to the motors, this can be altered
+	double baseSpeed = 0.6; //Base speed set to the motors, this can be altered
 	double maxDelta = Converter(false, 0.06); //Maximum tolerated variance, 0.06 inches
 
 	if (down){

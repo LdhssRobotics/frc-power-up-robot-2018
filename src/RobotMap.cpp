@@ -130,11 +130,11 @@ void RobotMap::initCommon() {
 
 	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
-	armMotor1->SetInverted(true);
+	armMotor1->SetInverted(false);
 
 	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
 	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
-	armMotor2->SetInverted(false);
+	armMotor2->SetInverted(true);
 }
 
 void RobotMap::initProtoCase() {

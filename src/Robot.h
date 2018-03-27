@@ -28,6 +28,7 @@
 #include "Subsystems/Drivetrain.h"
 #include "OI.h"
 #include "Subsystems/SpineSubSystem.h"
+#include "Subsystems/Claw.h"
 
 class Robot : public frc::TimedRobot {
     public:
@@ -42,6 +43,7 @@ class Robot : public frc::TimedRobot {
     static std::shared_ptr<Arm> arm;
     static std::shared_ptr<Drivetrain> drivetrain;
     static std::shared_ptr<SpineSubSystem> spine;
+    static std::shared_ptr<Claw> claw;
 
     enum GameElements {
         GE_SWITCH_1 = 0,
