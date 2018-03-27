@@ -17,7 +17,7 @@
 
 #include "Commands/OpenClawGroup.h"
 #include "Commands/CloseClawGroup.h"
-
+#include "Commands/LoosenClaw.h"
 #include "Commands/Turn90Degrees.h"
 
 #include "Commands/SwitchCamera.h"
@@ -86,7 +86,7 @@ OI::OI() {
 	//Drive Stick Controls
 	bButtonD->ToggleWhenPressed(new Inboard());
 	xButtonD->ToggleWhenPressed(new Switch());
-	aButtonD->ToggleWhenPressed(new Exchange());
+	//aButtonD->ToggleWhenPressed(new Exchange());
 	yButtonD->ToggleWhenPressed(new Scale());
 
 	//Camera Switch Controls
@@ -96,6 +96,7 @@ OI::OI() {
 //ASA	touchpadButtonD->ToggleWhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
 
 	//Claw Controls
+	aButtonD->ToggleWhenPressed(new LoosenClaw());
 	rightBumperButtonD->WhileHeld(new OpenClawGroup());
 	rightBumperButtonD->WhenReleased(new CloseClawGroup());
 
