@@ -10,17 +10,26 @@
 
 ArmSwingDPAD::ArmSwingDPAD() {
 	Requires(Robot::arm.get());
+	armTargetPOS = 0;
 }
 
 void ArmSwingDPAD::Initialize(){
 	SmartDashboard::PutString("Arm", "Start");
+
+
 	Robot::arm->SetArmSpeed(0);
+	armTargetPOS = 0.0;
 }
 
 void ArmSwingDPAD::Execute(){
 	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
+
 	if (Robot::oi->driveStick->GetPOV(0) == 90){//ArmSwing up
 		Robot::arm->SetArmSpeed(0.6);
+		armTargetPOS = Robot::arm->GetArmPosition();
+		//if (armTargetPOS < 0){
+		//	armTargetPOS = 0;
+		//}
 		SmartDashboard::PutString("Arm", "Moving");
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == -1){
@@ -31,22 +40,26 @@ void ArmSwingDPAD::Execute(){
 		// ASA Read current compare to the "set position"
 		// ASA adjust accordingly.
 		// ASA Put 2degree of error.... 147*10 = 1470 for 180 degree  so a count of 16.
-		float currentArmPosition = Robot::arm->GetArmPosition();
 		float speed = 0.0;
 		Robot::arm->SetArmSpeed(speed); //ASA remove
-		if (currentArmPosition == Robot::arm->GetArmPosition()){ //ASA would use a >= Set Position +8
-			Robot::arm->SetArmSpeed(0);
+		if (armTargetPOS > (1.01 * Robot::arm->GetArmPosition())){ //ASA would use a >= Set Position +8
+			Robot::arm->SetArmSpeed(0.3); //ASA may not be enough power.... 0.3 is my bet.
 		}
-		else if (currentArmPosition > Robot::arm->GetArmPosition()){ // ASA would use <= Set Position -8
-			Robot::arm->SetArmSpeed(0.1); //ASA may not be enough power.... 0.3 is my bet.
+		else { // ASA would use <= Set Position -8
+			Robot::arm->SetArmSpeed(0);
 		}
 		SmartDashboard::PutString("Arm", "Stopped");
 		// ASA up to here
 	}
 	else if(Robot::oi->driveStick->GetPOV(0) == 270){//ArmSwing Down
-		Robot::arm->SetArmSpeed(-0.1);   //ASA not powerfull enough to bring the arm back, try -0.25
+		Robot::arm->SetArmSpeed(-0.25);   //ASA not powerful enough to bring the arm back, try -0.25
+		armTargetPOS = Robot::arm->GetArmPosition();
+		//if (armTargetPOS < 0){
+		//	armTargetPOS = 0;
+		//}
 		SmartDashboard::PutString("Arm", "Moving");
 	}
+	//Robot::arm->ResetArm();
 }
 
 bool ArmSwingDPAD::IsFinished(){

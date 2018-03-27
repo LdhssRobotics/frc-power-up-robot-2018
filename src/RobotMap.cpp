@@ -122,7 +122,7 @@ void RobotMap::initCommon() {
 		armEncoder->SetMaxPeriod(0.1);
 		armEncoder->SetMinRate(1);
 		armEncoder->SetSamplesToAverage(15);
-		armEncoder->SetReverseDirection(true);
+		armEncoder->SetReverseDirection(false);
 		armEncoder->SetDistancePerPulse(1); //PLACEHOLDER
 
 	bottomShoulderSwitch.reset(new DigitalInput(BOTTOM_SHOULDER_SWITCH_PORT));

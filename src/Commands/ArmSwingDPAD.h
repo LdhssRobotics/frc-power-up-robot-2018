@@ -20,6 +20,7 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+	float armTargetPOS;
 };
 
 #endif /* SRC_COMMANDS_ARMSWINGDPAD_H_ */

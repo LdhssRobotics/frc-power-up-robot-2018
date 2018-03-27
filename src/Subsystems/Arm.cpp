@@ -55,9 +55,8 @@ void Arm::SetClawSpeed(float speed) {
 
 float Arm::GetArmPosition(){
 	/* Function returns the current reading on the arm motor encoder.
-	 * <Needs to be Tested>
 	 */
-	return armEncoder->GetDistance();
+	return armEncoder->GetRaw();
 }
 
 void Arm::ResetArm(){

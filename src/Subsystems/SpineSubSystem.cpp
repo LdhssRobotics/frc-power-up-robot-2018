@@ -67,7 +67,6 @@ double SpineSubSystem::AdjustSpine(bool isGoingUp) {
 	 * isGoingUp - Set true if spine is going up, false if down
 	 */
 	float increment;
-	double variance = Converter(false, 0.25);
 	if (isGoingUp) {
 		increment = (percent/Converter(false, 0.2))*(Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2());
 	} else {
