@@ -240,5 +240,3 @@ void SpineSubSystem::DisplaySpineCurrents(){
 	double Spine2current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetOutputCurrent();
 	SmartDashboard::PutNumber("Spine2 - current: ", Spine2current);
 }
-
-

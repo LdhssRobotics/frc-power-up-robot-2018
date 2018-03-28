@@ -20,21 +20,55 @@ void SpineDPAD::Execute() {
 	SmartDashboard::PutNumber("Spine Encoder 1", Robot::spine->GetSpinePos1());
 	SmartDashboard::PutNumber("Spine Encoder 2", Robot::spine->GetSpinePos2());
 	Robot::spine->DisplaySpineCurrents();
+
 	int limitFlag = Robot::spine->CheckReset();
-	if (Robot::oi->driveStick->GetPOV(0) == 0 && Robot::spine->CanMoveSpine()){
+
+	bool isManual;
+
+	float manualLeft = Robot::oi->getDriveStick2()->GetRawAxis(Robot::oi->LEFT_Y_AXIS_E);
+	float manualRight = Robot::oi->getDriveStick2()->GetRawAxis(Robot::oi->RIGHT_Y_AXIS_E);
+
+	float leftVal = 0.0;
+	float rightVal = 0.0;
+
+	SmartDashboard::PutNumber("Emergency Left Y Axis new", manualLeft);
+	SmartDashboard::PutNumber("Emergency Right Y Axis new", manualRight);
+
+	if (abs(manualLeft) > 0.1 || abs(manualRight) > 0.1){
+		isManual = true;
+	} else {
+		isManual = false;
+	}
+
+	if (manualLeft > 0.1){
+		//If left axis down, Set spine left down
+		leftVal = -0.4;
+	} else if (manualLeft < -0.1){
+		//If left axes up, Set spine left up
+		leftVal = 0.4;
+	}
+
+	if (manualRight > 0.05){
+		//If right axes down, Set spine right down
+		rightVal = -0.4;
+	} else if (manualRight < -0.1){
+		//If right axes up, Set spine right up
+		rightVal = 0.4;
+	}
+
+	if (isManual) {
+		Robot::spine->SetMotor(leftVal, rightVal);
+	} else if (Robot::oi->driveStick->GetPOV(0) == 0){
 		//Move Spine upwards when DPAD up is pressed
 		Robot::spine->AdjustSimple(false, limitFlag);
 	} else if(Robot::oi->driveStick->GetPOV(0) == -1){
 		//Stops spine when no DPAD button is pressed
 		SmartDashboard::PutString("Spine", "Stopped");
 		Robot::spine->SetMotor(0,0);
-	} else if(Robot::oi->driveStick->GetPOV(0) == 180 && Robot::spine->CanMoveSpine()){
+	} else if(Robot::oi->driveStick->GetPOV(0) == 180){
 		//Move Spine downwards when DPAD down is pressed
 		Robot::spine->AdjustSimple(true, limitFlag);
 	}
-
-
-	//SmartDashboard::PutNumber("Difference", Robot::spine->AdjustSpine());
 }
 
 bool SpineDPAD::IsFinished() {

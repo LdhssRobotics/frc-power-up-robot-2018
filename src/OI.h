@@ -11,7 +11,8 @@
 
 class OI {
 public:
-	std::shared_ptr<frc::Joystick> driveStick; //DriveTrain Controller
+	std::shared_ptr<frc::Joystick> driveStick; //DriveTrain Controller (PS4 Port 0)
+	std::shared_ptr<frc::Joystick> driveStick2; //Emergency Controller (XBOX Port 1)
 
 	// Drive Stick Buttons
 	JoystickButton *aButtonD;
@@ -29,6 +30,17 @@ public:
 	JoystickButton *homeButtonD;
 	JoystickButton *touchpadButtonD;
 
+	JoystickButton *aButtonE;
+	JoystickButton *bButtonE;
+	JoystickButton *xButtonE;
+	JoystickButton *yButtonE;
+	JoystickButton *leftBumperButtonE;
+	JoystickButton *rightBumperButtonE;
+	JoystickButton *selectButtonE;
+	JoystickButton *startButtonE;
+	JoystickButton *leftStickButtonE;
+	JoystickButton *rightStickButtonE;
+
 	// Axes
 	static const int LEFT_X_AXIS = 0;
 	static const int LEFT_Y_AXIS = 1;
@@ -36,6 +48,13 @@ public:
 	static const int RIGHT_TRIGGER_AXIS = 4;
 	static const int RIGHT_X_AXIS = 2;
 	static const int RIGHT_Y_AXIS = 5;
+
+	static const int LEFT_X_AXIS_E = 0;
+	static const int LEFT_Y_AXIS_E = 1;
+	static const int LEFT_TRIGGER_AXIS_E = 2;
+	static const int RIGHT_TRIGGER_AXIS_E = 3;
+	static const int RIGHT_X_AXIS_E = 4;
+	static const int RIGHT_Y_AXIS_E = 5;
 
 	typedef enum controllerType {
 		PLAYSTATION,
@@ -46,6 +65,7 @@ public:
 
 	OI();
 	std::shared_ptr<frc::Joystick> getDriveStick();
+	std::shared_ptr<frc::Joystick> getDriveStick2();
 };
 
 #endif

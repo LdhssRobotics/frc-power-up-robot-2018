@@ -47,6 +47,16 @@ float Arm::GetArmPosition(){
 	return armEncoder->GetRaw();
 }
 
+void Arm::Reset(){
+	/* Function is called when a full reset of the arm subsystem is required.
+	 * Sets all motors to '0' and resets the the arm encoder.
+	 */
+	ResetArmEncoder();  // ASA should reset encoder after motors are stopped...
+	armMotor1->Set(0);
+	armMotor2->Set(0);
+	Log();
+}
+
 void Arm::ResetArm(){
 	/* Function resets the encoder and motors on the arm,
 	 * when the limit switch is triggered.
@@ -56,16 +66,6 @@ void Arm::ResetArm(){
 		armMotor2->Set(0);
 		ResetArmEncoder();
 	}
-}
-
-void Arm::Reset(){
-	/* Function is called when a full reset of the arm subsystem is required.
-	 * Sets all motors to '0' and resets the the arm encoder.
-	 */
-	ResetArmEncoder();  // ASA should reset encoder after motors are stopped...
-	armMotor1->Set(0);
-	armMotor2->Set(0);
-	Log();
 }
 
 void Arm::ResetArmEncoder(){

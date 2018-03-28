@@ -34,18 +34,13 @@ public:
 	void SetMotor(double spine1, double spine2);
 	int GetSpinePos1();
 	int GetSpinePos2();
-	void ResetSpine1();
-	void ResetSpine2();
-	void Reset();
+	void ResetSpineEncoder1();
+	void ResetSpineEncoder2();
 	bool CanMoveSpine();
 	bool CheckMove1();
 	bool CheckMove2();
-	void ResetSpineEncoder1();
-	void ResetSpineEncoder2();
-	double Motor1Current();
-	double Motor2Current();
+	void Reset();
 	int CheckReset();
-	void Log();
 	void DisplaySpineCurrents();
 };
 

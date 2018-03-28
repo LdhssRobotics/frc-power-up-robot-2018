@@ -14,22 +14,15 @@ private:
 	std::shared_ptr<SpeedController> armMotor1;
 	std::shared_ptr<SpeedController> armMotor2;
 
-
-
-
 public:
 	Arm();
 	void InitDefaultCommand();
-	void Log();
-	void Reset();
-	/* Do we need this? */
-	bool LimitSwitchState();
-	// Arm/Shoulder Functions
 	void SetArmSpeed(float speed);
 	float GetArmPosition();
-	float GetCurrentArmPosition();
+	void Reset();
 	void ResetArm();
 	void ResetArmEncoder();
+	void Log();
 
 };
 

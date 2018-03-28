@@ -30,32 +30,21 @@ OI::OI() {
 
 
 	driveStick.reset(new Joystick(0));
-
-//	m_controllerType = XBOX;
-/*
-	if(m_controllerType == XBOX){
+	driveStick2.reset(new Joystick(1));
 
 	// Drive Stick Buttons
-	aButtonD = new JoystickButton(driveStick.get(), 1);
-	bButtonD = new JoystickButton(driveStick.get(), 2);
-	xButtonD = new JoystickButton(driveStick.get(), 3);
-	yButtonD = new JoystickButton(driveStick.get(), 4);
-	leftBumperButtonD = new JoystickButton(driveStick.get(), 5);
-	rightBumperButtonD = new JoystickButton(driveStick.get(), 6);
-	selectButtonD = new JoystickButton(driveStick.get(), 7);
-	startButtonD = new JoystickButton(driveStick.get(), 8);
-	leftStickButtonD = new JoystickButton(driveStick.get(), 9);
-	rightStickButtonD = new JoystickButton(driveStick.get(), 10);
+	aButtonE = new JoystickButton(driveStick.get(), 1);
+	bButtonE = new JoystickButton(driveStick.get(), 2);
+	xButtonE = new JoystickButton(driveStick.get(), 3);
+	yButtonE = new JoystickButton(driveStick.get(), 4);
+	leftBumperButtonE = new JoystickButton(driveStick.get(), 5);
+	rightBumperButtonE = new JoystickButton(driveStick.get(), 6);
+	selectButtonE = new JoystickButton(driveStick.get(), 7);
+	startButtonE = new JoystickButton(driveStick.get(), 8);
+	leftStickButtonE = new JoystickButton(driveStick.get(), 9);
+	rightStickButtonE = new JoystickButton(driveStick.get(), 10);
 
-	LEFT_X_AXIS = 0;
-	LEFT_Y_AXIS = 1;
-	LEFT_TRIGGER_AXIS = 2;
-	RIGHT_TRIGGER_AXIS = 3;
-	RIGHT_X_AXIS = 4;
-	RIGHT_Y_AXIS = 5;
 
-	} else if(m_controllerType == PLAYSTATION){
-*/
 	// Drive Stick Buttons
 	aButtonD = new JoystickButton(driveStick.get(), 2); //'X' on PS
 	bButtonD = new JoystickButton(driveStick.get(), 3); //'O' on PS
@@ -71,29 +60,21 @@ OI::OI() {
 	rightStickButtonD = new JoystickButton(driveStick.get(), 12); //'R3' on PS
 	homeButtonD = new JoystickButton(driveStick.get(), 13); //'PS' on PS
 	touchpadButtonD = new JoystickButton(driveStick.get(), 14); //'Touchpad' on PS
-/*
-	LEFT_X_AXIS = 0;
-	LEFT_Y_AXIS = 1;
-	LEFT_TRIGGER_AXIS = 3;
-	RIGHT_TRIGGER_AXIS = 4;
-	RIGHT_X_AXIS = 2;
-	RIGHT_Y_AXIS = 5;
-*/
-//	}
+
 
 	// Assigning Commands to Buttons
 
 	//Drive Stick Controls
-	bButtonD->ToggleWhenPressed(new Inboard());
-	xButtonD->ToggleWhenPressed(new Switch());
+	//bButtonD->ToggleWhenPressed(new Inboard());
+	//xButtonD->ToggleWhenPressed(new Switch());
 	//aButtonD->ToggleWhenPressed(new Exchange());
-	yButtonD->ToggleWhenPressed(new Scale());
+	//yButtonD->ToggleWhenPressed(new Scale());
 
 	//Camera Switch Controls
 	selectButtonD->ToggleWhenPressed(new SwitchCamera());
 
 	//Climb Controls
-//ASA	touchpadButtonD->ToggleWhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
+	//ASA	touchpadButtonD->ToggleWhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
 
 	//Claw Controls
 	aButtonD->ToggleWhenPressed(new LoosenClaw());
@@ -101,11 +82,15 @@ OI::OI() {
 	rightBumperButtonD->WhenReleased(new CloseClawGroup());
 
 	//90 Degree Turn Control
-//ASA	leftBumperButtonD->WhileHeld(new Turn90Degrees(true));
+
 
 
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {
 	return driveStick;
+}
+
+std::shared_ptr<Joystick> OI::getDriveStick2() {
+	return driveStick2;
 }
