@@ -107,12 +107,21 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 		}
 	} else {
 		/*
-		 * Else, compensate the lagging motor by 10%
+		 * Else, compensate the lagging motor by 6%
 		 */
-		if (delta > 0) {
-			motorSpeed2 = motorSpeed2 * adjustFactor;
+		if (down) {
+			if (delta > 0) {
+				motorSpeed1 = motorSpeed1 * adjustFactor;
+			} else {
+				motorSpeed2 = motorSpeed2 * adjustFactor;
+
+			}
 		} else {
-			motorSpeed1 = motorSpeed1 * adjustFactor;
+			if (delta > 0) {
+				motorSpeed2 = motorSpeed2 * adjustFactor;
+			} else {
+				motorSpeed1 = motorSpeed1 * adjustFactor;
+			}
 		}
 	}
 
