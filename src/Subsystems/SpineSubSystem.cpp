@@ -101,9 +101,9 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 		 */
 		delta = delta * direction;
 		if (delta > 0){ // spine 1 is ahead of 2
-			motorSpeed1 = 0;
+			motorSpeed1 = motorSpeed1/2;
 		} else { // spine 2 is ahead of 1
-			motorSpeed2 = 0;
+			motorSpeed2 = motorSpeed2/2;
 		}
 	} else {
 		delta = delta * direction;
@@ -244,7 +244,7 @@ int SpineSubSystem::CheckReset(){
 	frc::SmartDashboard::PutNumber("return val", returnValue);
 	return returnValue;
 }
-
+//OV This function is no longer called
 void SpineSubSystem::DisplaySpineCurrents(){
 	double Spine1current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetOutputCurrent();
 	SmartDashboard::PutNumber("Spine1 - current: ", Spine1current);

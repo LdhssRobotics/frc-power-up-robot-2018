@@ -6,7 +6,7 @@
 CloseClaw::CloseClaw() {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(Robot::claw.get());
-	maxcurrent = 15.0;
+	maxcurrent = 20.0;
 	// eg. Requires(Robot::chassis.get());
 }
 
@@ -20,8 +20,8 @@ void CloseClaw::Initialize() {
 void CloseClaw::Execute() {
 	SmartDashboard::PutString("Claw: ", "Closing");
 	SmartDashboard::PutBoolean("Is Claw Closed", Robot::claw->IsClawClosed);
-	SmartDashboard::PutNumber("CloseClaw-current", Robot::claw->CurrentDraw());
-	SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
+	//SmartDashboard::PutNumber("CloseClaw-current", Robot::claw->CurrentDraw());
+	//SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -34,8 +34,8 @@ void CloseClaw::End() {
 	Robot::claw->IsClawClosed = true;
 	Robot::claw->StopClaw();
 	SmartDashboard::PutBoolean("Is Claw Closed", Robot::claw->IsClawClosed);
-	SmartDashboard::PutNumber("CloseClaw-current", Robot::claw->CurrentDraw());
-	SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
+	//SmartDashboard::PutNumber("CloseClaw-current", Robot::claw->CurrentDraw());
+	//SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
 
 }
 

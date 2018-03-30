@@ -10,7 +10,6 @@
 
 #include "WPILib.h"
 #include "Commands/Command.h"
-//#include "LiveWindow/LiveWindow.h"
 #include "RobotMap.h"
 // Vision includes
 #include <thread>
@@ -38,7 +37,6 @@ class Robot : public frc::TimedRobot {
     frc::Command* autonomousCommand;
     int autonomousPos;
     static std::unique_ptr<OI> oi;
-    //frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
     frc::SendableChooser<int> chooser;
     static std::shared_ptr<Arm> arm;
     static std::shared_ptr<Drivetrain> drivetrain;

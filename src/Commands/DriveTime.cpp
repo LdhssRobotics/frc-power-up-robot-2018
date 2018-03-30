@@ -14,25 +14,20 @@ DriveTime::DriveTime(double time)
 {
 	targetDistance = 0;
 	timeDistance = time;
-	Requires(Robot::drivetrain.get());// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+	Requires(Robot::drivetrain.get());
 }
 
-// Called just before this Command runs the first time
 void DriveTime::Initialize() {
 	Robot::drivetrain->Reset();
 	SetTimeout(timeDistance);
 }
 
-// Called repeatedly when this Command is scheduled to run
 void DriveTime::Execute() {
-	SmartDashboard::PutNumber("Left Distance travelled", Robot::drivetrain->GetLeftDistance());
-	SmartDashboard::PutNumber("Right Distance travelled", Robot::drivetrain->GetRightDistance());
-	SmartDashboard::PutNumber("target distance", targetDistance);
+	//SmartDashboard::PutNumber("Left Distance travelled", Robot::drivetrain->GetLeftDistance());
+	//SmartDashboard::PutNumber("Right Distance travelled", Robot::drivetrain->GetRightDistance());
+	//SmartDashboard::PutNumber("target distance", targetDistance);
 	Robot::drivetrain->ArcadeDrive(-0.65, 0.05);
 }
-
-// Make this return true when this Command no longer needs to run execute()
 
 bool DriveTime::IsFinished() {
 	return  IsTimedOut();
@@ -40,21 +35,13 @@ bool DriveTime::IsFinished() {
 
 
 
-// Called once after isFinished returns true
 void DriveTime::End() {
 	Robot::drivetrain->Stop();
 }
 
 
-
-// Called when another command which requires one or more of the same
-
-// subsystems is scheduled to run
-
 void DriveTime::Interrupted() {
-
 	End();
-
 }
 
 

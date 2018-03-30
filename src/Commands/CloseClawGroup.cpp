@@ -2,7 +2,7 @@
  * CloseClawGroup.cpp
  *
  *  Created on: Mar 3, 2018
- *      Author: Owen
+ *      Author: Nader
  */
 
 #include <Commands/CloseClawGroup.h>

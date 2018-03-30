@@ -4,7 +4,6 @@
 #include "Robot.h"
 #include "WPILib.h"
 #include "SmartDashboard/Sendable.h"
-
 #include "ctre/phoenix/MotorControl/CAN/WPI_TalonSRX.h"
 /* The arm subsystem deals with the 2 PWM arm motors and the 1 CAN WPI_TalonSRX claw motor.
  * They are defined as armMotor1, armMotor2 and clawMotor respectively.
@@ -29,7 +28,6 @@ Arm::Arm() : Subsystem("Arm") {
 void Arm::InitDefaultCommand() {
 
 	    SetDefaultCommand(new ArmSwingDPAD());
-//ASA	SetDefaultCommand(new ArmStay());
 }
 
 void Arm::SetArmSpeed(float speed){

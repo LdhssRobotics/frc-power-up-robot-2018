@@ -6,7 +6,6 @@ CrabWalk2::CrabWalk2(bool isLeft):
 	Requires(Robot::drivetrain.get());
 }
 
-// Called just before this Command runs the first time
 void CrabWalk2::Initialize() {
 
 	if (isLeftWalk){
@@ -16,12 +15,10 @@ void CrabWalk2::Initialize() {
 	}
 }
 
-// Called repeatedly when this Command is scheduled to run
 void CrabWalk2::Execute() {
 	Robot::drivetrain->Debug();
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool CrabWalk2::IsFinished() {
 	float target;
 	if (isLeftWalk) {
@@ -33,7 +30,6 @@ bool CrabWalk2::IsFinished() {
 	return (abs(target) <= abs(placeholder));
 }
 
-// Called once after isFinished returns true
 void CrabWalk2::End() {
 	SetTimeout(0.5);
 	while(!IsTimedOut()) {
@@ -47,8 +43,6 @@ void CrabWalk2::End() {
 	Robot::drivetrain->ResetEncoder();
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void CrabWalk2::Interrupted() {
 	End();
 }

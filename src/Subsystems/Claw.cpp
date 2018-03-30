@@ -43,7 +43,7 @@ double Claw::CurrentDraw(){
 	 * It also displays this current on the SmartDashboard.
 	 */
 	double current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(clawMotor)->GetOutputCurrent();
-	SmartDashboard::PutNumber("Talon SRX - current: ", current);
+	//SmartDashboard::PutNumber("Talon SRX - current: ", current);
 	return (current);
 }
 
