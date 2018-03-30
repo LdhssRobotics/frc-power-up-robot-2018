@@ -42,7 +42,8 @@ void ArmSwingDPAD::Execute(){
 		// ASA Put 2degree of error.... 147*10 = 1470 for 180 degree  so a count of 16.
 		float speed = 0.0;
 		Robot::arm->SetArmSpeed(speed); //ASA remove
-		if (armTargetPOS > (1.01 * Robot::arm->GetArmPosition())){ //ASA would use a >= Set Position +8
+		if ((armTargetPOS > (1.01 * Robot::arm->GetArmPosition()))){
+			//ASA would use a >= Set Position +8
 			Robot::arm->SetArmSpeed(0.34); //ASA may not be enough power.... 0.3 is my bet.
 		}
 		else { // ASA would use <= Set Position -8

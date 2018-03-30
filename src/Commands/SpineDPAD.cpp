@@ -31,9 +31,6 @@ void SpineDPAD::Execute() {
 	float leftVal = 0.0;
 	float rightVal = 0.0;
 
-	SmartDashboard::PutNumber("Emergency Left Y Axis new", manualLeft);
-	SmartDashboard::PutNumber("Emergency Right Y Axis new", manualRight);
-
 	if (abs(manualLeft) > 0.1 || abs(manualRight) > 0.1){
 		isManual = true;
 	} else {

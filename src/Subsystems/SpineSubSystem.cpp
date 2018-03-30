@@ -82,10 +82,10 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 	 */
 
 	//ASA need to adjust back, suggesting the 1.1 and 0.6 values back
-	double adjustFactor = 1.06; //Adds 10% to base speed to allow the motor to catch up
+	double adjustFactor = 1.05; //Adds 10% to base speed to allow the motor to catch up
 	double direction = 1; //Default direction, upwards
 	double delta = (Robot::spine->GetSpinePos1() - Robot::spine->GetSpinePos2()); //Calculation of the difference between the 2 spine motors
-	double baseSpeed = 0.6; //Base speed set to the motors, this can be altered
+	double baseSpeed = 0.8;//Base speed set to the motors, this can be altered
 	double maxDelta = Converter(false, 0.06); //Maximum tolerated variance, 0.06 inches
 
 	if (down){
@@ -100,28 +100,30 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 		 * then stop the motor that is ahead.
 		 */
 		delta = delta * direction;
-		if (delta > 0){
+		if (delta > 0){ // spine 1 is ahead of 2
 			motorSpeed1 = 0;
-		} else {
+		} else { // spine 2 is ahead of 1
 			motorSpeed2 = 0;
 		}
 	} else {
+		delta = delta * direction;
+
 		/*
+		 * CURRENT BUG: shaking badly on way down; inverted adjustment when going down?
+		 */
+		/*
+		// KN TODO test below
+		if ((delta > 0 && !down) || (delta < 0 && down)) { // spine 1 is ahead of 2
+			motorSpeed1 = motorSpeed1 * adjustFactor;
+		} else { // spine 2 is ahead of 1
+			motorSpeed2 = motorSpeed2 * adjustFactor;
+		}
 		 * Else, compensate the lagging motor by 6%
 		 */
-		if (down) {
-			if (delta > 0) {
-				motorSpeed1 = motorSpeed1 * adjustFactor;
-			} else {
-				motorSpeed2 = motorSpeed2 * adjustFactor;
-
-			}
-		} else {
-			if (delta > 0) {
-				motorSpeed2 = motorSpeed2 * adjustFactor;
-			} else {
-				motorSpeed1 = motorSpeed1 * adjustFactor;
-			}
+		if (delta > 0) { // spine 1 is ahead of 2
+			motorSpeed1 = motorSpeed1 * adjustFactor;
+		} else { // spine 2 is ahead of 1
+			motorSpeed2 = motorSpeed2 * adjustFactor;
 		}
 	}
 

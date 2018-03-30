@@ -29,7 +29,7 @@ void DriveWithJoystick::Execute() {
 	if (Robot::oi->driveStick->GetRawButton(6)) {
 		turn = 0.8 * turn;
 	}
-	speed = 0.75 * speed;     //ASA slowing down our eager beaver driver
+	speed = 0.85 * speed;     //ASA slowing down our eager beaver driver
 	Robot::drivetrain->ArcadeDrive(speed, turn);
 
 }
