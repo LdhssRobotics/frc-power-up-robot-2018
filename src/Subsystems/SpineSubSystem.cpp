@@ -45,7 +45,7 @@ void SpineSubSystem::InitDefaultCommand(){
 	SetDefaultCommand(new SpineDPAD());
 }
 
-double SpineSubSystem::Converter(bool toInch, double value){
+double SpineSubSystem::Converter(bool toInch, double value) {
 	/* Converts the value given from pulses to inches or inches to pulses using the math derived at the top
 	 * General Equation 122880d = pulses, where 'd' is the distance in inches
 	 * toInch - Set true to convert from pulses to inches, set false for inches to pulses
@@ -75,7 +75,7 @@ double SpineSubSystem::AdjustSpine(bool isGoingUp) {
 	return increment;
 }
 
-void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
+void SpineSubSystem::AdjustSimple(bool down, int limitFlag) {
 	/* Simple function trying to keep the spine motors level when
 	 * going up or down. Does this by stopping the motor that is ahead.
 	 * Keeps the motors within 0.06 inches of each other.
@@ -107,19 +107,6 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 		}
 	} else {
 		delta = delta * direction;
-
-		/*
-		 * CURRENT BUG: shaking badly on way down; inverted adjustment when going down?
-		 */
-		/*
-		// KN TODO test below
-		if ((delta > 0 && !down) || (delta < 0 && down)) { // spine 1 is ahead of 2
-			motorSpeed1 = motorSpeed1 * adjustFactor;
-		} else { // spine 2 is ahead of 1
-			motorSpeed2 = motorSpeed2 * adjustFactor;
-		}
-		 * Else, compensate the lagging motor by 6%
-		 */
 		if (delta > 0) { // spine 1 is ahead of 2
 			motorSpeed1 = motorSpeed1 * adjustFactor;
 		} else { // spine 2 is ahead of 1
@@ -140,33 +127,34 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 	Robot::spine->SetMotor(motorSpeed1, motorSpeed2);
 }
 
-void SpineSubSystem::SetMotor(double spine1, double spine2){
+void SpineSubSystem::SetMotor(double spine1, double spine2) {
 	/* A simple function to quickly assign different speed to each spine motor
 	 */
 	Robot::spine->spineMotor1->Set(spine1);
 	Robot::spine->spineMotor2->Set(spine2);
 }
-int SpineSubSystem::GetSpinePos1(){
+
+int SpineSubSystem::GetSpinePos1() {
 	/* Returns current Spine1 encoder reading in pulses.
 	 */
 	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->GetSelectedSensorPosition(0);
 	return pos;
 }
 
-int SpineSubSystem::GetSpinePos2(){
+int SpineSubSystem::GetSpinePos2() {
 	/* Returns current Spine2 encoder reading in pulses
 	 */
 	int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetSelectedSensorPosition(0);
 	return pos;
 }
 
-void SpineSubSystem::ResetSpineEncoder1(){
+void SpineSubSystem::ResetSpineEncoder1() {
 	/* Sets Encoder on Spine1 to 0
 	 */
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetSelectedSensorPosition(0,0,1);
 }
 
-void SpineSubSystem::ResetSpineEncoder2(){
+void SpineSubSystem::ResetSpineEncoder2() {
 	/* Sets Encoder on Spine2 to 0
 	 */
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetSelectedSensorPosition(0,0,1);
@@ -186,7 +174,7 @@ bool SpineSubSystem::CanMoveSpine(){
 	}
 }
 
-bool SpineSubSystem::CheckMove1(){
+bool SpineSubSystem::CheckMove1() {
 	/*Checks if the Spine1 motor is moving currently
 	 */
 	if (Robot::spine->spineMotor1->Get() > 0 || Robot::spine->spineMotor1->Get() < 0){
@@ -196,7 +184,7 @@ bool SpineSubSystem::CheckMove1(){
 	}
 }
 
-bool SpineSubSystem::CheckMove2(){
+bool SpineSubSystem::CheckMove2() {
 	/*Checks if the Spine2 motor is moving currently
 	 */
 	if (Robot::spine->spineMotor2->Get() > 0 || Robot::spine->spineMotor2->Get() < 0){
@@ -206,7 +194,7 @@ bool SpineSubSystem::CheckMove2(){
 	}
 }
 
-void SpineSubSystem::Reset(){
+void SpineSubSystem::Reset() {
 	/*Called when the spine needs to stop and reset the encoders
 	 */
 	SetMotor(0,0);
@@ -214,7 +202,7 @@ void SpineSubSystem::Reset(){
 	ResetSpineEncoder2();
 }
 
-int SpineSubSystem::CheckReset(){
+int SpineSubSystem::CheckReset() {
 	/* The function checks if either of the limit switches have been triggered.
 	 * A SensorCollection object has to be created for each limit switch, Spine1Limit and Spine2Limit.
 	 * The IsRevLimitSwitchClosed() is called on both of these objects to check if the switch is triggered.

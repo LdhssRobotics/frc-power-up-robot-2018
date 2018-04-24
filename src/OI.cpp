@@ -8,13 +8,6 @@
 #include "OI.h"
 #include <WPILib.h>
 
-#include "Commands/Switch.h"
-#include "Commands/Exchange.h"
-#include "Commands/Inboard.h"
-#include "Commands/Scale.h"
-
-#include "Commands/ClimbGroup.h"
-
 #include "Commands/OpenClawGroup.h"
 #include "Commands/CloseClawGroup.h"
 #include "Commands/LoosenClaw.h"
@@ -27,25 +20,10 @@
 
 OI::OI() {
 
-
-
 	driveStick.reset(new Joystick(0));
 	driveStick2.reset(new Joystick(1));
 
-	// Drive Stick Buttons
-	aButtonE = new JoystickButton(driveStick.get(), 1);
-	bButtonE = new JoystickButton(driveStick.get(), 2);
-	xButtonE = new JoystickButton(driveStick.get(), 3);
-	yButtonE = new JoystickButton(driveStick.get(), 4);
-	leftBumperButtonE = new JoystickButton(driveStick.get(), 5);
-	rightBumperButtonE = new JoystickButton(driveStick.get(), 6);
-	selectButtonE = new JoystickButton(driveStick.get(), 7);
-	startButtonE = new JoystickButton(driveStick.get(), 8);
-	leftStickButtonE = new JoystickButton(driveStick.get(), 9);
-	rightStickButtonE = new JoystickButton(driveStick.get(), 10);
-
-
-	// Drive Stick Buttons
+	// Drive Stick 1 Buttons
 	aButtonD = new JoystickButton(driveStick.get(), 2); //'X' on PS
 	bButtonD = new JoystickButton(driveStick.get(), 3); //'O' on PS
 	xButtonD = new JoystickButton(driveStick.get(), 1); //'[]' on PS
@@ -61,30 +39,28 @@ OI::OI() {
 	homeButtonD = new JoystickButton(driveStick.get(), 13); //'PS' on PS
 	touchpadButtonD = new JoystickButton(driveStick.get(), 14); //'Touchpad' on PS
 
+	// Drive Stick 2 Buttons
+	aButtonE = new JoystickButton(driveStick.get(), 1);
+	bButtonE = new JoystickButton(driveStick.get(), 2);
+	xButtonE = new JoystickButton(driveStick.get(), 3);
+	yButtonE = new JoystickButton(driveStick.get(), 4);
+	leftBumperButtonE = new JoystickButton(driveStick.get(), 5);
+	rightBumperButtonE = new JoystickButton(driveStick.get(), 6);
+	selectButtonE = new JoystickButton(driveStick.get(), 7);
+	startButtonE = new JoystickButton(driveStick.get(), 8);
+	leftStickButtonE = new JoystickButton(driveStick.get(), 9);
+	rightStickButtonE = new JoystickButton(driveStick.get(), 10);
 
 	// Assigning Commands to Buttons
 
 	//Drive Stick Controls
-	//bButtonD->ToggleWhenPressed(new Inboard());
-	//xButtonD->ToggleWhenPressed(new Switch());
-	//aButtonD->ToggleWhenPressed(new Exchange());
-	//yButtonD->ToggleWhenPressed(new Scale());
-
 	//Camera Switch Controls
 	selectButtonD->ToggleWhenPressed(new SwitchCamera());
-
-	//Climb Controls
-	//ASA	touchpadButtonD->ToggleWhenPressed(new ClimbGroup()); //Switch to startButtonD if using XBOX
 
 	//Claw Controls
 	aButtonD->ToggleWhenPressed(new LoosenClaw());
 	rightBumperButtonD->WhileHeld(new OpenClawGroup());
 	rightBumperButtonD->WhenReleased(new CloseClawGroup());
-
-	//90 Degree Turn Control
-
-
-
 }
 
 std::shared_ptr<Joystick> OI::getDriveStick() {

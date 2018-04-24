@@ -33,41 +33,42 @@ void Drivetrain::InitDefaultCommand() {
 	SetDefaultCommand(new DriveWithJoystick());
 }
 
-void Drivetrain::Reset(){
+void Drivetrain::Reset() {
 	Stop();
 	ResetEncoder();
 }
 
-void Drivetrain::ArcadeDrive(double speed, double turn){
+void Drivetrain::ArcadeDrive(double speed, double turn) {
 	differentialDrive->ArcadeDrive(speed, turn);
 	Debug();
 }
 
-void Drivetrain::Stop(){
+void Drivetrain::Stop() {
 	ArcadeDrive(0,0);
 }
 
-float Drivetrain::GetLeftDistance(){
+float Drivetrain::GetLeftDistance() {
 	return leftDriveEncoder->GetDistance();
 }
 
-float Drivetrain::GetRightDistance(){
+float Drivetrain::GetRightDistance() {
 	return rightDriveEncoder->GetDistance();
 }
 
-float Drivetrain::GetLeftCount(){
+float Drivetrain::GetLeftCount() {
 	return leftDriveEncoder->Get();
 }
 
-float Drivetrain::GetRightCount(){
+float Drivetrain::GetRightCount() {
 	return rightDriveEncoder->Get();
 }
-void Drivetrain::TankDrive(double leftSpeed, double rightSpeed){
+
+void Drivetrain::TankDrive(double leftSpeed, double rightSpeed) {
 	differentialDrive->TankDrive(leftSpeed, rightSpeed);
 	Debug();
 }
 
-void Drivetrain::ResetEncoder(){
+void Drivetrain::ResetEncoder() {
 	rightDriveEncoder->Reset();
 	leftDriveEncoder->Reset();
 }
@@ -89,7 +90,7 @@ void Drivetrain::Debug() {
 	SmartDashboard::PutNumber("Right Raw", rightDriveEncoder->GetRaw());
 
 
-	//if (RobotMap::m_robotType == RobotMap::PROTOCASE) {
+	if (RobotMap::m_robotType == RobotMap::PROTOCASE) {
 
 		int pos = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->GetSelectedSensorPosition(0);
 		SmartDashboard::PutNumber("Talon SRX - encoder: ", pos);

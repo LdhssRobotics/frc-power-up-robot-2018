@@ -67,7 +67,6 @@ void SpineDPAD::Execute() {
 
 bool SpineDPAD::IsFinished() {
 	return false;
-
 }
 
 void SpineDPAD::End() {
@@ -77,5 +76,4 @@ void SpineDPAD::End() {
 
 void SpineDPAD::Interrupted() {
 	End();
-
 }

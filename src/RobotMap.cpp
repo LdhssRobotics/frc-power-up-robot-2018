@@ -23,10 +23,9 @@
 	// PWM Ports
 		// Arm subsystem
 #define CLAW_MOTOR_PORT 8
-#define ARM_MOTOR_1_PORT 6 // in wiring, 1 = left; 2 = right
-#define ARM_MOTOR_2_PORT 7
-#define SPINE_MOTOR_1_PORT 5
-#define SPINE_MOTOR_2_PORT 4
+#define ARM_MOTOR_PORT 7
+#define SPINE_MOTOR_L_PORT 5	// in wiring, L = left; R = right
+#define SPINE_MOTOR_R_PORT 4
 
 		// Drivetrain subsystem
 #define FRONT_LEFT_DRIVE_PORT 2
@@ -48,16 +47,13 @@
 
 	//Analog Ports
 #define GYRO_PORT 0
-#define LEFT_LIGHT_REFLECTOR_PORT 1
-#define RIGHT_LIGHT_REFLECTOR_PORT 2
 
 // POINTERS
 	// Arm subsystem
 std::shared_ptr<Encoder> RobotMap::armEncoder;
 std::shared_ptr<DigitalInput> RobotMap::bottomShoulderSwitch;
 
-std::shared_ptr<SpeedController> RobotMap::armMotor1;
-std::shared_ptr<SpeedController> RobotMap::armMotor2;
+std::shared_ptr<SpeedController> RobotMap::armMotor;
 std::shared_ptr<SpeedController> RobotMap::clawMotor;
 std::shared_ptr<SpeedController> RobotMap::spineMotor1;
 std::shared_ptr<SpeedController> RobotMap::spineMotor2;
@@ -75,7 +71,6 @@ std::shared_ptr <SpeedControllerGroup> RobotMap::leftDrive;
 std::shared_ptr<SpeedControllerGroup> RobotMap::rightDrive;
 
 std::shared_ptr<DifferentialDrive> RobotMap::differentialDrive;
-
 RobotMap::RobotType_t RobotMap::m_robotType;
 
 void RobotMap::init() {
@@ -128,13 +123,9 @@ void RobotMap::initCommon() {
 	bottomShoulderSwitch.reset(new DigitalInput(BOTTOM_SHOULDER_SWITCH_PORT));
 		bottomShoulderSwitch->Sendable::SetName("Shoulder", "bottom switch");
 
-	armMotor1.reset(new VictorSP(ARM_MOTOR_1_PORT));
-	std::static_pointer_cast<frc::VictorSP>(armMotor1)->SetName("Arm", "motor 1");
-	armMotor1->SetInverted(false);
-
-	armMotor2.reset(new VictorSP(ARM_MOTOR_2_PORT));
-	std::static_pointer_cast<frc::VictorSP>(armMotor2)->SetName("Arm", "motor 2");
-	armMotor2->SetInverted(true);
+	armMotor.reset(new VictorSP(ARM_MOTOR_PORT));
+	std::static_pointer_cast<frc::VictorSP>(armMotor)->SetName("Arm", "right motor");
+	armMotor->SetInverted(false);
 }
 
 void RobotMap::initProtoCase() {
@@ -281,10 +272,10 @@ void RobotMap::initPowerUpCommon() {
 		differentialDrive->SetExpiration(0.1);
 		differentialDrive->SetMaxOutput(1.0);
 
-	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(SPINE_MOTOR_1_PORT));
+	spineMotor1.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(SPINE_MOTOR_L_PORT));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->SetName("Spine", "motor 1");
 
-	spineMotor2.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(SPINE_MOTOR_2_PORT));
+	spineMotor2.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(SPINE_MOTOR_R_PORT));
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->SetName("Spine", "motor 2");
 
 	clawMotor.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(CLAW_MOTOR_PORT));

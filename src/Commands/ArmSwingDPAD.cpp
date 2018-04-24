@@ -14,7 +14,7 @@ ArmSwingDPAD::ArmSwingDPAD() {
 	armTargetPOS = 0;
 }
 
-void ArmSwingDPAD::Initialize(){
+void ArmSwingDPAD::Initialize() {
 	SmartDashboard::PutString("Arm", "Start");
 
 
@@ -22,23 +22,24 @@ void ArmSwingDPAD::Initialize(){
 	armTargetPOS = 0.0;
 }
 
-void ArmSwingDPAD::Execute(){
+void ArmSwingDPAD::Execute() {
 	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
 
-	if (Robot::oi->driveStick->GetPOV(0) == 90){//ArmSwing up
+	if (Robot::oi->driveStick->GetPOV(0) == 90) {//ArmSwing up
 		Robot::arm->SetArmSpeed(0.58);
 		armTargetPOS = Robot::arm->GetArmPosition();
-		if (armTargetPOS < 0){
+		if (armTargetPOS < 0) {
 			armTargetPOS = 0;
 		}
 		SmartDashboard::PutString("Arm", "Moving");
 	}
-	else if(Robot::oi->driveStick->GetPOV(0) == -1){
+	else if(Robot::oi->driveStick->GetPOV(0) == -1) {
 
-		float speed = 0.0;
-		Robot::arm->SetArmSpeed(speed);
+		Robot::arm->SetArmSpeed(0);
 		if (Robot::arm->GetArmPosition() > 30){ //30 is an estimated value and needs to be changed
 			if (armTargetPOS > (1.01 * Robot::arm->GetArmPosition())){
+			//checks if the current position is under than the position when the arm was released
+			//and move the arm up to keep it at that position
 				Robot::arm->SetArmSpeed(0.34);
 			}
 			else {
@@ -49,10 +50,10 @@ void ArmSwingDPAD::Execute(){
 		}
 		SmartDashboard::PutString("Arm", "Stopped");
 	}
-	else if(Robot::oi->driveStick->GetPOV(0) == 270){//ArmSwing Down
+	else if(Robot::oi->driveStick->GetPOV(0) == 270) {//ArmSwing Down
 		Robot::arm->SetArmSpeed(-0.25);
 		armTargetPOS = Robot::arm->GetArmPosition();
-		if (armTargetPOS < 0){
+		if (armTargetPOS < 0) {
 			armTargetPOS = 0;
 		}
 		SmartDashboard::PutString("Arm", "Moving");
@@ -60,15 +61,15 @@ void ArmSwingDPAD::Execute(){
 	}
 }
 
-bool ArmSwingDPAD::IsFinished(){
+bool ArmSwingDPAD::IsFinished() {
 	return false;
 }
 
-void ArmSwingDPAD::End(){
+void ArmSwingDPAD::End() {
 	Robot::arm->SetArmSpeed(0);
 	SmartDashboard::PutString("Arm","Finished");
 }
 
-void ArmSwingDPAD::Interrupted(){
+void ArmSwingDPAD::Interrupted() {
 	End();
 }

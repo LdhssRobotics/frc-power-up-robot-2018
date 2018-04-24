@@ -8,8 +8,6 @@
 #include "DriveTime.h"
 #include "../Robot.h"
 
-const float kP = 0.025;
-
 DriveTime::DriveTime(double time)
 {
 	targetDistance = 0;
@@ -32,8 +30,6 @@ void DriveTime::Execute() {
 bool DriveTime::IsFinished() {
 	return  IsTimedOut();
 }
-
-
 
 void DriveTime::End() {
 	Robot::drivetrain->Stop();
