@@ -24,6 +24,8 @@ private:
 	//Spine Motors
 	std::shared_ptr<SpeedController> spineMotor1;
 	std::shared_ptr<SpeedController> spineMotor2;
+	// Follow routine
+
 
 public:
 	SpineSubSystem();
@@ -42,6 +44,7 @@ public:
 	void Reset();
 	int CheckReset();
 	void DisplaySpineCurrents();
+	void Follower();
 };
 
 #endif /* SRC_SUBSYSTEMS_SPINESUBSYSTEM_H_ */
