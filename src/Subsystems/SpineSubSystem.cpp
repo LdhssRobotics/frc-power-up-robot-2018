@@ -36,6 +36,7 @@ SpineSubSystem::SpineSubSystem() : Subsystem("SpineSubSystem")  {
 	spineMotor2 = RobotMap::spineMotor2;
 
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 0);
+	Follower();
 }
 
 void SpineSubSystem::InitDefaultCommand(){
@@ -143,7 +144,7 @@ void SpineSubSystem::AdjustSimple(bool down, int limitFlag){
 void SpineSubSystem::SetMotor(double spine1, double spine2){
 	/* A simple function to quickly assign different speed to each spine motor
 	 */
-	Robot::spine->spineMotor1->Set(spine1);
+	//Robot::spine->spineMotor1->Set(spine1);
 	Robot::spine->spineMotor2->Set(spine2);
 }
 int SpineSubSystem::GetSpinePos1(){
@@ -251,3 +252,10 @@ void SpineSubSystem::DisplaySpineCurrents(){
 	double Spine2current = std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2)->GetOutputCurrent();
 	SmartDashboard::PutNumber("Spine2 - current: ", Spine2current);
 }
+
+// Follow routine
+void SpineSubSystem::Follower(){
+		//spineMotor1.Follow(spineMotor2);
+	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor1)->Follow
+			(*std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(spineMotor2));
+	}
