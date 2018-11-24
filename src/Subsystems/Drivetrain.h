@@ -36,6 +36,7 @@ public:
 	void Reset();
 	void ResetEncoder();
 	void Stop();
+	double GetHeading();
 };
 
 #endif // Drivetrain_H

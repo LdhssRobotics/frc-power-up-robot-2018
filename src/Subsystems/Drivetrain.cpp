@@ -13,7 +13,6 @@
 
 Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
 	    IsSpine = true;
-		gyro = RobotMap::gyro;
 
 	    leftDriveEncoder = RobotMap::leftDriveEncoder;
 		rightDriveEncoder = RobotMap::rightDriveEncoder;
@@ -27,6 +26,7 @@ Drivetrain::Drivetrain() : Subsystem("DriveTrain") {
 		frontLeftDrive = RobotMap::frontLeftDrive;
 		backRightDrive = RobotMap::backRightDrive;
 		frontRightDrive = RobotMap::frontRightDrive;
+		gyro = RobotMap::gyro;
 }
 
 void Drivetrain::InitDefaultCommand() {
@@ -71,7 +71,10 @@ void Drivetrain::ResetEncoder(){
 	rightDriveEncoder->Reset();
 	leftDriveEncoder->Reset();
 }
-
+double Drivetrain::GetHeading()
+{
+	return double(gyro->GetAngle());
+}
 void Drivetrain::Debug() {
 /*	SmartDashboard::PutNumber("Encoder Right Distance", rightDriveEncoder->GetDistance());
 	SmartDashboard::PutNumber("Encoder Left Distance", leftDriveEncoder->GetDistance());

@@ -22,6 +22,8 @@
 
 #include "Commands/SwitchCamera.h"
 
+#include "Commands/GYRO.h"
+
 
 //OI::ControllerType_t OI::m_controllerType;
 
@@ -83,7 +85,8 @@ OI::OI() {
 
 	//90 Degree Turn Control
 
-
+	//Gyro Controls
+	yButtonD->ToggleWhenPressed(new GYRO(0.25));
 
 }
 

@@ -86,7 +86,7 @@ void RobotMap::init() {
 	 *
 	 * default to POWERUP_PROTO
 	 */
-	m_robotType = POWERUP;
+	m_robotType = PROTOCASE;
 
 	switch (m_robotType) {
 	case PROTOCASE:
@@ -157,9 +157,9 @@ void RobotMap::initProtoCase() {
 		rightDriveEncoder->SetDistancePerPulse((M_PI*6.0)/360.0); //PLACEHOLDER
 
 
-	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(0));
+	//backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(0));
 
-	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(6));
+	backLeftDrive.reset(new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(5));
 
 	std::dynamic_pointer_cast<ctre::phoenix::motorcontrol::can::WPI_TalonSRX>(backLeftDrive)->SetName("Drivetrain", "back left drive");
 
