@@ -6,7 +6,6 @@ Turn180Degrees::Turn180Degrees(bool isLeft):
 	Requires(Robot::drivetrain.get());
 }
 
-// Called just before this Command runs the first time
 void Turn180Degrees::Initialize() {
 	Robot::drivetrain->ResetEncoder();
 	if (isLeftTurn){
@@ -17,12 +16,10 @@ void Turn180Degrees::Initialize() {
 	}
 }
 
-// Called repeatedly when this Command is scheduled to run
 void Turn180Degrees::Execute() {
 	Robot::drivetrain->Debug();
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool Turn180Degrees::IsFinished() {
 	float target;
 	if (isLeftTurn) {
@@ -34,7 +31,6 @@ bool Turn180Degrees::IsFinished() {
 	return (abs(target) >= abs(placeholder));
 }
 
-// Called once after isFinished returns true
 void Turn180Degrees::End() {
 	SetTimeout(0.5);
 	while(!IsTimedOut()) {

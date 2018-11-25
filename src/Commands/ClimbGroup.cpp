@@ -12,10 +12,10 @@
 
 
 ClimbGroup::ClimbGroup() {
-	AddSequential(new ArmSwing(0));
-	AddSequential(new Spine(2048));
-	AddSequential(new ArmSwing(180));
-	AddSequential(new Spine(6826));
+	AddSequential(new ArmSwing(0, false));
+	AddSequential(new Spine(737280, false));
+	AddSequential(new ArmSwing(180, true));
+	AddSequential(new Spine(6826, false));
 }
 
 

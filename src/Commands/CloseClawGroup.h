@@ -2,7 +2,7 @@
  * CloseClawGroup.h
  *
  *  Created on: Mar 3, 2018
- *      Author: Owen
+ *      Author: Nader
  */
 
 #ifndef SRC_COMMANDS_CLOSECLAWGROUP_H_

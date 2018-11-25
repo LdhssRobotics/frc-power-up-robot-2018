@@ -8,7 +8,7 @@
 
 class Drivetrain : public frc::Subsystem {
 private:
-	std::shared_ptr<AnalogGyro> gyro;
+	std::shared_ptr<ADXRS450_Gyro> gyro;
 	std::shared_ptr<Encoder> leftDriveEncoder;
 	std::shared_ptr<Encoder> rightDriveEncoder;
 	std::shared_ptr<DifferentialDrive> differentialDrive;

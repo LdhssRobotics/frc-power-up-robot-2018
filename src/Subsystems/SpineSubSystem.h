@@ -1,5 +1,5 @@
 /*
- * Spine.h
+ * SpineSubSystem.h
  *
  *  Created on: Feb 15, 2018
  *      Author: Sayfullah
@@ -28,25 +28,20 @@ private:
 public:
 	SpineSubSystem();
 	void InitDefaultCommand();
+	double Converter(bool toInch, double value); //true = convert from pulse to inch, false = convert inches to pulses
 	double AdjustSpine(bool isGoingUp);
-	void AdjustSimple(bool down);
-	void SetMotorSpeed(double lspeed, double rspeed);
+	void AdjustSimple(bool down, int limitFlag);
 	void SetMotor(double spine1, double spine2);
 	int GetSpinePos1();
 	int GetSpinePos2();
-	void ResetSpine1();
-	void ResetSpine2();
-	void Reset();
+	void ResetSpineEncoder1();
+	void ResetSpineEncoder2();
 	bool CanMoveSpine();
 	bool CheckMove1();
 	bool CheckMove2();
-	void ResetSpineEncoder1();
-	void ResetSpineEncoder2();
-	double Motor1Current();
-	double Motor2Current();
-	void CheckReset();
-	void Log();
-
+	void Reset();
+	int CheckReset();
+	void DisplaySpineCurrents();
 };
 
 #endif /* SRC_SUBSYSTEMS_SPINESUBSYSTEM_H_ */

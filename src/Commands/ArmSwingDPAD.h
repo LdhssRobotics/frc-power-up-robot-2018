@@ -13,6 +13,8 @@
 #include "RobotMap.h"
 
 class ArmSwingDPAD : public Command {
+private:
+	float armTargetPOS;
 public:
 	ArmSwingDPAD();
 	void Initialize();

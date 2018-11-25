@@ -9,17 +9,12 @@
 #define ROBOTMAP_H
 
 #include "WPILib.h"
-//#include "LiveWindow/LiveWindow.h"
 
 class RobotMap {
 public:
 	// Arm subsystem
-	static std::shared_ptr<Encoder> spineEncoder1;
-	static std::shared_ptr<Encoder> spineEncoder2;
 	static std::shared_ptr<Encoder> armEncoder;
 	static std::shared_ptr<DigitalInput> bottomShoulderSwitch;
-	static std::shared_ptr<DigitalInput> topShoulderSwitch;
-	static std::shared_ptr<DigitalInput> frontClawSwitch;
 
 	static std::shared_ptr<SpeedController> clawMotor;
 	static std::shared_ptr<SpeedController> spineMotor1;
@@ -28,7 +23,7 @@ public:
 	static std::shared_ptr<SpeedController> armMotor2;
 
 	// Drivetrain subsystem
-	static std::shared_ptr<AnalogGyro> gyro;
+	static std::shared_ptr<ADXRS450_Gyro> gyro;
 	static std::shared_ptr<Encoder> leftDriveEncoder;
 	static std::shared_ptr<Encoder> rightDriveEncoder;
 

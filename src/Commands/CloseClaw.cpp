@@ -5,37 +5,37 @@
 
 CloseClaw::CloseClaw() {
 	// Use Requires() here to declare subsystem dependencies
-	Requires(Robot::arm.get());
-	maxcurrent = 15.0;
+	Requires(Robot::claw.get());
+	maxcurrent = 20.0;
 	// eg. Requires(Robot::chassis.get());
 }
 
 // Called just before this Command runs the first time
 void CloseClaw::Initialize() {
-	Robot::arm->CloseClawMotor();
+	Robot::claw->CloseClawMotor();
 	SetTimeout(3);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void CloseClaw::Execute() {
 	SmartDashboard::PutString("Claw: ", "Closing");
-	SmartDashboard::PutBoolean("Is Claw Closed", Robot::arm->IsClawClosed);
-	SmartDashboard::PutNumber("CloseClaw-current", Robot::arm->CurrentDraw());
-	SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
+	SmartDashboard::PutBoolean("Is Claw Closed", Robot::claw->IsClawClosed);
+	//SmartDashboard::PutNumber("CloseClaw-current", Robot::claw->CurrentDraw());
+	//SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CloseClaw::IsFinished() {
-	return  (abs(Robot::arm->CurrentDraw()) > abs(maxcurrent)) or IsTimedOut();
+	return  (abs(Robot::claw->CurrentDraw()) > abs(maxcurrent)) or IsTimedOut();
 }
 
 // Called once after isFinished returns true
 void CloseClaw::End() {
-	Robot::arm->IsClawClosed = true;
-	Robot::arm->StopClaw();
-	SmartDashboard::PutBoolean("Is Claw Closed", Robot::arm->IsClawClosed);
-	SmartDashboard::PutNumber("CloseClaw-current", Robot::arm->CurrentDraw());
-	SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
+	Robot::claw->IsClawClosed = true;
+	Robot::claw->StopClaw();
+	SmartDashboard::PutBoolean("Is Claw Closed", Robot::claw->IsClawClosed);
+	//SmartDashboard::PutNumber("CloseClaw-current", Robot::claw->CurrentDraw());
+	//SmartDashboard::PutNumber("CloseClaw-maxcurrent", maxcurrent);
 
 }
 

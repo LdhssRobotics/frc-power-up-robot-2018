@@ -8,10 +8,10 @@
 #include <Commands/ArmSwing.h>
 
 
-ArmSwing::ArmSwing(float position):
-	Position(position)
+ArmSwing::ArmSwing(float position, bool isGoingUp)
 {
-	// TODO Auto-generated constructor stub
+	Position = position;
+	GoingUp = isGoingUp;
 	Requires(Robot::arm.get());
 }
 
@@ -20,13 +20,14 @@ void ArmSwing::Initialize(){
 }
 
 void ArmSwing::Execute(){
-	if (Robot::arm->GetArmPosition() < Position) {
+	if (Robot::arm->GetArmPosition() <= Position * 1.01 && GoingUp) {
 		Robot::arm->SetArmSpeed(0.6);
-	}else if (Robot::arm->GetArmPosition() > Position){
+	}else if (Robot::arm->GetArmPosition() >= Position * 0.99 && !GoingUp){
 		Robot::arm->SetArmSpeed(-0.3);
 	}else {
 		End();
 	}
+	SmartDashboard::PutNumber("Arm Encoder", Robot::arm->GetArmPosition());
 }
 
 void ArmSwing::End(){
